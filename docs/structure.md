@@ -10,9 +10,10 @@ Custom commands: `.claude/commands/`
 | Route | File | Access | Description |
 |---|---|---|---|
 | `/` | `app/page.tsx` | Public | Home — links, schedule, share button |
-| `/tweets` | `app/tweets/page.tsx` | Public | X post templates (read from KV, falls back to JSON) |
-| `/tools` | `app/tools/page.tsx` | Token only (query param) | Live cover downloader + file downloader + staff tweet templates |
-| `/tools/schedule` | `app/tools/schedule/page.tsx` | Token only (query param) | Schedule editor — add/remove/edit events, saves to KV |
+| `/tweets` | `app/tweets/page.tsx` | Public | Public X post templates (read from KV, falls back to JSON) |
+| `/template` | `app/template/page.tsx` | Public (URL only) | Staff X post templates — supports `{date}` placeholder |
+| `/tools` | `app/tools/page.tsx` | Protected | Live cover downloader + file downloader + tweet template editor |
+| `/tools/schedule` | `app/tools/schedule/page.tsx` | Protected | Schedule editor — add/remove/edit events, saves to KV |
 
 ---
 
@@ -26,13 +27,15 @@ app/
 ├── favicon.ico
 ├── tweets/
 │   └── page.tsx            # Public tweet templates page
+├── template/
+│   └── page.tsx            # Staff tweet templates page (URL only, supports {date})
 ├── tools/
-│   ├── page.tsx            # Token-gated tools hub
+│   ├── page.tsx            # Protected tools hub
 │   └── schedule/
-│       └── page.tsx        # Token-gated schedule editor
+│       └── page.tsx        # Protected schedule editor
 └── api/
-    ├── download/route.ts   # Proxy file download (requires x-tools-token header)
-    ├── live-cover/route.ts # Fetch live cover image (requires token)
+    ├── download/route.ts   # Proxy file download (protected)
+    ├── live-cover/route.ts # Fetch live cover image (protected)
     ├── parse-images/route.ts # Parse image URLs from a page
     ├── schedule/route.ts   # GET/POST schedule data to/from KV
     └── templates/route.ts  # GET/POST tweet templates to/from KV
@@ -47,7 +50,7 @@ components/
 ├── HongyokLinks.tsx         # Two link grids: official links + fanbase links
 ├── ScheduleTable.tsx        # Event list — reads from KV, falls back to schedule.json
 ├── TwitterIntent.tsx        # X/Twitter intent button with pre-filled hashtags
-├── TokenGate.tsx            # Token input form — redirects to /tools?token=
+├── TokenGate.tsx            # Access gate form
 ├── Downloader.tsx           # URL → file save via /api/download proxy
 ├── LiveCoverDownloader.tsx  # Fetch + save live cover image via /api/live-cover
 └── ScheduleEditor.tsx       # Full CRUD editor for schedule days/events, saves to KV
@@ -76,11 +79,11 @@ Server component. Renders a single `<a>` linking to `twitter.com/intent/tweet` w
 
 ### TokenGate
 
-Client component. Renders a token input form. On submit, redirects to `/tools?token=<value>`. Used on `/tools` and `/tools/schedule` to gate access.
+Client component. Renders the access gate form used on protected pages.
 
 ### Downloader
 
-Client component. Accepts one or more URLs, downloads each via `/api/download` proxy (sends `x-tools-token` header), and saves the file locally via a blob URL. Shown on `/tools`.
+Client component. Accepts one or more URLs, downloads each via `/api/download` proxy, and saves the file locally via a blob URL. Shown on `/tools`.
 
 ### LiveCoverDownloader
 
@@ -137,7 +140,7 @@ To mark a day with no events, add one entry with `"title": "ไม่มีก�
 
 ## Auth
 
-Token-gated pages check a `token` query param against `TOOLS_TOKENS` (comma-separated env var). No session — token must be present in the URL on every visit. `TokenGate` component handles the entry form.
+Protected pages require a valid credential. `TokenGate` handles the entry form; API routes validate on every request.
 
 ---
 
@@ -145,28 +148,15 @@ Token-gated pages check a `token` query param against `TOOLS_TOKENS` (comma-sepa
 
 | Variable | Required | Description |
 |---|---|---|
-| `TOOLS_TOKENS` | Yes | Comma-separated valid tokens for `/tools` access |
+| Access tokens | Yes | Set in Vercel env vars — ask the project owner |
 | `KV_REST_API_URL` | Yes (prod) | Vercel KV endpoint — injected automatically when KV is connected |
 | `KV_REST_API_TOKEN` | Yes (prod) | Vercel KV auth token — injected automatically |
 
 ---
 
-## Custom Claude Code Commands
-
-```
-.claude/commands/
-└── fetch-profile-image.md   # /fetch-profile-image — re-downloads profile image when source URL changes
-```
-
-| Command | What it does |
-|---|---|
-| `/fetch-profile-image` | Downloads image from CGM48 site → saves to `public/hongyok-profile.jpg`. Falls back to external URL if server blocks the download. Accepts a new URL argument when the source path changes. |
-
----
 
 ## Not Yet Built
 
 | Feature | Notes |
 |---|---|
 | Custom 404 | `app/not-found.tsx` |
-| Tweet template editor | `app/tools/tweets/` directory exists but no page yet |

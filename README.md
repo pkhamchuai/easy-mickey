@@ -13,10 +13,12 @@ built with Next.js and deployed on Vercel.
 | Page | URL | Access |
 |---|---|---|
 | Home | `/` | Public |
-| Tools | `/tools` | Token only (direct URL) |
-| 404 | automatic | — |
+| X Post Templates | `/tweets` | Public |
+| Staff Templates | `/template` | Public (URL only) |
+| Tools | `/tools` | Protected |
+| Schedule Editor | `/tools/schedule` | Protected |
 
-> The `/tools` page has no link anywhere on the site — access by direct URL only.
+> `/template` and `/tools` have no links on the site — access by direct URL only.
 
 ---
 
@@ -25,14 +27,25 @@ built with Next.js and deployed on Vercel.
 **Home (`/`)**
 - หงษ์หยก official links (Facebook, Instagram, TikTok, CGM48 profile)
 - Mickey's House fanbase links (Facebook, LINE OPC, X, TikTok, YouTube)
-- 3-day event schedule table with tabbed navigation
+- Event schedule (reads from KV, falls back to `data/schedule.json`)
 - Twitter/X intent share button with pre-filled หงษ์หยก hashtags
 
-**Tools (`/tools`) — token protected**
-- Live cover image downloader — button: "Live cover image", fetches and saves the live cover image
+**X Post Templates (`/tweets`) — public**
+- Read-only list of public tweet templates from KV (`tweet-templates-public`)
+- Click any template to open X with the text pre-filled
+
+**Staff Templates (`/template`) — public URL**
+- Read-only list of staff tweet templates from KV (`tweet-templates-staff`)
+- Supports `{date}` placeholder (replaced with today's Thai date)
+- Click any template to open X with the text pre-filled
+
+**Tools (`/tools`) — protected**
+- Live cover image downloader
 - File downloader — paste any public image or video URL, saves to your device
-- X post templates — two sets (public + staff-only), staff can add/remove/edit both from the tools page, stored in Vercel KV
-- Schedule editor — add/remove/edit events from the tools page, stored in Vercel KV (replaces data/schedule.json)
+- X post template editor — add/remove/edit both public and staff templates, stored in KV
+
+**Schedule Editor (`/tools/schedule`) — protected**
+- Add/remove/edit schedule days and events, saved to KV
 
 ---
 
@@ -61,7 +74,7 @@ built with Next.js and deployed on Vercel.
 
 - [Next.js](https://nextjs.org/) — React framework
 - [Tailwind CSS](https://tailwindcss.com/) — styling
-- [Puppeteer](https://pptr.dev/) — headless browser for screenshots
+- [Vercel KV](https://vercel.com/docs/storage/vercel-kv) — KV store for schedule and tweet templates
 - [Vercel](https://vercel.com/) — hosting and deployment
 
 ---
@@ -84,9 +97,9 @@ cd easy-mickey
 # Install dependencies
 npm install
 
-# Create local env file
-cp .env.example .env.local
-# Add your API_TOKENS to .env.local
+# Create local env file (copy from a teammate or Vercel dashboard)
+touch .env.local
+# Add access tokens and optionally KV vars to .env.local
 
 # Start dev server (localhost only)
 npm run dev
@@ -98,12 +111,10 @@ Open `localhost:3000` in your Windows browser.
 
 ## Environment Variables
 
-`.env.local` (never committed):
-```
-API_TOKENS=token1,token2,token3
-```
+`.env.local` (never committed) — ask the project owner for the values.
 
-For production: **Vercel Dashboard → Settings → Environment Variables**
+For production: **Vercel Dashboard → Settings → Environment Variables**  
+KV vars are injected automatically when Vercel KV is connected to the project.
 
 ---
 
@@ -120,13 +131,13 @@ git push
 
 ---
 
-## Access & Tokens
+## Access
 
-- Each authorized user has a unique token
-- Tokens live only in Vercel env vars — never in code
-- Send tokens via LINE DM only
-- To revoke: remove token from Vercel env vars → redeploy
-- To add user: generate new token → add to `API_TOKENS` → redeploy
+- Each authorized user has a unique access credential
+- Credentials live only in Vercel env vars — never in code
+- Share credentials via LINE DM only
+- To revoke: update env vars → redeploy
+- To add user: generate new credential → update env vars → redeploy
 
 ---
 
@@ -136,22 +147,36 @@ git push
 easy-mickey/
 ├── app/
 │   ├── page.tsx              # Home — links + schedule + share
+│   ├── tweets/
+│   │   └── page.tsx          # Public tweet templates
+│   ├── template/
+│   │   └── page.tsx          # Staff tweet templates (URL only)
 │   ├── tools/
-│   │   └── page.tsx          # Tools — screenshot & downloader
-│   ├── layout.tsx            # Thai font, global styles
-│   └── not-found.tsx         # Custom 404
+│   │   ├── page.tsx          # Tools hub — protected
+│   │   └── schedule/
+│   │       └── page.tsx      # Schedule editor — protected
+│   ├── api/
+│   │   ├── download/         # Proxy file download
+│   │   ├── live-cover/       # Fetch live cover image
+│   │   ├── parse-images/     # Parse image URLs from a page
+│   │   ├── schedule/         # GET/POST schedule to KV
+│   │   └── templates/        # GET/POST tweet templates to KV
+│   ├── layout.tsx            # Sarabun font, global styles
+│   └── globals.css
 ├── components/
 │   ├── HongyokLinks.tsx      # Official + fanbase link buttons
-│   ├── ScheduleTable.tsx     # Tabbed 3-day schedule
+│   ├── ScheduleTable.tsx     # Event schedule (KV → JSON fallback)
+│   ├── ScheduleEditor.tsx    # CRUD editor for schedule
 │   ├── TwitterIntent.tsx     # Pre-filled share button
-│   ├── ScreenshotTool.tsx    # URL → PNG download
+│   ├── TokenGate.tsx         # Access gate
+│   ├── LiveCoverDownloader.tsx
 │   └── Downloader.tsx        # URL → file download
 ├── data/
-│   └── schedule.json         # Event schedule (edit here)
-├── pages/api/
-│   └── screenshot.ts         # Puppeteer serverless route
+│   ├── schedule.json                # Fallback schedule
+│   ├── tweet-templates.json         # Fallback public templates
+│   └── tweet-templates-staff.json  # Fallback staff templates
 ├── public/
-├── .env.example
+│   └── hongyok-profile.jpg
 ├── .env.local                # Local secrets (gitignored)
 └── .gitignore
 ```
@@ -160,7 +185,9 @@ easy-mickey/
 
 ## Updating the Schedule
 
-Edit `/data/schedule.json` → push to GitHub. No code changes needed.
+**Preferred:** Use the schedule editor at `/tools/schedule` — changes save to Vercel KV immediately, no deploy needed.
+
+**Fallback:** Edit `/data/schedule.json` → push to GitHub. Used only when KV is unavailable.
 
 ---
 
