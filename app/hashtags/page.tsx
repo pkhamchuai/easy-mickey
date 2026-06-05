@@ -111,6 +111,21 @@ export default function HashtagsPage() {
           </span>
         </div>
 
+        {/* Post button */}
+        <a
+          href={tweetUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`flex w-full items-center justify-center gap-3 rounded-2xl border py-4 text-base font-semibold transition-all active:scale-95 ${
+            isOver || text.trim().length === 0
+              ? "pointer-events-none border-[#2a2a3d] text-[#4a4860]"
+              : "border-cyan-500/30 bg-gradient-to-r from-[#0d1a20] to-[#0a0f1a] text-cyan-300 shadow-[0_0_24px_rgba(34,211,238,0.1)] hover:border-cyan-400/60 hover:text-cyan-200 hover:shadow-[0_0_32px_rgba(34,211,238,0.2)]"
+          }`}
+        >
+          <XIcon />
+          โพสต์บน X
+        </a>
+
         {/* Hashtag buttons grouped */}
         <div className="space-y-4">
           {HASHTAG_GROUPS.map((group) => (
@@ -136,21 +151,6 @@ export default function HashtagsPage() {
             </div>
           ))}
         </div>
-
-        {/* Post button */}
-        <a
-          href={tweetUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`flex w-full items-center justify-center gap-3 rounded-2xl border py-4 text-base font-semibold transition-all active:scale-95 ${
-            isOver || text.trim().length === 0
-              ? "pointer-events-none border-[#2a2a3d] text-[#4a4860]"
-              : "border-cyan-500/30 bg-gradient-to-r from-[#0d1a20] to-[#0a0f1a] text-cyan-300 shadow-[0_0_24px_rgba(34,211,238,0.1)] hover:border-cyan-400/60 hover:text-cyan-200 hover:shadow-[0_0_32px_rgba(34,211,238,0.2)]"
-          }`}
-        >
-          <XIcon />
-          โพสต์บน X
-        </a>
       </div>
     </main>
   );
