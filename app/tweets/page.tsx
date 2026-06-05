@@ -1,5 +1,17 @@
 import Link from "next/link";
-import templates from "@/data/tweet-templates.json";
+import { kv } from "@vercel/kv";
+import fallback from "@/data/tweet-templates.json";
+
+type Template = { id: string; label: string; text: string };
+
+async function getTemplates(): Promise<Template[]> {
+  try {
+    const data = await kv.get<Template[]>("tweet-templates-public");
+    return data ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
 
 function XIcon() {
   return (
@@ -21,7 +33,8 @@ export const metadata = {
   title: "เลือกข้อความโพสต์ — Easy Mickey",
 };
 
-export default function TweetsPage() {
+export default async function TweetsPage() {
+  const templates = await getTemplates();
   return (
     <main className="min-h-screen bg-[#0a0a12]">
       <header

@@ -1,6 +1,7 @@
-import schedule from "@/data/schedule.json";
+import fallback from "@/data/schedule.json";
+import { kv } from "@vercel/kv";
 
-type ScheduleEvent = {
+export type ScheduleEvent = {
   time: string;
   title: string;
   location: string;
@@ -8,15 +9,24 @@ type ScheduleEvent = {
   hasHongyok: boolean;
 };
 
-type ScheduleDay = {
+export type ScheduleDay = {
   date: string;
   label: string;
   events: ScheduleEvent[];
 };
 
-const days = schedule as ScheduleDay[];
+async function getSchedule(): Promise<ScheduleDay[]> {
+  try {
+    const data = await kv.get<ScheduleDay[]>("schedule");
+    return data ?? (fallback as ScheduleDay[]);
+  } catch {
+    return fallback as ScheduleDay[];
+  }
+}
 
-export function ScheduleTable() {
+export async function ScheduleTable() {
+  const days = await getSchedule();
+
   const allEvents = days.flatMap((day) =>
     day.events
       .filter((e) => e.title !== "ไม่มีกำหนดการ")

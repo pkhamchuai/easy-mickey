@@ -7,7 +7,7 @@ function XIcon() {
 }
 
 const tweetText =
-  "🐭🍀\n#HongyokCGM48";
+  "\n#HongyokCGM48 🐭🍀";
 const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
 
 export function TwitterIntent() {

@@ -62,9 +62,9 @@ export default function Home() {
 
       {/* Content */}
       <div className="mx-auto max-w-lg space-y-10 px-4 pb-16 pt-2">
-        <HongyokLinks />
         <ScheduleTable />
         <TwitterIntent />
+        <HongyokLinks />
       </div>
     </main>
   );
