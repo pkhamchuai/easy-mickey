@@ -2,32 +2,32 @@
   {
     "id": "fb-post",
     "label": "FB Post",
-    "text": "{date} -\nHongyok FB Post {🐭🍀}\n\n\n\n🔗:\n\n#HongyokCGM48 #CGM484thGEN"
+    "text": "- {date} -\nHongyok FB Post {🐭🍀}\n\n\n\n🔗:\n\n#HongyokCGM48\n#CGM48 #CGM484thGEN"
   },
   {
     "id": "ig-post",
     "label": "IG Post",
-    "text": "{date} -\nHongyok IG Post {🐭🍀}\n\n\n\n🔗: \n#HongyokCGM48 #CGM484thGEN"
+    "text": "- {date} -\nHongyok IG Post {🐭🍀}\n\n\n\n🔗: \n#HongyokCGM48\n#CGM48 #CGM484thGEN"
   },
   
   {
     "id": "ig-story-post",
     "label": "IG Story Post",
-    "text": "{date} -\nHongyok IG Story Post {🐭🍀}\n\n\n\n🔗: \n\n#HongyokCGM48 #CGM484thGEN"
+    "text": "- {date} -\nHongyok IG Story Post {🐭🍀}\n\n\n\n🔗: \n\n#HongyokCGM48\n#CGM48 #CGM484thGEN"
   },
   {
     "id": "tiktok-post",
     "label": "Tiktok Post",
-    "text": "- {date} - \nHongyok Tiktok Post  {🐭🍀}\n\n\n🔗: \n\n#HongyokCGM48 #CGM484thGEN"
+    "text": "- {date} - \nHongyok Tiktok Post  {🐭🍀}\n\n\n🔗: \n\n#HongyokCGM48\n#CGM48 #CGM484thGEN"
   },
   {
     "id": "iam-post",
     "label": "IAM Post",
-    "text": "- {date} -\nHongyok IAM Post {🐭🍀}\n\n\n\n🔗:  \n\n#HongyokCGM48 #CGM484thGEN"
+    "text": "- {date} -\nHongyok IAM Post {🐭🍀}\n\n\n\n🔗:  \n\n#HongyokCGM48\n#CGM48 #CGM484thGEN"
   },
   {
     "id": "iam-live",
     "label": "IAM Live",
-    "text": "- {date} -\nHongyok IAM Live {🐭🍀}\n\n\n\n🔗:  \n\n#HongyokCGM48 #CGM484thGEN"
+    "text": "- {date} -\nHongyok IAM Live {🐭🍀}\n\n\n\n🔗:  \n\n#HongyokCGM48\n#CGM48 #CGM484thGEN"
   }
 ]
