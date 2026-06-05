@@ -20,18 +20,18 @@ export function ScheduleEditor({ token }: { token: string }) {
   useEffect(() => {
     fetch("/api/schedule")
       .then((r) => r.json())
-      .then((d) => setDays(d))
+      .then((d) => setDays([...d].sort((a, b) => a.date.localeCompare(b.date))))
       .finally(() => setLoading(false));
   }, []);
 
-  async function save(updated: ScheduleDay[]) {
+  async function save() {
     setSaving(true);
     setStatus(null);
     try {
       const r = await fetch("/api/schedule", {
         method: "PUT",
         headers: { "content-type": "application/json", "x-tools-token": token },
-        body: JSON.stringify(updated),
+        body: JSON.stringify(days),
       });
       setStatus(r.ok ? "saved" : "error");
     } catch {
@@ -43,59 +43,39 @@ export function ScheduleEditor({ token }: { token: string }) {
   }
 
   function updateDay(i: number, patch: Partial<ScheduleDay>) {
-    const updated = days.map((d, idx) => (idx === i ? { ...d, ...patch } : d));
-    setDays(updated);
-    save(updated);
+    setDays((prev) => prev.map((d, idx) => (idx === i ? { ...d, ...patch } : d)));
   }
 
-  function updateEvent(
-    dayIdx: number,
-    evIdx: number,
-    patch: Partial<ScheduleEvent>
-  ) {
-    const updated = days.map((d, i) =>
-      i !== dayIdx
-        ? d
-        : {
-            ...d,
-            events: d.events.map((e, j) => (j === evIdx ? { ...e, ...patch } : e)),
-          }
+  function updateEvent(dayIdx: number, evIdx: number, patch: Partial<ScheduleEvent>) {
+    setDays((prev) =>
+      prev.map((d, i) =>
+        i !== dayIdx
+          ? d
+          : { ...d, events: d.events.map((e, j) => (j === evIdx ? { ...e, ...patch } : e)) }
+      )
     );
-    setDays(updated);
-    save(updated);
   }
 
   function addDay() {
-    const updated = [
-      ...days,
-      { date: "", label: "", events: [{ ...EMPTY_EVENT }] },
-    ];
-    setDays(updated);
-    save(updated);
+    setDays((prev) => [...prev, { date: "", label: "", events: [{ ...EMPTY_EVENT }] }]);
   }
 
   function removeDay(i: number) {
-    const updated = days.filter((_, idx) => idx !== i);
-    setDays(updated);
-    save(updated);
+    setDays((prev) => prev.filter((_, idx) => idx !== i));
   }
 
   function addEvent(dayIdx: number) {
-    const updated = days.map((d, i) =>
-      i !== dayIdx ? d : { ...d, events: [...d.events, { ...EMPTY_EVENT }] }
+    setDays((prev) =>
+      prev.map((d, i) => (i !== dayIdx ? d : { ...d, events: [...d.events, { ...EMPTY_EVENT }] }))
     );
-    setDays(updated);
-    save(updated);
   }
 
   function removeEvent(dayIdx: number, evIdx: number) {
-    const updated = days.map((d, i) =>
-      i !== dayIdx
-        ? d
-        : { ...d, events: d.events.filter((_, j) => j !== evIdx) }
+    setDays((prev) =>
+      prev.map((d, i) =>
+        i !== dayIdx ? d : { ...d, events: d.events.filter((_, j) => j !== evIdx) }
+      )
     );
-    setDays(updated);
-    save(updated);
   }
 
   return (
@@ -104,9 +84,18 @@ export function ScheduleEditor({ token }: { token: string }) {
         <h2 className="text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
           Schedule Editor
         </h2>
-        <span className="text-xs text-[#6a6880]">
-          {saving ? "Saving…" : status === "saved" ? "Saved ✓" : status === "error" ? "Error saving" : ""}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-[#6a6880]">
+            {saving ? "Saving…" : status === "saved" ? "Saved ✓" : status === "error" ? "Error saving" : ""}
+          </span>
+          <button
+            onClick={save}
+            disabled={saving || loading}
+            className="rounded-lg border border-cyan-500/40 px-4 py-1.5 text-xs font-medium text-cyan-300 transition-all hover:border-cyan-400 hover:bg-cyan-500/10 disabled:opacity-40"
+          >
+            Save
+          </button>
+        </div>
       </div>
 
       {loading ? (

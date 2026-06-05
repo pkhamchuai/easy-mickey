@@ -4,22 +4,35 @@
     "label": "อา 28 มิ.ย.",
     "events": [
       {
-        "time": "17:00",
-        "title": "CGM48 RESET Stage: Kwan's Birthday Stage",
-        "location": "CGM48 Theater · Central Airport Plaza, เชียงใหม่",
-        "note": "",
+        "time": "TBA",
+        "title": "CGM48 RESET Stage",
+        "location": "Muan More Space · Central Airport Plaza, เชียงใหม่",
+        "note": "Lineup TBA",
         "hasHongyok": true
       }
     ]
   },
   {
-    "date": "2026-07-TBA",
+    "date": "2026-08-05",
     "label": "ก.ค. 2026 (TBA)",
     "events": [
       {
         "time": "TBA",
         "title": "CGM48 11th Single 1st Performance",
         "location": "TBA",
+        "note": "",
+        "hasHongyok": true
+      }
+    ]
+  },
+  {
+    "date": "2026-06-20",
+    "label": "ส-อา 20-21 มิ.ย.",
+    "events": [
+      {
+        "time": "12:00",
+        "title": "CGM48 Roadshow ได้(ด้าย)ไหม",
+        "location": "Central Rama 9",
         "note": "",
         "hasHongyok": true
       }

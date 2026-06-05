@@ -27,7 +27,7 @@ async function getSchedule(): Promise<ScheduleDay[]> {
 export async function ScheduleTable() {
   const days = await getSchedule();
 
-  const allEvents = days.flatMap((day) =>
+  const allEvents = [...days].sort((a, b) => a.date.localeCompare(b.date)).flatMap((day) =>
     day.events
       .filter((e) => e.title !== "ไม่มีกำหนดการ")
       .map((e) => ({ ...e, dayLabel: day.label }))
