@@ -34,11 +34,19 @@ export function TwitterIntent() {
         >
           โพสต์ X ด้วยข้อความอื่นๆ
         </a>
+
       </div>
 
       <p className="mt-2 text-center text-xs text-[#6a6880]">
         คลิกเพื่อโพสต์บน X พร้อม #HongyokCGM48
       </p>
+
+      <a
+        href="/hashtags"
+        className="mt-2 flex w-full items-center justify-center gap-3 rounded-2xl border border-[#2a2a3d] bg-[#13131e] py-3 text-sm font-medium text-[#9896b0] transition-all hover:border-cyan-500/30 hover:text-[#f0eff8] active:scale-95"
+      >
+        โพสต์บน X ด้วย # อื่น ๆ
+      </a>
     </section>
   );
 }

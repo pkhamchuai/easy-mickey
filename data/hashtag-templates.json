@@ -1,0 +1,32 @@
+[
+  {
+    "id": "main",
+    "label": "หลัก",
+    "hashtags": "#HongyokCGM48 🐭🍀"
+  },
+  {
+    "id": "cgm48",
+    "label": "CGM48",
+    "hashtags": "#HongyokCGM48 #CGM48 🐭🍀"
+  },
+  {
+    "id": "teamc",
+    "label": "Team C",
+    "hashtags": "#HongyokCGM48 #CGM48TeamC #CGM48 🐭🍀"
+  },
+  {
+    "id": "vote",
+    "label": "โหวต / Senbatsu",
+    "hashtags": "#HongyokCGM48 #CGM48election #CGM48 🐭🌟"
+  },
+  {
+    "id": "theater",
+    "label": "Theater Show",
+    "hashtags": "#HongyokCGM48 #CGM48TheaterShow #CGM48 🐭🎭"
+  },
+  {
+    "id": "live",
+    "label": "Live Stream",
+    "hashtags": "#HongyokCGM48 #CGM48Live #CGM48 🐭📱"
+  }
+]
