@@ -1,18 +1,5 @@
 [
   {
-    "date": "2026-06-05",
-    "label": "ศ 5 มิ.ย.",
-    "events": [
-      {
-        "time": "18:00",
-        "title": "Test Event (Passed)",
-        "location": "Test Location",
-        "note": "",
-        "hasHongyok": true
-      }
-    ]
-  },
-  {
     "date": "2026-06-20",
     "label": "ส-อา 20-21 มิ.ย.",
     "events": [

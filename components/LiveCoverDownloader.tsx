@@ -61,7 +61,7 @@ export function LiveCoverDownloader({ token }: { token: string }) {
           {status === "loading" ? "Downloading…" : "Live cover image"}
         </button>
         {status === "done" && (
-          <p className="text-xs text-green-400">Downloaded ✓</p>
+          <p className="text-xs text-[#40E0D0]">Downloaded ✓</p>
         )}
         {status === "error" && (
           <p className="text-xs text-red-400">{errorMsg}</p>

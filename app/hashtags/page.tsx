@@ -77,7 +77,7 @@ export default function HashtagsPage() {
             กลับหน้าแรก
           </Link>
           <h1 className="text-2xl font-bold text-[#f0eff8]">
-            โพสต์บน X ด้วย # อื่น ๆ
+            โพสต์บน X ด้วย # อื่น
           </h1>
           <p className="mt-1 text-sm text-[#6a6880]">
             คลิกเพื่อโพสต์บน X พร้อม # อื่น

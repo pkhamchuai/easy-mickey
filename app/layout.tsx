@@ -10,7 +10,7 @@ const sarabun = Sarabun({
 });
 
 export const metadata: Metadata = {
-  title: "Easy Mickey — Hongyok CGM48",
+  title: "Easy Mickey — Hongyok CGM48 Fansite",
   description:
     "Hongyok CGM48 Fansite by Mickey's House",
 };

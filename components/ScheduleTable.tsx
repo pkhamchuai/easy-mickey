@@ -31,7 +31,7 @@ function getCountdown(dateStr: string): { text: string; className: string } {
   eventDate.setHours(0, 0, 0, 0);
   const diff = Math.round((eventDate.getTime() - today.getTime()) / 86_400_000);
 
-  if (diff === 0) return { text: "Today", className: "text-green-400" };
+  if (diff === 0) return { text: "Today", className: "text-[#40E0D0]" };
   if (diff < 0) return { text: "Passed", className: "text-[#6a6880]" };
   if (diff === 1) return { text: "In 1 day", className: "text-yellow-400" };
   return { text: `In ${diff} days`, className: "text-cyan-300" };

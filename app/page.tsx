@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import { existsSync } from "fs";
 import { join } from "path";
 import { HongyokLinks } from "@/components/HongyokLinks";
@@ -8,6 +9,13 @@ const profileExt = ["jpg", "png"].find((ext) =>
   existsSync(join(process.cwd(), "public", `hongyok-profile.${ext}`))
 );
 const profileSrc = profileExt ? `/hongyok-profile.${profileExt}` : null;
+
+let lastUpdate = "";
+try {
+  lastUpdate = execSync('git log -1 --format=%cd --date=format:"%d-%m-%Y"').toString().trim();
+} catch {
+  lastUpdate = "";
+}
 
 export default function Home() {
   return (
@@ -73,7 +81,7 @@ export default function Home() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/mickeys-house-logo.png" alt="Mickey's House" className="h-[60px] w-[60px] rounded-full object-cover" />
           <p className="text-xs text-[#9896b0]">
-            Build and maintain by Mickey&apos;s House.<br />Since 05-06-2026
+            Build and maintain by Mickey&apos;s House.<br />Since 05-06-2026{lastUpdate && `. Last update ${lastUpdate}`}.
           </p>
         </div>
       </footer>

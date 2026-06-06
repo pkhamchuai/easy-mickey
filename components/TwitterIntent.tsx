@@ -25,7 +25,7 @@ export function TwitterIntent() {
           className="flex w-full items-center justify-center gap-3 rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-[#0d1a20] to-[#0a0f1a] py-4 text-base font-semibold text-cyan-300 shadow-[0_0_24px_rgba(34,211,238,0.1)] transition-all hover:border-cyan-400/60 hover:text-cyan-200 hover:shadow-[0_0_32px_rgba(34,211,238,0.2)] active:scale-95"
         >
           <XIcon />
-          โพสต์เชียร์หงษ์หยก
+          โพสต์ X ถึงหงษ์หยก
         </a>
 
         <a
@@ -45,7 +45,7 @@ export function TwitterIntent() {
         href="/hashtags"
         className="mt-2 flex w-full items-center justify-center gap-3 rounded-2xl border border-[#2a2a3d] bg-[#13131e] py-3 text-sm font-medium text-[#9896b0] transition-all hover:border-cyan-500/30 hover:text-[#f0eff8] active:scale-95"
       >
-        โพสต์บน X ด้วย # อื่น ๆ
+        โพสต์บน X ด้วย # อื่น
       </a>
     </section>
   );

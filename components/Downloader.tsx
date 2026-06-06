@@ -91,7 +91,7 @@ export function Downloader({ token }: { token: string }) {
     ({ idle: "", downloading: "↓", done: "✓", error: "✕" })[s];
 
   const statusColor = (s: Entry["status"]) =>
-    ({ idle: "", downloading: "text-cyan-400", done: "text-green-400", error: "text-red-400" })[s];
+    ({ idle: "", downloading: "text-cyan-400", done: "text-[#40E0D0]", error: "text-red-400" })[s];
 
   return (
     <section>
