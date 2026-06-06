@@ -33,12 +33,16 @@ export function Downloader({ token }: { token: string }) {
   const [entries, setEntries] = useState<Entry[]>([newEntry()]);
   const [parseMeta, setParseMeta] = useState<{ member: string; postId: string } | null>(null);
 
+  const POST_PREFIX = "https://app.bnk48.com/timeline/content-member-timeline/";
+
   async function parseImages() {
     if (!parseUrl.trim()) return;
     setParsing(true);
     setParseError("");
+    const raw = parseUrl.trim();
+    const fullUrl = raw.startsWith("http://") || raw.startsWith("https://") ? raw : POST_PREFIX + raw;
     try {
-      const res = await fetch(`/api/parse-images?url=${encodeURIComponent(parseUrl.trim())}`, {
+      const res = await fetch(`/api/parse-images?url=${encodeURIComponent(fullUrl)}`, {
         headers: { "x-tools-token": token },
       });
       const { images, member, postId, error } = await res.json();
@@ -102,11 +106,11 @@ export function Downloader({ token }: { token: string }) {
 
         {/* Parse timeline URL */}
         <div className="space-y-2">
-          <p className="text-xs text-[#6a6880]">Paste a timeline URL to extract images</p>
+          <p className="text-xs text-[#6a6880]">Paste a timeline URL or post number to extract images</p>
           <div className="flex gap-2">
             <input
               className="flex-1 rounded-lg border border-[#2a2a3d] bg-[#0a0a12] px-3 py-2 text-sm text-[#f0eff8] placeholder-[#6a6880]"
-              placeholder="https://app.bnk48.com/timeline/content-member-timeline/…"
+              placeholder="Post number or full URL"
               value={parseUrl}
               onChange={(e) => { setParseUrl(e.target.value); setParseError(""); }}
             />

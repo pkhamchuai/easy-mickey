@@ -2,6 +2,24 @@
 
 import { useState } from "react";
 
+const PREFIXES = [
+  "https://app.bnk48.com/content-member-live-playback/",
+  "https://app.bnk48.com/member-live/",
+  "https://app.bnk48.com/member-playback/",
+];
+
+async function tryFetch(fullUrl: string, token: string) {
+  const res = await fetch(
+    `/api/live-cover?url=${encodeURIComponent(fullUrl)}`,
+    { headers: { "x-tools-token": token } }
+  );
+  if (!res.ok) {
+    const { error } = await res.json();
+    throw new Error(error ?? "Failed");
+  }
+  return res;
+}
+
 export function LiveCoverDownloader({ token }: { token: string }) {
   const [url, setUrl] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
@@ -11,15 +29,28 @@ export function LiveCoverDownloader({ token }: { token: string }) {
     if (!url.trim()) return;
     setStatus("loading");
     setErrorMsg("");
-    try {
-      const res = await fetch(
-        `/api/live-cover?url=${encodeURIComponent(url.trim())}`,
-        { headers: { "x-tools-token": token } }
-      );
-      if (!res.ok) {
-        const { error } = await res.json();
-        throw new Error(error ?? "Failed");
+    const raw = url.trim();
+    const isFullUrl = raw.startsWith("http://") || raw.startsWith("https://");
+    const candidates = isFullUrl ? [raw] : PREFIXES.map((p) => p + raw);
+
+    let res: Response | null = null;
+    let lastError = "Failed";
+    for (const candidate of candidates) {
+      try {
+        res = await tryFetch(candidate, token);
+        break;
+      } catch (e) {
+        lastError = e instanceof Error ? e.message : "Failed";
       }
+    }
+
+    if (!res) {
+      setErrorMsg(lastError);
+      setStatus("error");
+      return;
+    }
+
+    try {
       const blob = await res.blob();
       const disposition = res.headers.get("content-disposition") ?? "";
       const utf8Match = disposition.match(/filename\*=UTF-8''([^;,\s]+)/i);
@@ -49,7 +80,7 @@ export function LiveCoverDownloader({ token }: { token: string }) {
       <div className="rounded-2xl border border-[#2a2a3d] bg-[#13131e] p-4 space-y-3">
         <input
           className="w-full rounded-lg border border-[#2a2a3d] bg-[#0a0a12] px-3 py-2 text-sm text-[#f0eff8] placeholder-[#6a6880]"
-          placeholder="https://app.bnk48.com/member-live/…"
+          placeholder="Live ID or full URL"
           value={url}
           onChange={(e) => { setUrl(e.target.value); setStatus("idle"); }}
         />
