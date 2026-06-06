@@ -61,11 +61,22 @@ export default function Home() {
       </header>
 
       {/* Content */}
-      <div className="mx-auto max-w-lg space-y-10 px-4 pb-16 pt-2">
+      <div className="mx-auto max-w-lg space-y-10 px-4 pb-10 pt-2">
         <ScheduleTable />
         <TwitterIntent />
         <HongyokLinks />
       </div>
+
+      {/* Footer */}
+      <footer className="border-t border-white/5 py-8 text-center">
+        <div className="mx-auto max-w-lg px-4 flex flex-col items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/mickeys-house-logo.png" alt="Mickey's House" className="h-[60px] w-[60px] rounded-full object-cover" />
+          <p className="text-xs text-[#9896b0]">
+            Build and maintain by Mickey&apos;s House.<br />Since 05-06-2026
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }

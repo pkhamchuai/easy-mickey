@@ -10,9 +10,9 @@ const sarabun = Sarabun({
 });
 
 export const metadata: Metadata = {
-  title: "Easy Mickey — หงษ์หยก CGM48",
+  title: "Easy Mickey — Hongyok CGM48",
   description:
-    "แฟนไซต์สำหรับหงษ์หยก (Hongyok) แห่ง CGM48 และ Mickey's House Fanbase",
+    "Hongyok CGM48 Fansite by Mickey's House",
 };
 
 export default function RootLayout({

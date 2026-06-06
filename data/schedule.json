@@ -1,25 +1,12 @@
 [
   {
-    "date": "2026-06-28",
-    "label": "อา 28 มิ.ย.",
+    "date": "2026-06-05",
+    "label": "ศ 5 มิ.ย.",
     "events": [
       {
-        "time": "TBA",
-        "title": "CGM48 RESET Stage",
-        "location": "Muan More Space · Central Airport Plaza, เชียงใหม่",
-        "note": "Lineup TBA",
-        "hasHongyok": true
-      }
-    ]
-  },
-  {
-    "date": "2026-08-05",
-    "label": "ก.ค. 2026 (TBA)",
-    "events": [
-      {
-        "time": "TBA",
-        "title": "CGM48 11th Single 1st Performance",
-        "location": "TBA",
+        "time": "18:00",
+        "title": "Test Event (Passed)",
+        "location": "Test Location",
         "note": "",
         "hasHongyok": true
       }
@@ -33,6 +20,32 @@
         "time": "12:00",
         "title": "CGM48 Roadshow ได้(ด้าย)ไหม",
         "location": "Central Rama 9",
+        "note": "",
+        "hasHongyok": true
+      }
+    ]
+  },
+  {
+    "date": "2026-06-28",
+    "label": "อา 28 มิ.ย.",
+    "events": [
+      {
+        "time": "TBA",
+        "title": "CGM48 RESET Stage",
+        "location": "Muan More Space · Central Airport Plaza, เชียงใหม่",
+        "note": "Lineup TBA",
+        "hasHongyok": true
+      }
+    ]
+  },
+  {
+    "date": "2026-07-05",
+    "label": "ก.ค. 2026 (TBA)",
+    "events": [
+      {
+        "time": "TBA",
+        "title": "CGM48 11th Single 1st Performance",
+        "location": "TBA",
         "note": "",
         "hasHongyok": true
       }

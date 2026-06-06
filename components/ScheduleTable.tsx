@@ -24,14 +24,39 @@ async function getSchedule(): Promise<ScheduleDay[]> {
   }
 }
 
+function getCountdown(dateStr: string): { text: string; className: string } {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const eventDate = new Date(dateStr);
+  eventDate.setHours(0, 0, 0, 0);
+  const diff = Math.round((eventDate.getTime() - today.getTime()) / 86_400_000);
+
+  if (diff === 0) return { text: "Today", className: "text-green-400" };
+  if (diff < 0) return { text: "Passed", className: "text-[#6a6880]" };
+  if (diff === 1) return { text: "In 1 day", className: "text-yellow-400" };
+  return { text: `In ${diff} days`, className: "text-cyan-300" };
+}
+
 export async function ScheduleTable() {
   const days = await getSchedule();
 
-  const allEvents = [...days].sort((a, b) => a.date.localeCompare(b.date)).flatMap((day) =>
-    day.events
-      .filter((e) => e.title !== "ไม่มีกำหนดการ")
-      .map((e) => ({ ...e, dayLabel: day.label }))
-  );
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const cutoff = new Date(today);
+  cutoff.setDate(cutoff.getDate() - 2);
+
+  const allEvents = [...days]
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .filter((day) => new Date(day.date) >= cutoff)
+    .flatMap((day) =>
+      day.events
+        .filter((e) => e.title !== "ไม่มีกำหนดการ")
+        .map((e) => {
+          const today = new Date(); today.setHours(0, 0, 0, 0);
+          const eventDate = new Date(day.date); eventDate.setHours(0, 0, 0, 0);
+          return { ...e, dayLabel: day.label, date: day.date, isPassed: eventDate < today };
+        })
+    );
 
   return (
     <section>
@@ -57,10 +82,19 @@ export async function ScheduleTable() {
               <div className="flex gap-4">
                 <div className="w-28 shrink-0 pt-0.5">
                   <p className="text-xs text-[#6a6880]">{event.dayLabel}</p>
-                  <p className="text-sm font-semibold text-cyan-400">{event.time}</p>
+                  <p className={`text-sm font-semibold ${event.isPassed ? "text-[#6a6880]" : "text-pink-400/60"}`}>{event.time}</p>
+                  <p className={`text-xs font-medium ${event.isPassed ? "text-[#6a6880]" : "text-pink-400/60"}`}>{getCountdown(event.date).text}</p>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="font-semibold leading-snug text-[#f0eff8]">
+                  <p
+                    className="font-semibold leading-snug"
+                    style={event.isPassed ? undefined : {
+                      background: "linear-gradient(135deg, #38bdf8 0%, #2dd4bf 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
                     {event.title}
                   </p>
                   {event.location && (
