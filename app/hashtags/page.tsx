@@ -24,7 +24,22 @@ const HASHTAG_GROUPS = [
   },
   {
     label: "ETC",
-    tags: ["#CGM48", "#CGM48TeamC", "#CGM48RESET", "#CGM48PopupLiveOnTour", "#CGM48_StageRESET", "#CGM48PopupLive", "🐭🍀", "🌟"],
+    tags: [
+      "#CGM48", "#CGM481stGeneration", "#CGM482ndGeneration", "#CGM483rdGeneration",
+      "#CGM484thGEN", "#CGM484thGeneration", "#CGM485thGeneration",
+      "#CGM48PopupLive", "#CGM48PopupLiveOnTour", "#CGM48RESET", "#CGM48_StageRESET", "#CGM48TeamC",
+      "🐭🍀", "🌟",
+    ],
+  },
+  {
+    label: "Former members",
+    tags: [
+      "#AliceyInJuly", "#Angelnpssn", "#AomPunyawee", "#Chaespr", "#ChampooKodcha",
+      "#FallinFromFah", "#FortuneKeiths", "#FortunePundita", "#KaiwanManita", "#KaningV",
+      "#Kimmeii", "#kylakh00", "#MarminkMani", "#Meenpitch", "#nenatwenty7", "#nenattarika",
+      "#NeniePhitchayapha", "#PingPhorest", "#Pimwarin", "#Pitchameen", "#PunchWatcharee",
+      "#RinaIzuta", "#Runma333", "#RunmaShishida", "#SitaTeeradechsakul", "#Tinmatomato",
+    ],
   },
 ];
 
