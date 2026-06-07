@@ -35,9 +35,9 @@ const HASHTAG_GROUPS = [
     label: "Former members",
     tags: [
       "#AliceyInJuly", "#Angelnpssn", "#AomPunyawee", "#Chaespr", "#ChampooKodcha",
-      "#FallinFromFah", "#FortuneKeiths", "#FortunePundita", "#KaiwanManita", "#KaningV",
-      "#Kimmeii", "#kylakh00", "#MarminkMani", "#Meenpitch", "#nenatwenty7", "#nenattarika",
-      "#NeniePhitchayapha", "#PingPhorest", "#Pimwarin", "#Pitchameen", "#PunchWatcharee",
+      "#FallinFromFah", "#FortuneKeiths", "#FortunePundita", "#JadaeJayda", "#KaiwanManita", "#KaningV",
+      "#Kimmeii", "#kylakh00", "#MarminkMani", "#Meenpitch", "#MELLFIAS", "#nenatwenty7", "#nenattarika",
+      "#NeniePhitchayapha", "#PingPhorest", "#Pimwarin", "#Pitchameen", "#Pepo_Mellfias", "#PunchWatcharee",
       "#RinaIzuta", "#Runma333", "#RunmaShishida", "#SitaTeeradechsakul", "#Tinmatomato",
     ],
   },
