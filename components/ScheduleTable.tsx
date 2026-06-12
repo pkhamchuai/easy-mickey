@@ -1,5 +1,6 @@
 import fallback from "@/data/schedule.json";
 import { kv } from "@vercel/kv";
+import { unstable_noStore as noStore } from "next/cache";
 
 export type ScheduleEvent = {
   time: string;
@@ -16,6 +17,7 @@ export type ScheduleDay = {
 };
 
 async function getSchedule(): Promise<ScheduleDay[]> {
+  noStore();
   try {
     const data = await kv.get<ScheduleDay[]>("schedule");
     return data ?? (fallback as ScheduleDay[]);
