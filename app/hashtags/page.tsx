@@ -8,7 +8,7 @@ const TWITTER_LIMIT = 280;
 const HASHTAG_GROUPS = [
   {
     label: "11th Single",
-    tags: ["#CGM48_LetMeKnow", "#KoiTsunjattaTH", "#BINGOTH", "#KibouResshaTH", "#CGM4811thSINGLE"],
+    tags: ["#CGM48_Tanabata2026", "#CGM48_LetMeKnow", "#KoiTsunjattaTH", "#BINGOTH", "#KibouResshaTH", "#CGM4811thSINGLE"],
   },
   {
     label: "CGM48 2nd Generation",
