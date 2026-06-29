@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { unstable_noStore as noStore } from "next/cache";
 import { kv } from "@vercel/kv";
 import fallback from "@/data/tweet-templates-staff.json";
 
 type Template = { id: string; label: string; text: string };
 
 async function getTemplates(): Promise<Template[]> {
+  noStore();
   try {
     const data = await kv.get<Template[]>("tweet-templates-staff");
     return data ?? fallback;
