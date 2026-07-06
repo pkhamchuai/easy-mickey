@@ -10,6 +10,10 @@ const tweetText =
   "\n#HongyokCGM48 🐭🍀";
 const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
 
+const singleText =
+  "[💔🔍] #CGM48_LetMeKnow\n\n\n#KoiTsunjattaTH\n#BINGOTH #KibouResshaTH\n#CGM4811thSINGLE\n#CGM48";
+const singleUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(singleText)}`;
+
 export function TwitterIntent() {
   return (
     <section className="pb-2">
@@ -19,7 +23,9 @@ export function TwitterIntent() {
 
       <div className="space-y-2">
         <a
-          href="/single-11"
+          href={singleUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex w-full items-center justify-center gap-3 rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-[#0d1a20] to-[#0a0f1a] py-4 text-base font-semibold text-red-400 shadow-[0_0_24px_rgba(34,211,238,0.1)] transition-all hover:border-cyan-400/60 hover:text-red-300 hover:shadow-[0_0_32px_rgba(34,211,238,0.2)] active:scale-95"
         >
           <XIcon />

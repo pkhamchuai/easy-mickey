@@ -48,6 +48,19 @@ export default async function ToolsPage({ searchParams }: Props) {
             <ChevronIcon />
           </Link>
         </section>
+
+        <section>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
+            Images
+          </h2>
+          <Link
+            href="/single-images"
+            className="flex items-center justify-between rounded-2xl border border-[#2a2a3d] bg-[#13131e] px-4 py-4 text-sm font-medium text-[#f0eff8] transition-all hover:border-cyan-500/30 hover:bg-[#0d1a1f] hover:text-cyan-300 active:scale-[0.98]"
+          >
+            CGM48 Profile Image (half)
+            <ChevronIcon />
+          </Link>
+        </section>
       </div>
     </main>
   );
