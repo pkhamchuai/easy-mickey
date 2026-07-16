@@ -87,6 +87,23 @@ export default function Home() {
             <span className="text-cyan-400/60 text-lg">›</span>
           </a>
         </div>
+        <div>
+          <a
+            href="/letmeknow-handshake"
+            className="flex w-full items-center justify-between rounded-2xl border border-pink-500/30 bg-[#200d17] px-5 py-4 transition hover:border-pink-400/60 hover:bg-[#28101d]"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-xl">💔</span>
+              <div className="text-left">
+                <p className="font-semibold" style={{ background: "linear-gradient(135deg, #f472b6 0%, #db2777 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                  Let me know! Handshake Event
+                </p>
+                <p className="text-xs text-[#9896b0]">2 สิงหาคม 2026</p>
+              </div>
+            </div>
+            <span className="text-pink-400/60 text-lg">›</span>
+          </a>
+        </div>
         <TwitterIntent />
         <ScheduleTable />
         <HongyokLinks />
