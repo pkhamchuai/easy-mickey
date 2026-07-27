@@ -7,8 +7,11 @@ const TWITTER_LIMIT = 280;
 
 const HASHTAG_GROUPS = [
   {
-    label: "11th Single",
-    tags: ["#CGM48_Tanabata2026", "#CGM48_LetMeKnow", "#KoiTsunjattaTH", "#BINGOTH", "#KibouResshaTH", "#CGM4811thSINGLE"],
+    label: "Current Singles",
+    tags: [
+      "#CGM48_LetMeKnow", "#KoiTsunjattaTH", "#BINGOTH", "#KibouResshaTH", "#CGM4811thSINGLE",
+      "#BNK48CGM48_GE2026", "#KimitoDokokaeIkitaiTH", "#AisuruHitoTH", "#KegareteiruShinjitsuTH", "#YobisuteFantasyTH",
+    ],
   },
   {
     label: "CGM48 2nd Generation",
@@ -20,7 +23,7 @@ const HASHTAG_GROUPS = [
   },
   {
     label: "CGM48 4th Generation",
-    tags: ["#ElseCGM48", "#HongyokCGM48", "#NishaCGM48", "#PraifaCGM48", "#SatangpoundCGM48", "#ShanaeCGM48", "#ValentineCGM48"],
+    tags: ["#ElseCGM48", "#HongyokCGM48", "#NishaCGM48", "#PraifaCGM48", "#SatangpoundCGM48", "#ShenaeCGM48", "#ValentineCGM48"],
   },
   {
     label: "CGM48 5th Generation",

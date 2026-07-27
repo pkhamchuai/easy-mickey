@@ -72,16 +72,16 @@ export default function Home() {
       <div className="mx-auto max-w-lg space-y-10 px-4 pb-10 pt-2">
         <div>
           <a
-            href="/bon-odori-2026"
+            href="/ge-2026"
             className="flex w-full items-center justify-between rounded-2xl border border-cyan-500/30 bg-[#0d1a1f] px-5 py-4 transition hover:border-cyan-400/60 hover:bg-[#0f2028]"
           >
             <div className="flex items-center gap-3">
-              <span className="text-xl">🌟</span>
+              <span className="text-xl">💥🗳️</span>
               <div className="text-left">
                 <p className="font-semibold" style={{ background: "linear-gradient(135deg, #38bdf8 0%, #2dd4bf 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                  ตารางกิจกรรม Bon Odori 2026
+                  BNK48 &amp; CGM48 GE2026
                 </p>
-                <p className="text-xs text-[#9896b0]">24–26 กรกฎาคม 2026</p>
+                <p className="text-xs text-[#9896b0]">1 ตุลาคม – 12 พฤศจิกายน 2026</p>
               </div>
             </div>
             <span className="text-cyan-400/60 text-lg">›</span>
