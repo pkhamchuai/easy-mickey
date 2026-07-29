@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const agenda = [
@@ -17,6 +18,24 @@ const agenda = [
     border: "border-orange-500/30",
     bg: "bg-[#20150d]",
   },
+];
+
+const centerSongs = [
+  "1️⃣ Suki! Suki! Skip! (HKT48)",
+  "2️⃣ Nagiichi (NMB48)",
+  "3️⃣ Sentimental Train (AKB48)",
+];
+
+const centerSongVideos = [
+  "SUjvUN0vztY",
+  "XjuHFHxwvGI",
+  "YAMF5Rypnrs",
+];
+
+const centerSongQuotes = [
+  "ตอนหนูฟังครั้งแรกแล้วชอบเลยแบบชอบมากกกก ส่วนตัวหนูชอบเพลงที่เตะๆขา+เด้งๆดีดๆทั้งเพลงมากๆ ฟังแล้วรู้สึกคาวาอี้เหนียนเนี๊ยน",
+  "เป็นอีกเพลงที่หนูชอบมากๆๆ ชอบเมโลดี้ของเพลงแล้วก็ความหมายเพลง หนูอยากเป็นเด็กผู้หญิงที่น่ารักที่สุดในชายหาด 2552525",
+  "เป็นเพลงที่ขึ้นฟีดหนูมาก่อนที่หนูจะเข้าวงแต่จำไม่ค่อยได้แล้วว่าช่วงไหนแต่ตอนนั้นลองกดเข้าไปฟังแล้วชอบมากจนไปหาความหมายเพลงดูแล้วก็ติดเพลงนี้มาจนถึงทุกวันนี้เลยคิดไว้ว่าถ้ามีจีอีก็จะเขียนเพลงนี้ลงไปแน่ๆ ไอเลิฟมาก<3",
 ];
 
 export default function Ge2026Page() {
@@ -62,8 +81,74 @@ export default function Ge2026Page() {
         </div>
       </header>
 
+      {/* GE Application */}
+      <section className="mx-auto max-w-lg px-4 pb-5 pt-4">
+        <figure className="mx-auto w-3/4 overflow-hidden rounded-2xl border border-pink-400/20 bg-[#15101a]">
+          <Image
+            src="/HY_GE_application.jpg"
+            alt="หงษ์หยก ควรประดิษฐ์ สมัคร BNK48 & CGM48 Senbatsu General Election 2026"
+            width={1108}
+            height={1477}
+            sizes="(max-width: 512px) calc(100vw - 2rem), 480px"
+            className="h-auto w-full"
+            priority
+          />
+          <figcaption className="border-t border-white/5 px-4 py-3 text-sm leading-relaxed text-[#c8c6d6]">
+            หงษ์หยก–หงษ์หยก ควรประดิษฐ์ (CGM48 Trainee) ได้ลงสมัคร
+            BNK48 &amp; CGM48 Senbatsu General Election 2026 เมื่อวันที่ 29
+            กรกฎาคม 2026 (13:27)
+          </figcaption>
+        </figure>
+      </section>
+
+      {/* Application Number Quote */}
+      <section aria-label="คำพูดจากหงษ์หยก" className="mx-auto max-w-lg px-4 pb-7 pt-2">
+        <blockquote className="rounded-2xl border border-pink-400/20 bg-pink-400/5 px-5 py-4">
+          <span aria-hidden="true" className="block text-6xl leading-none text-pink-400/60">“</span>
+          <p className="px-3 text-center text-lg font-semibold leading-relaxed text-pink-100">
+            หนูเลือกอันดับ “27” เพราะหนูเกิดวันที่ 27
+            แล้วก็พอลองดูเลขมงคลประจำวันเกิดตัวเองก็เป็นเลข 27 เหมือนกันพอดี
+            ก็เลยนี่หล่ะๆเริ่ด! แล้วหนูเลือกส่งเวลา บ่ายโมง 27 นาทีเพราะว่า
+            หนูเกิดวันที่ 27 เดือน 1 แล้วก็บวกกับเป็นเลข 127 พอดี นำโชคๆๆๆๆๆ
+          </p>
+          <span aria-hidden="true" className="block text-right text-6xl leading-none text-pink-400/60">”</span>
+        </blockquote>
+      </section>
+
+      {/* Center Song Wishlist */}
+      <section className="mx-auto max-w-lg px-4 pb-5">
+        <div className="rounded-2xl border border-cyan-400/20 bg-[#0d1620] p-4">
+          <h2 className="mb-3 font-semibold text-white">
+            เพลงที่ต้องการเป็นเซ็นเตอร์
+          </h2>
+          <ol className="space-y-2">
+            {centerSongs.map((song, index) => (
+              <li
+                key={song}
+                className="rounded-xl bg-white/5 px-3 py-3 text-base text-[#c8c6d6]"
+              >
+                <p className="text-lg font-semibold leading-snug text-white">{song}</p>
+                <blockquote className="mt-3 border-l-2 border-pink-400/40 pl-3 text-base leading-relaxed text-[#aaa8bc]">
+                  “{centerSongQuotes[index]}”
+                </blockquote>
+                {centerSongVideos[index] && (
+                  <iframe
+                    className="mt-3 aspect-video w-full rounded-lg"
+                    src={`https://www.youtube-nocookie.com/embed/${centerSongVideos[index]}`}
+                    title={`${song} YouTube video`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       {/* Agenda */}
-      <div className="mx-auto max-w-lg space-y-3 px-4 pb-16 pt-4">
+      <div className="mx-auto max-w-lg space-y-3 px-4 pb-16 pt-3">
         {agenda.map((item) => (
           <div
             key={item.title}
