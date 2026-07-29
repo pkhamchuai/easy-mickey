@@ -13,7 +13,7 @@ const handshakeUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent
 
 const schedule = [
   {
-    round: "Round 2",
+    round: "Round 2: ชุดโลลิต้า + หูแมว",
     line: "12:00 - 13:00 LANE 5",
     close: "12:45",
     dot: "🔵",
@@ -22,7 +22,7 @@ const schedule = [
     bg: "bg-[#200d17]",
   },
   {
-    round: "Round 5",
+    round: "Round 5: ชุด Let me know",
     line: "15:00 - 16:00 LANE 3",
     close: "15:45",
     dot: "🟣",
@@ -31,7 +31,7 @@ const schedule = [
     bg: "bg-[#160d20]",
   },
   {
-    round: "รอบพิเศษ (SPECIAL): SP 2",
+    round: "SPECIAL 2: ชุดรถบัสปาฏิหาริย์",
     line: null,
     close: null,
     start: "17:30",
