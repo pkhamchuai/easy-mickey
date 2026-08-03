@@ -48,7 +48,7 @@ function parseSubmission(value: unknown) {
   if (!Number.isInteger(input.songCount) || Number(input.songCount) < 2 || Number(input.songCount) > 500) throw new Error("Invalid song count");
   if (!Number.isInteger(input.memberCount) || Number(input.memberCount) < 1 || Number(input.memberCount) > 500) throw new Error("Invalid member count");
   if (!Array.isArray(input.comparisons) || input.comparisons.length !== input.questionCount || !input.comparisons.every(validComparison)) throw new Error("Invalid comparisons");
-  if (!Array.isArray(input.results) || input.results.length < 1 || input.results.length > 5 || !input.results.every(validResult)) throw new Error("Invalid results");
+  if (!Array.isArray(input.results) || input.results.length < 1 || input.results.length > 7 || !input.results.every(validResult)) throw new Error("Invalid results");
 
   return {
     sessionId: input.sessionId,

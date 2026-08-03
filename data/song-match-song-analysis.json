@@ -1,0 +1,2361 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-04",
+  "methodology": {
+    "purpose": "Reusable features for song and member similarity graphs.",
+    "tempoUnit": "BPM",
+    "missingValuePolicy": "Use null when no reliable value was found.",
+    "tagPolicy": "Conservative English kebab-case tags inferred from lyrics, official descriptions, interviews, and published musical analysis."
+  },
+  "songs": [
+    {
+      "id": "nagiichi",
+      "artist": "NMB48",
+      "title": "Nagiichi",
+      "analysis": {
+        "tempo": 168,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "bright",
+          "playful",
+          "confident",
+          "romantic"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "summer",
+          "beach",
+          "crush",
+          "self-confidence"
+        ],
+        "settings": [
+          "beach"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2012-05-09",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Shinya Sumida",
+          "arranger": "生田真心"
+        },
+        "confidence": "high",
+        "notes": "Fast summer idol-pop built around a playful beach romance and the confidence of being the cutest girl on the shore.",
+        "sources": [
+          "https://bpm-database.tokyo/music/nAqSyVgL",
+          "https://www.uta-net.com/song/129419/",
+          "https://www.walkerplus.com/article/29260/"
+        ]
+      }
+    },
+    {
+      "id": "sentimental-train",
+      "artist": "AKB48",
+      "title": "Sentimental Train",
+      "analysis": {
+        "tempo": 129,
+        "energy": "medium",
+        "valence": "negative",
+        "moods": [
+          "somber",
+          "nostalgic",
+          "wistful",
+          "romantic"
+        ],
+        "styles": [
+          "idol-pop",
+          "sentimental-pop"
+        ],
+        "themes": [
+          "separation",
+          "memory",
+          "unspoken-love",
+          "journey"
+        ],
+        "settings": [
+          "train",
+          "countryside"
+        ],
+        "seasons": [],
+        "releaseDate": "2018-09-19",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Hiroyuki Himeno",
+          "arranger": "Hiroyuki Himeno"
+        },
+        "confidence": "high",
+        "notes": "A somber train journey links passing scenery with emotional separation, memory, and feelings left unsaid.",
+        "sources": [
+          "https://songbpm.com/%40akb48/sentimentarutorein-cAAjcXo_Bx",
+          "https://www.shazam.com/en-gb/song/1434792557/sentimental-train",
+          "https://akb48.fandom.com/wiki/Sentimental_Train_%28Song%29"
+        ]
+      }
+    },
+    {
+      "id": "song-08697a76-92a8-4693-929b-d876836af3cb",
+      "artist": "AKB48",
+      "title": "Juuryoku Sympathy",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "romantic",
+          "hopeful",
+          "connected",
+          "shy"
+        ],
+        "styles": [
+          "idol-pop",
+          "theater-pop"
+        ],
+        "themes": [
+          "attraction",
+          "destiny",
+          "unspoken-love",
+          "gravity-metaphor"
+        ],
+        "settings": [
+          "bus"
+        ],
+        "seasons": [],
+        "releaseDate": "2012-09-12",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Nao Harada",
+          "arranger": "Nao Harada"
+        },
+        "confidence": "high",
+        "notes": "A shy bus-seat crush framed through gravity and shared motion as invisible emotional connection.",
+        "sources": [
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=329",
+          "https://akb48.fandom.com/wiki/Juuryoku_Sympathy",
+          "https://www.uta-net.com/song/236690/"
+        ]
+      }
+    },
+    {
+      "id": "song-09506865-b55c-4fa2-8309-17a344f7668a",
+      "artist": "AKB48",
+      "title": "Labrador Retriever",
+      "analysis": {
+        "tempo": 135,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "fresh",
+          "playful",
+          "romantic",
+          "bright"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "summer",
+          "beach",
+          "pursuit",
+          "crush",
+          "dog-metaphor"
+        ],
+        "settings": [
+          "beach"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2014-05-21",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Manabu Marutani",
+          "arranger": "Hiroshi Sasaki"
+        },
+        "confidence": "high",
+        "notes": "Bright summer pop using a running Labrador as an image for pursuing a beachside crush.",
+        "sources": [
+          "https://keytube.net/song/detail/1889",
+          "https://songbpm.com/%40akb48/raburadoruretoriba-4nFvBmbyDB",
+          "https://akb48.fandom.com/wiki/Labrador_Retriever_%28Song%29"
+        ]
+      }
+    },
+    {
+      "id": "song-1125c0df-3e25-47b5-9cda-00f61ba6b64b",
+      "artist": "HKT48",
+      "title": "Kiss wa Matsu Shikanai no deshou ka?",
+      "analysis": {
+        "tempo": 86,
+        "energy": "medium",
+        "valence": "mixed",
+        "moods": [
+          "shy",
+          "yearning",
+          "innocent",
+          "romantic"
+        ],
+        "styles": [
+          "idol-pop",
+          "soft-pop"
+        ],
+        "themes": [
+          "first-kiss",
+          "unrequited-love",
+          "hesitation",
+          "gender-expectations"
+        ],
+        "settings": [
+          "library",
+          "school",
+          "rainy-corridor"
+        ],
+        "seasons": [
+          "rainy-season"
+        ],
+        "releaseDate": "2017-08-02",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Tomonori Inoue",
+          "arranger": "APAZZI"
+        },
+        "confidence": "high",
+        "notes": "An inward, library-set crush wondering whether a girl must wait passively for a first kiss.",
+        "sources": [
+          "https://www.uta-net.com/song/233668/",
+          "https://www.hkt48.jp/news/2017/07/4635",
+          "https://bpm-database.tokyo/music/MC4wmONm"
+        ]
+      }
+    },
+    {
+      "id": "song-1482118a-dcc1-411b-b7f7-b7cfaee59661",
+      "artist": "AKB48",
+      "title": "Manatsu no Sounds good !",
+      "analysis": {
+        "tempo": 148,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "summery",
+          "bold",
+          "romantic",
+          "excited"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "summer",
+          "beach",
+          "confession",
+          "relationship-progress"
+        ],
+        "settings": [
+          "beach"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2012-05-23",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yoshimasa Inoue",
+          "arranger": "Yoshimasa Inoue"
+        },
+        "confidence": "high",
+        "notes": "A beach romance about moving a close relationship forward. Published tempo estimates vary from about 144 to 148 BPM.",
+        "sources": [
+          "https://www.uta-net.com/song/129970/",
+          "https://bpm-database.tokyo/music/6NfzBuoA",
+          "https://www.youtube.com/watch?v=MBuJ5R2KBKo"
+        ]
+      }
+    },
+    {
+      "id": "song-152a0346-ef39-4bb5-bfe8-949984f1a7e0",
+      "artist": "AKB48",
+      "title": "Hachinosu Dance",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "energetic",
+          "playful",
+          "communal"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "dance",
+          "teamwork",
+          "celebration",
+          "bee-metaphor"
+        ],
+        "settings": [
+          "dancefloor"
+        ],
+        "seasons": [],
+        "releaseDate": "2018-05-30",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Kiyosumi Iida",
+          "arranger": "Kiyosumi Iida"
+        },
+        "confidence": "medium",
+        "notes": "A Team 8 dance number using a beehive metaphor for synchronized group energy and movement.",
+        "sources": [
+          "https://akb48.fandom.com/wiki/Hachinosu_Dance",
+          "https://utaten.com/lyric/iz18120686/"
+        ]
+      }
+    },
+    {
+      "id": "song-19e30e7d-49fc-4dd6-b259-19e3986a2ed0",
+      "artist": "AKB48",
+      "title": "Yumemite Gomen",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "dreamy",
+          "innocent",
+          "romantic",
+          "youthful"
+        ],
+        "styles": [
+          "idol-pop",
+          "teen-pop"
+        ],
+        "themes": [
+          "young-love",
+          "daydreaming",
+          "imagination",
+          "self-consciousness"
+        ],
+        "settings": [
+          "school"
+        ],
+        "seasons": [],
+        "releaseDate": "2024-07-17",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Dai Murai",
+          "arranger": "Naohiko Tsuta"
+        },
+        "confidence": "medium",
+        "notes": "A youthful romantic daydream used as the ending theme for the live-action drama Hoshikuzu Telepath.",
+        "sources": [
+          "https://www.cir48.com/akb/songs/akb_yumemitegomen.html",
+          "https://www.uta-net.com/song/357432/",
+          "https://www.youtube.com/watch?v=ZbPCvL59yjA"
+        ]
+      }
+    },
+    {
+      "id": "song-1c646e46-5f32-48ea-969c-1ef5d6b97709",
+      "artist": "NMB48",
+      "title": "Bokura no Eureka",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "adventurous",
+          "romantic",
+          "liberating",
+          "summery"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop"
+        ],
+        "themes": [
+          "discovery",
+          "friends-to-lovers",
+          "mutual-feelings",
+          "youth"
+        ],
+        "settings": [
+          "bay",
+          "beach",
+          "motorbike-road"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2013-06-19",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Akira Takada",
+          "arranger": "Masashi Ikuta"
+        },
+        "confidence": "high",
+        "notes": "A coastal discovery song in which two close friends suddenly recognize that their feelings have become romantic.",
+        "sources": [
+          "https://www.uta-net.com/song/147813/",
+          "https://48pedia.org/%E5%83%95%E3%82%89%E3%81%AE%E3%83%A6%E3%83%AA%E3%82%A4%E3%82%AB",
+          "https://www.youtube.com/watch?v=_0vRVFudOg4"
+        ]
+      }
+    },
+    {
+      "id": "song-229ed155-6162-494b-94bd-793bbe25e0a5",
+      "artist": "AKB48",
+      "title": "Donchou wo Agete Kure!",
+      "analysis": {
+        "tempo": 168,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "determined",
+          "grateful",
+          "triumphant"
+        ],
+        "styles": [
+          "idol-pop",
+          "theater-pop",
+          "anthem"
+        ],
+        "themes": [
+          "perseverance",
+          "stage",
+          "teamwork",
+          "gratitude",
+          "new-beginning"
+        ],
+        "settings": [
+          "theater",
+          "stage"
+        ],
+        "seasons": [],
+        "releaseDate": "2025-12-17",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "金崎真士",
+          "arranger": "金崎真士"
+        },
+        "confidence": "high",
+        "notes": "A high-energy theater anthem about collective effort, gratitude, and raising the curtain on a new chapter.",
+        "sources": [
+          "https://utaten.com/lyric/mi25121014/",
+          "https://trackify.am/track/4cvaCaawE873ZPr4snvEBp/tempo",
+          "https://pure-links.net/archives/991"
+        ]
+      }
+    },
+    {
+      "id": "song-2496384e-58f7-49e2-a7f7-1297bdde5613",
+      "artist": "AKB48",
+      "title": "Time Machine Fuyouron",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "reflective",
+          "reassuring",
+          "determined"
+        ],
+        "styles": [
+          "idol-pop",
+          "pop-rock"
+        ],
+        "themes": [
+          "accepting-the-past",
+          "moving-forward",
+          "living-in-the-present"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2025-04-02",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Shuho Mitani",
+          "arranger": "Taishi Noguchi"
+        },
+        "confidence": "medium",
+        "notes": "Rejects the wish to rewrite the past and instead treats past choices as the route to the present self.",
+        "sources": [
+          "https://akb48.fandom.com/wiki/Time_Machine_Fuyouron",
+          "https://lyricstranslate.com/en/akb48-time-machine-fuyouron-lyrics",
+          "https://www.youtube.com/watch?v=UntVeKpdLP8"
+        ]
+      }
+    },
+    {
+      "id": "song-3a6ced36-9de2-40e1-a11b-2aefb5937639",
+      "artist": "AKB48",
+      "title": "Moto Kare Desu",
+      "analysis": {
+        "tempo": 120,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "jealous",
+          "conflicted",
+          "boastful",
+          "restless"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "past-relationship",
+          "jealousy",
+          "regret",
+          "unresolved-love"
+        ],
+        "settings": [
+          "chance-encounter"
+        ],
+        "seasons": [],
+        "releaseDate": "2022-05-18",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Satori Shiraishi",
+          "arranger": "Satori Shiraishi"
+        },
+        "confidence": "high",
+        "notes": "A danceable encounter with an ex and her new partner, mixing swagger with jealousy and a wish to reconcile.",
+        "sources": [
+          "https://songbpm.com/%40akb48/yuan-karedesu-c3nKrYO3Ea",
+          "https://www.uta-net.com/movie/318723/",
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=407&po=3"
+        ]
+      }
+    },
+    {
+      "id": "song-41208f54-c0ba-4635-84dc-da6d9ed4d03d",
+      "artist": "SKE48",
+      "title": "Houtte Okenai yo Unicorn",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "whimsical",
+          "romantic",
+          "playful",
+          "enchanted"
+        ],
+        "styles": [
+          "idol-pop",
+          "fantasy-pop"
+        ],
+        "themes": [
+          "sudden-love",
+          "individuality",
+          "destiny",
+          "fascination"
+        ],
+        "settings": [
+          "fantasy-world"
+        ],
+        "seasons": [],
+        "releaseDate": "2026-03-18",
+        "credits": {
+          "lyricist": "Keiichi Tanaka",
+          "composer": "Takafumi Fujino",
+          "arranger": null
+        },
+        "confidence": "medium",
+        "notes": "A whimsical love-at-first-sight story that casts an independent, captivating person as a unicorn who changes everything.",
+        "sources": [
+          "https://j-lyric.net/artist/a055694/l0681c2.html",
+          "https://open.spotify.com/intl-ja/track/3OH9PrhrWy6uHF5vp74cCO",
+          "https://www.youtube.com/watch?v=jfL12MRdGsY"
+        ]
+      }
+    },
+    {
+      "id": "song-41d67e01-10b4-4bc7-83f1-241330862b74",
+      "artist": "AKB48",
+      "title": "Ima, Happy",
+      "analysis": {
+        "tempo": 149.9,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "cheerful",
+          "optimistic",
+          "lovestruck"
+        ],
+        "styles": [
+          "idol-pop",
+          "upbeat-pop"
+        ],
+        "themes": [
+          "everyday-happiness",
+          "crush",
+          "youth",
+          "positive-attitude"
+        ],
+        "settings": [
+          "train",
+          "school"
+        ],
+        "seasons": [],
+        "releaseDate": "2014-11-26",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "AIRUTON Sena",
+          "arranger": "Yuichi Nonaka"
+        },
+        "confidence": "high",
+        "notes": "A crush makes crowded trains, exams, and ordinary pressures feel bright and enjoyable.",
+        "sources": [
+          "https://www.uta-net.com/song/174603/",
+          "https://bpm-database.tokyo/album/jjwfibpt",
+          "https://akb48.fandom.com/wiki/Ima%2C_Happy"
+        ]
+      }
+    },
+    {
+      "id": "song-4eda0553-5a9b-4bd6-b708-cd51c198d34c",
+      "artist": "AKB48",
+      "title": "Chikai no ni Hanareteru",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "negative",
+        "moods": [
+          "wistful",
+          "yearning",
+          "intimate",
+          "uncertain"
+        ],
+        "styles": [
+          "idol-pop",
+          "relationship-pop"
+        ],
+        "themes": [
+          "emotional-distance",
+          "relationship-breakdown",
+          "misunderstanding",
+          "separation"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2021-11-03",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "OzaShin",
+          "arranger": "OzaShin"
+        },
+        "confidence": "medium",
+        "notes": "Two people remain physically close while losing emotional warmth and considering a breakup.",
+        "sources": [
+          "https://www.youtube.com/watch?v=P9Rsyyp7Ylc",
+          "https://lyricstranslate.com/en/akb48-chikai-no-ni-hanareteru-english",
+          "https://open.spotify.com/track/3HddRwEQitMHE8mo8EyGr5"
+        ]
+      }
+    },
+    {
+      "id": "song-5fc47c02-974e-4aa8-b6e6-733751b0bb3f",
+      "artist": "AKB48",
+      "title": "Sustainable",
+      "analysis": {
+        "tempo": 168,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "hopeful",
+          "romantic",
+          "nostalgic",
+          "uplifting"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "lasting-love",
+          "continuity",
+          "shared-memories",
+          "future"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2019-09-18",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yoshimasa Inoue",
+          "arranger": "Yoshimasa Inoue"
+        },
+        "confidence": "high",
+        "notes": "A fast, bright anthem that frames love and memory as something meant to endure into the future.",
+        "sources": [
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=395",
+          "https://musicstax.com/track/na/1MWJog77vVzG5GNBMuROCa",
+          "https://akb48.fandom.com/wiki/Sustainable_(Song)"
+        ]
+      }
+    },
+    {
+      "id": "song-6857cd62-95d5-42ec-911f-4feb21ee2d0f",
+      "artist": "NGT48",
+      "title": "Shisou de Shinai Kiss",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "mixed",
+        "moods": [
+          "tender",
+          "uncertain",
+          "dreamy",
+          "romantic"
+        ],
+        "styles": [
+          "idol-pop",
+          "midtempo-pop"
+        ],
+        "themes": [
+          "almost-kiss",
+          "romantic-ambiguity",
+          "vulnerability",
+          "mutual-attraction"
+        ],
+        "settings": [
+          "near-a-train-line"
+        ],
+        "seasons": [],
+        "releaseDate": "2022-06-29",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Hideki Yanagisawa",
+          "arranger": "Hideki Yanagisawa"
+        },
+        "confidence": "high",
+        "notes": "A suspended, ambiguous kiss dissolves the narrator's confidence and replaces it with tender uncertainty.",
+        "sources": [
+          "https://www.uta-net.com/song/320920/",
+          "https://48pedia.org/index.php?mobileaction=toggle_view_mobile&title=%E6%9C%AA%E5%AE%8C%E6%88%90%E3%81%AE%E6%9C%AA%E6%9D%A5",
+          "https://www.youtube.com/watch?v=QDT6SSuX-xk"
+        ]
+      }
+    },
+    {
+      "id": "song-693cb1ca-8e50-4486-9e25-a2ffeb78cdc1",
+      "artist": "HKT48",
+      "title": "Biisan wa Naze Nakunaru no ka?",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "carefree",
+          "eager",
+          "romantic",
+          "summery"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop"
+        ],
+        "themes": [
+          "confession",
+          "friends-to-lovers",
+          "youth",
+          "spontaneity"
+        ],
+        "settings": [
+          "beach",
+          "seaside"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2022-06-22",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "YU-JIN",
+          "arranger": "YU-JIN"
+        },
+        "confidence": "high",
+        "notes": "A barefoot summer confession that treats romance as something spontaneous and best attempted before youth passes.",
+        "sources": [
+          "https://www.hkt48.jp/news/2022/05/8050",
+          "https://www.uta-net.com/song/320611/",
+          "https://www.youtube.com/watch?v=cTncJH7ro-w"
+        ]
+      }
+    },
+    {
+      "id": "song-6f969b2f-e857-4e93-9ea2-9804d139c702",
+      "artist": "HKT48",
+      "title": "Hayaokuri Calendar",
+      "analysis": {
+        "tempo": 180,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "eager",
+          "sunny",
+          "romantic",
+          "exuberant"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop"
+        ],
+        "themes": [
+          "anticipation",
+          "confession",
+          "seasonal-change",
+          "young-love"
+        ],
+        "settings": [
+          "cafe-terrace",
+          "beach",
+          "city"
+        ],
+        "seasons": [
+          "late-spring",
+          "summer"
+        ],
+        "releaseDate": "2018-05-02",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Manabu Marutani",
+          "arranger": "APAZZI"
+        },
+        "confidence": "high",
+        "notes": "A very fast, impatient countdown to summer, the beach, and finally confessing a crush.",
+        "sources": [
+          "https://tower.jp/item/4713958",
+          "https://bpm-database.tokyo/music/o4AhjB5u",
+          "https://www.youtube.com/watch?v=4gMAun5RyZA"
+        ]
+      }
+    },
+    {
+      "id": "song-700c0830-7005-4726-8794-4e7588fd28b2",
+      "artist": "AKB48",
+      "title": "Shoot Sign",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "defiant",
+          "determined",
+          "dramatic",
+          "conflicted"
+        ],
+        "styles": [
+          "idol-pop",
+          "dramatic-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "resolve",
+          "confrontation",
+          "love",
+          "farewell"
+        ],
+        "settings": [
+          "wrestling-ring"
+        ],
+        "seasons": [],
+        "releaseDate": "2017-03-15",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Keiichi Kondo",
+          "arranger": "Hiroshi Sasaki"
+        },
+        "confidence": "medium",
+        "notes": "A dramatic love-and-resolve song shaped by professional-wrestling imagery, confrontation, and a decisive ending.",
+        "sources": [
+          "https://www.uta-net.com/song/226103/",
+          "https://akb48.fandom.com/wiki/Shoot_Sign_%28Song%29",
+          "https://en.wikipedia.org/wiki/Shoot_Sign"
+        ]
+      }
+    },
+    {
+      "id": "song-72ee0692-1b65-4069-94ab-01c1d33be018",
+      "artist": "AKB48",
+      "title": "Yasai Sisters",
+      "analysis": {
+        "tempo": 123,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "cheerful",
+          "cute",
+          "playful",
+          "cozy"
+        ],
+        "styles": [
+          "idol-pop",
+          "novelty-pop"
+        ],
+        "themes": [
+          "teamwork",
+          "individual-strengths",
+          "healthy-living",
+          "optimism"
+        ],
+        "settings": [
+          "farm",
+          "morning"
+        ],
+        "seasons": [],
+        "releaseDate": "2010-08-18",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Takao Yoshino",
+          "arranger": "Seiji Muto"
+        },
+        "confidence": "high",
+        "notes": "A warm novelty song where different vegetables represent complementary strengths and cheerful teamwork.",
+        "sources": [
+          "https://www.youtube.com/watch?v=pizw3Wf8MHM",
+          "https://www.shazam.com/song/385919651/yasai-sisters",
+          "https://bpm-database.tokyo/music/7mI8DX6T"
+        ]
+      }
+    },
+    {
+      "id": "song-885fe9f1-c8f6-4a78-b03f-9d021173029f",
+      "artist": "AKB48",
+      "title": "Hoshi ga Kienai Uchi ni",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "youthful",
+          "romantic",
+          "urgent",
+          "euphoric"
+        ],
+        "styles": [
+          "idol-pop",
+          "youth-pop"
+        ],
+        "themes": [
+          "new-love",
+          "kiss",
+          "graduation",
+          "fleeting-time"
+        ],
+        "settings": [
+          "school",
+          "rooftop"
+        ],
+        "seasons": [
+          "spring"
+        ],
+        "releaseDate": "2024-03-13",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "横健介",
+          "arranger": "APAZZI"
+        },
+        "confidence": "high",
+        "notes": "A graduation-night rooftop romance that turns approaching dawn into urgency to act.",
+        "sources": [
+          "https://www.youtube.com/watch?v=O9w2ejUbcS4",
+          "https://www.uta-net.com/song/351585/",
+          "https://www.cir48.com/akb/songs/akb_hoshigakienaiuchini.html"
+        ]
+      }
+    },
+    {
+      "id": "song-8a9b5142-e460-40a8-9589-b4272df62e9d",
+      "artist": "HKT48",
+      "title": "Cinderella Nante Inai",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "negative",
+        "moods": [
+          "bittersweet",
+          "disillusioned",
+          "romantic",
+          "regretful"
+        ],
+        "styles": [
+          "idol-pop",
+          "narrative-pop"
+        ],
+        "themes": [
+          "one-sided-love",
+          "missed-connection",
+          "fantasy-versus-reality",
+          "heartbreak"
+        ],
+        "settings": [
+          "station",
+          "cafe",
+          "midnight"
+        ],
+        "seasons": [],
+        "releaseDate": "2021-05-12",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yu Shoji",
+          "arranger": "Yu Shoji"
+        },
+        "confidence": "high",
+        "notes": "A narrative crush begins like Cinderella and ends with the painful discovery that the fantasy was one-sided.",
+        "sources": [
+          "https://www.uta-net.com/song/301837/",
+          "https://utaten.com/lyric/qk21046008/",
+          "https://www.youtube.com/watch?v=EoGpNRR6vQM"
+        ]
+      }
+    },
+    {
+      "id": "song-8e6bb6fd-7c1f-43ff-9839-1b7e3fbbae4b",
+      "artist": "HKT48",
+      "title": "SNS WORLD",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "mixed",
+        "moods": [
+          "escapist",
+          "communal",
+          "cautious",
+          "reflective"
+        ],
+        "styles": [
+          "idol-pop",
+          "electronic-pop"
+        ],
+        "themes": [
+          "online-community",
+          "anonymity",
+          "authenticity",
+          "cyberbullying"
+        ],
+        "settings": [
+          "online-world"
+        ],
+        "seasons": [],
+        "releaseDate": "2021-12-01",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Mao Kuge / Mayumi Kaneko",
+          "arranger": "Mao Kuge"
+        },
+        "confidence": "high",
+        "notes": "Presents social media as an anonymous refuge for honest connection while explicitly warning against abuse and harassment.",
+        "sources": [
+          "https://www.uta-net.com/song/311461/",
+          "https://www.youtube.com/watch?v=XdVkd-YFLKU"
+        ]
+      }
+    },
+    {
+      "id": "song-9cfb3486-c58f-46bd-9459-1f40eefe7301",
+      "artist": "AKB48",
+      "title": "Halloween Night",
+      "analysis": {
+        "tempo": 126,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "festive",
+          "playful",
+          "romantic"
+        ],
+        "styles": [
+          "idol-pop",
+          "disco-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "halloween",
+          "costume",
+          "party",
+          "romance"
+        ],
+        "settings": [
+          "party",
+          "night"
+        ],
+        "seasons": [
+          "autumn"
+        ],
+        "releaseDate": "2015-08-26",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yoshimasa Inoue",
+          "arranger": "Yoshimasa Inoue"
+        },
+        "confidence": "high",
+        "notes": "A modernized disco number mixing a noisy costume party with flirtation and communal dance.",
+        "sources": [
+          "https://keytube.net/song/detail/1892",
+          "https://www.uta-net.com/song/192807/",
+          "https://www.music8.com/products/detail16670.php"
+        ]
+      }
+    },
+    {
+      "id": "song-9f8b663f-66d1-45e9-ad41-8ce332188a4c",
+      "artist": "AKB48",
+      "title": "Sasameyuki Regret",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "negative",
+        "moods": [
+          "regretful",
+          "heartbroken",
+          "cold",
+          "wistful"
+        ],
+        "styles": [
+          "idol-pop",
+          "winter-pop"
+        ],
+        "themes": [
+          "breakup",
+          "regret",
+          "memory",
+          "emotional-pride"
+        ],
+        "settings": [
+          "street",
+          "winter-weather"
+        ],
+        "seasons": [
+          "winter"
+        ],
+        "releaseDate": "2013-10-30",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "横健介",
+          "arranger": "生田真心"
+        },
+        "confidence": "high",
+        "notes": "Sleet and cold wind mirror pride, lingering breakup regret, fading warmth, and beautiful memories.",
+        "sources": [
+          "https://www.youtube.com/watch?v=tcLA6JvhbH4",
+          "https://www.uta-net.com/song/154280/"
+        ]
+      }
+    },
+    {
+      "id": "song-a212bec5-05fb-4c4f-a306-3ec875ed2574",
+      "artist": "SKE48",
+      "title": "Sou Yuu Toko Aru yo ne?",
+      "analysis": {
+        "tempo": 162,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "jealous",
+          "awkward",
+          "comic",
+          "frustrated"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "jealousy",
+          "ex-partner",
+          "social-awkwardness",
+          "accepting-flaws"
+        ],
+        "settings": [
+          "party"
+        ],
+        "seasons": [],
+        "releaseDate": "2020-01-15",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "youth case",
+          "arranger": "youth case"
+        },
+        "confidence": "high",
+        "notes": "A fast comic-jealousy song about enduring a partner's tactless friendliness and complicated social circle.",
+        "sources": [
+          "https://ske48.co.jp/discography/detail/302/",
+          "https://www.uta-net.com/song/280066/",
+          "https://keytube.net/song/detail/26181"
+        ]
+      }
+    },
+    {
+      "id": "song-a60bd364-7cd3-4362-891f-1c977b17730e",
+      "artist": "NMB48",
+      "title": "Ganbaranuwai",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "laid-back",
+          "defiant",
+          "encouraging",
+          "playful"
+        ],
+        "styles": [
+          "idol-pop",
+          "feel-good-pop"
+        ],
+        "themes": [
+          "rest",
+          "self-acceptance",
+          "resisting-pressure",
+          "sustainable-effort"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2024-10-09",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Ayumu Nakamura / Taishi Noguchi",
+          "arranger": "Ayumu Nakamura / Taishi Noguchi"
+        },
+        "confidence": "medium",
+        "notes": "A humorous anti-overwork message: admit weakness, pause when needed, and reject constant pressure to perform.",
+        "sources": [
+          "https://www.universal-music.co.jp/nmb48/news/2024-10-07-3/",
+          "https://www.shazam.com/song/1770693639/ganbaranuwai",
+          "https://www.youtube.com/watch?v=DBZyaVcvg3Y"
+        ]
+      }
+    },
+    {
+      "id": "song-a66d2a1b-bc0e-4538-9012-b6f3b3baa3f4",
+      "artist": "SKE48",
+      "title": "Tick tack zack",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "competitive",
+          "flirtatious",
+          "tense",
+          "playful"
+        ],
+        "styles": [
+          "idol-pop",
+          "electropop",
+          "dance-pop"
+        ],
+        "themes": [
+          "romantic-push-pull",
+          "games",
+          "time",
+          "uncertainty"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2025-03-12",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Tadd Kagatsume / nasu nomura",
+          "arranger": "nasu nomura / Tadd Kagatsume / KRATING / YAMOTO"
+        },
+        "confidence": "high",
+        "notes": "A clock-driven romantic contest where attraction shifts like a game and neither side knows when to make the next move.",
+        "sources": [
+          "https://ske48.co.jp/discography/detail/323/",
+          "https://www.uta-net.com/song/368792/",
+          "https://www.youtube.com/watch?v=7UorMWrmIq8"
+        ]
+      }
+    },
+    {
+      "id": "song-a705d0b2-1664-492f-82ba-cc3aafb2a5e7",
+      "artist": "HKT48",
+      "title": "74-Okubun no 1 no Kimi e",
+      "analysis": {
+        "tempo": 136,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "joyful",
+          "warm",
+          "romantic",
+          "celebratory"
+        ],
+        "styles": [
+          "idol-pop",
+          "wedding-pop"
+        ],
+        "themes": [
+          "soulmate",
+          "proposal",
+          "marriage",
+          "shared-future"
+        ],
+        "settings": [
+          "wedding",
+          "outdoor-festival"
+        ],
+        "seasons": [],
+        "releaseDate": "2016-04-13",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Saimon",
+          "arranger": "Yuichi Nonaka"
+        },
+        "confidence": "high",
+        "notes": "An openly celebratory proposal and wedding song about finding one person among billions.",
+        "sources": [
+          "https://www.uta-net.com/song/206315/",
+          "https://www.youtube.com/watch?v=tSlJDGQKAMA",
+          "https://keytube.net/song/detail/4106"
+        ]
+      }
+    },
+    {
+      "id": "song-aede4c68-3c02-4a1f-a27d-ad166dd57796",
+      "artist": "SKE48",
+      "title": "Utsukushii Inazuma",
+      "analysis": {
+        "tempo": 150,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "intense",
+          "sensual",
+          "romantic",
+          "dramatic"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "mature-pop"
+        ],
+        "themes": [
+          "attraction",
+          "heat",
+          "obsession",
+          "emotional-impact"
+        ],
+        "settings": [
+          "beach",
+          "thunderstorm",
+          "summer-evening"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2013-07-17",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Takafumi Fukuda",
+          "arranger": "Hiroshi Sasaki"
+        },
+        "confidence": "high",
+        "notes": "A mature summer attraction song comparing sudden desire to lightning crossing the body before thunder arrives.",
+        "sources": [
+          "https://www.uta-net.com/song/149431/",
+          "https://bpm-database.tokyo/music/jfD4bsQU",
+          "https://www.avexnet.jp/release/1006920"
+        ]
+      }
+    },
+    {
+      "id": "song-b5032f30-e3af-4eab-8837-71c8a3f31c15",
+      "artist": "AKB48",
+      "title": "Suki-ish",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "romantic",
+          "shy",
+          "fresh",
+          "emotional"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "love-pop"
+        ],
+        "themes": [
+          "ambiguous-love",
+          "crush",
+          "confession",
+          "self-doubt"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2026-08-19",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "youth case",
+          "arranger": "Satoshi Hanamura"
+        },
+        "confidence": "high",
+        "notes": "A fast-moving love song about feelings that may be more than a crush and hesitation to admit them.",
+        "sources": [
+          "https://www.akb48.co.jp/news/detailpage/467704073",
+          "https://www.uta-net.com/song/396037/",
+          "https://www.cir48.com/akb/songs/akb_sukish.html"
+        ]
+      }
+    },
+    {
+      "id": "song-b7835885-fdba-4505-a551-ab1f187a2bca",
+      "artist": "SKE48",
+      "title": "Sandal da ze",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "carefree",
+          "hopeful",
+          "romantic",
+          "summery"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop"
+        ],
+        "themes": [
+          "freedom",
+          "authenticity",
+          "romantic-anticipation",
+          "seasonal-change"
+        ],
+        "settings": [
+          "city",
+          "beach"
+        ],
+        "seasons": [
+          "spring",
+          "summer"
+        ],
+        "releaseDate": "2026-03-18",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yamato Ito",
+          "arranger": "Yamato Ito / DjeDje"
+        },
+        "confidence": "high",
+        "notes": "A light-footed transition from spring to summer, using sandals as a symbol of freedom, authenticity, and readiness for romance.",
+        "sources": [
+          "https://utaten.com/lyric/qa60266037/",
+          "https://avex.jp/ske48/news/detail.php?id=1131068",
+          "https://www.youtube.com/watch?v=W-zR3045KPg"
+        ]
+      }
+    },
+    {
+      "id": "song-c2362c42-d701-4e26-aba9-c59dde1c2e7e",
+      "artist": "NMB48",
+      "title": "Mousou Girlfriend",
+      "analysis": {
+        "tempo": 172,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "playful",
+          "obsessive",
+          "comic",
+          "dreamy"
+        ],
+        "styles": [
+          "idol-pop",
+          "novelty-pop"
+        ],
+        "themes": [
+          "idol-fandom",
+          "parasocial-fantasy",
+          "daydreaming",
+          "infatuation"
+        ],
+        "settings": [
+          "television",
+          "phone"
+        ],
+        "seasons": [],
+        "releaseDate": "2012-08-08",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Haruyuki",
+          "arranger": "Seiji Muto"
+        },
+        "confidence": "high",
+        "notes": "A very fast comic fantasy in which a fan imagines an idol on television is secretly his girlfriend.",
+        "sources": [
+          "https://www.uta-net.com/song/133604/",
+          "https://bpm-database.tokyo/music/c1tbYjmo",
+          "https://www.youtube.com/watch?v=TeCIDX2fZZ0"
+        ]
+      }
+    },
+    {
+      "id": "song-c3dca528-1ae7-4c39-b4ca-a480dfeccc43",
+      "artist": "AKB48",
+      "title": "Cecile",
+      "analysis": {
+        "tempo": 134,
+        "energy": "medium",
+        "valence": "mixed",
+        "moods": [
+          "nostalgic",
+          "playful",
+          "romantic",
+          "yearning"
+        ],
+        "styles": [
+          "idol-pop",
+          "retro-pop",
+          "showa-inspired"
+        ],
+        "themes": [
+          "unrequited-love",
+          "admiration",
+          "self-image"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2026-02-25",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Kazuhiro Hara",
+          "arranger": "Kazuhiro Hara"
+        },
+        "confidence": "medium",
+        "notes": "A retro-styled collaboration with Iyo Matsumoto, pairing nostalgic idol-pop color with one-sided admiration.",
+        "sources": [
+          "https://www.shazam.com/song/1874609706/cecile-with-iyo-matsumoto",
+          "https://akb48.fandom.com/wiki/C%C3%A9cile",
+          "https://www.youtube.com/watch?v=mueXuHWntLU"
+        ]
+      }
+    },
+    {
+      "id": "song-cb679d44-9f35-4878-9381-5b9e6ef5861c",
+      "artist": "NMB48",
+      "title": "Durian Shounen",
+      "analysis": {
+        "tempo": 146,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "playful",
+          "comic",
+          "confident",
+          "summery"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "novelty-pop"
+        ],
+        "themes": [
+          "unconventional-attraction",
+          "individual-taste",
+          "acceptance",
+          "loyalty"
+        ],
+        "settings": [
+          "beach"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2015-07-15",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Takanori Fujimoto",
+          "arranger": "Seiji Muto"
+        },
+        "confidence": "high",
+        "notes": "A comic, self-assured defense of loving an unconventional boy whom everyone else dismisses.",
+        "sources": [
+          "https://www.uta-net.com/song/189824/",
+          "https://keytube.net/song/detail/139471",
+          "https://www.youtube.com/watch?v=gTtz-dqj0fs"
+        ]
+      }
+    },
+    {
+      "id": "song-ceb57640-fe7a-4721-8a0b-c54dd900e436",
+      "artist": "AKB48",
+      "title": "Nagori Zakura",
+      "analysis": {
+        "tempo": 169,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "nostalgic",
+          "bittersweet",
+          "hopeful",
+          "ceremonial"
+        ],
+        "styles": [
+          "idol-pop",
+          "sakura-song",
+          "graduation-pop"
+        ],
+        "themes": [
+          "farewell",
+          "graduation",
+          "memory",
+          "passing-time"
+        ],
+        "settings": [
+          "cherry-blossoms"
+        ],
+        "seasons": [
+          "spring"
+        ],
+        "releaseDate": "2026-02-25",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "karia",
+          "arranger": "APAZZI"
+        },
+        "confidence": "medium",
+        "notes": "A fast but bittersweet sakura song centered on farewell, lingering memory, and a bright future.",
+        "sources": [
+          "https://www.akb48.co.jp/news/detailpage/427017547",
+          "https://utaten.com/lyric/mi26012826/",
+          "https://songbpm.com/%40akb48/5zcn5q6l44kk5qgc-pl37v"
+        ]
+      }
+    },
+    {
+      "id": "song-ced94094-a0be-4319-8c91-c8a78f83bbbb",
+      "artist": "NGT48",
+      "title": "Ano sa, Iya Betsu ni…",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "mixed",
+        "moods": [
+          "bittersweet",
+          "shy",
+          "urgent",
+          "tender"
+        ],
+        "styles": [
+          "idol-pop",
+          "narrative-pop"
+        ],
+        "themes": [
+          "childhood-friends",
+          "moving-away",
+          "late-realization",
+          "confession"
+        ],
+        "settings": [
+          "hometown",
+          "after-rain",
+          "rainbow"
+        ],
+        "seasons": [],
+        "releaseDate": "2023-08-02",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "YUUKI SANO / Masafumi Okamoto",
+          "arranger": "Taishi Noguchi"
+        },
+        "confidence": "high",
+        "notes": "A childhood friend moving away forces the narrator to recognize love and act before the farewell becomes permanent.",
+        "sources": [
+          "https://www.uta-net.com/song/341088/",
+          "https://www.universal-music.co.jp/ngt48/products/upch-80599/",
+          "https://www.youtube.com/watch?v=yNtQmpFFJPg"
+        ]
+      }
+    },
+    {
+      "id": "song-d3094a48-f321-465f-8c65-7e1a3e30d266",
+      "artist": "AKB48",
+      "title": "Osaekirenai Shoudou",
+      "analysis": {
+        "tempo": 147,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "passionate",
+          "hopeful",
+          "nostalgic",
+          "determined"
+        ],
+        "styles": [
+          "idol-pop",
+          "youth-pop",
+          "anthemic-pop"
+        ],
+        "themes": [
+          "youth",
+          "aspiration",
+          "school-life",
+          "determination"
+        ],
+        "settings": [
+          "school",
+          "classroom"
+        ],
+        "seasons": [],
+        "releaseDate": "2016-11-16",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "aokado",
+          "arranger": "aokado"
+        },
+        "confidence": "high",
+        "notes": "A youth anthem treating hope, dreams, tears, and the desire to run toward tomorrow as irrepressible impulses.",
+        "sources": [
+          "https://www.youtube.com/watch?v=L1AzAWYeqKo",
+          "https://www.uta-net.com/song/218885/",
+          "https://bpm-database.tokyo/music/IL2GUfTl"
+        ]
+      }
+    },
+    {
+      "id": "song-d5272986-cb71-4c1c-a6a5-159717a079a7",
+      "artist": "AKB48",
+      "title": "Pin to Kita",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "hopeful",
+          "whimsical",
+          "lonely",
+          "connected"
+        ],
+        "styles": [
+          "idol-pop",
+          "youth-pop",
+          "drama-theme"
+        ],
+        "themes": [
+          "friendship",
+          "belonging",
+          "space",
+          "shared-dreams",
+          "outsider-identity"
+        ],
+        "settings": [
+          "school",
+          "library",
+          "space"
+        ],
+        "seasons": [],
+        "releaseDate": "2024-07-17",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Shinya Sumida",
+          "arranger": "AraKen"
+        },
+        "confidence": "high",
+        "notes": "Alien and space imagery describes outsiders recognizing one another, finding belonging, and sharing dreams.",
+        "sources": [
+          "https://www.cir48.com/akb/songs/akb_pintokita.html",
+          "https://utaten.com/lyric/qa40680004/"
+        ]
+      }
+    },
+    {
+      "id": "song-d898f9a5-c76e-47c4-ac11-1c07b7dcde99",
+      "artist": "HKT48",
+      "title": "12-Byou",
+      "analysis": {
+        "tempo": 160,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "excited",
+          "romantic",
+          "tender",
+          "summery"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop"
+        ],
+        "themes": [
+          "first-kiss",
+          "friends-to-lovers",
+          "new-romance"
+        ],
+        "settings": [
+          "seaside",
+          "tetrapod"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2015-04-22",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Linia",
+          "arranger": "Yuichi Nonaka"
+        },
+        "confidence": "high",
+        "notes": "A sparkling seaside first-kiss song built around the memory of a twelve-second kiss.",
+        "sources": [
+          "https://www.hkt48.jp/discography/single/92/",
+          "https://www.uta-net.com/song/184455/",
+          "https://songbpm.com/%40hkt48/12-xlij1"
+        ]
+      }
+    },
+    {
+      "id": "song-da459771-1cb5-4337-8085-335157b445f5",
+      "artist": "AKB48",
+      "title": "Ano Natsu no Bouhatei",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "mixed",
+        "moods": [
+          "nostalgic",
+          "wistful",
+          "romantic"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop"
+        ],
+        "themes": [
+          "first-love",
+          "unspoken-love",
+          "memory",
+          "emotional-restraint"
+        ],
+        "settings": [
+          "beach",
+          "seawall"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2023-04-26",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Koji Ueda",
+          "arranger": "Shohei Sumiya"
+        },
+        "confidence": "medium",
+        "notes": "A seaside memory of an unspoken first love; the seawall doubles as a metaphor for emotional restraint and distance.",
+        "sources": [
+          "https://www.cir48.com/akb/songs/akb_anonatsunobouhatei.html",
+          "https://www.uta-net.com/song/336389/",
+          "https://www.shazam.com/song/1681939942/anonatsuno-bouhatei"
+        ]
+      }
+    },
+    {
+      "id": "song-db72acb2-6b0c-4f78-98bf-600ba43db923",
+      "artist": "SKE48",
+      "title": "Zettai Inspiration",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "inspired",
+          "fateful",
+          "romantic",
+          "intense"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "intuition",
+          "love-at-first-sight",
+          "destiny",
+          "future"
+        ],
+        "settings": [
+          "train-station",
+          "rush-hour"
+        ],
+        "seasons": [],
+        "releaseDate": "2022-10-05",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Katsuhiko Sugiyama",
+          "arranger": "Katsuhiko Sugiyama / Manabu Yachi"
+        },
+        "confidence": "high",
+        "notes": "A high-impact love-at-first-sight song that treats intuition as a reliable glimpse of a shared future.",
+        "sources": [
+          "https://www.uta-net.com/song/325813/",
+          "https://avexnet.jp/contents/SKE48-XXXX-XXXX/discography/1019356",
+          "https://www.youtube.com/watch?v=JoSjHx2qsbg"
+        ]
+      }
+    },
+    {
+      "id": "song-e1c334a4-cf0a-4db3-9846-c2f191e75598",
+      "artist": "IZ4648",
+      "title": "Hitsuzensei",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "reflective",
+          "hopeful",
+          "purposeful",
+          "inspiring"
+        ],
+        "styles": [
+          "idol-pop",
+          "anthemic-pop"
+        ],
+        "themes": [
+          "destiny",
+          "purpose",
+          "possibility",
+          "meaningful-encounters"
+        ],
+        "settings": [
+          "roadside",
+          "open-sky"
+        ],
+        "seasons": [
+          "spring"
+        ],
+        "releaseDate": "2019-03-13",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "BASEMINT",
+          "arranger": "BASEMINT"
+        },
+        "confidence": "high",
+        "notes": "Uses seeds, flowers, and invisible threads to argue that meetings and future possibilities have meaning rather than being random.",
+        "sources": [
+          "https://www.uta-net.com/song/264646/",
+          "https://akb48.fandom.com/wiki/Hitsuzensei",
+          "https://www.youtube.com/watch?v=sHiwHA33kPM"
+        ]
+      }
+    },
+    {
+      "id": "song-e3ba94da-f6b8-40c0-844f-46e740e1eece",
+      "artist": "HKT48",
+      "title": "Hansode Tenshi",
+      "analysis": {
+        "tempo": 158,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "bright",
+          "romantic",
+          "playful",
+          "summery"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop"
+        ],
+        "themes": [
+          "admiration",
+          "youthful-romance",
+          "summer-attraction"
+        ],
+        "settings": [
+          "amusement-park",
+          "outdoors"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2025-07-23",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Takahiro Iguchi / Fi'Ne",
+          "arranger": "Fi'Ne"
+        },
+        "confidence": "high",
+        "notes": "A brisk summer-idol song whose angel image and amusement-park visuals emphasize bright youthful attraction.",
+        "sources": [
+          "https://www.youtube.com/watch?v=rjNP-vzdp6A",
+          "https://www.hkt48.jp/discography/single/236/",
+          "https://keytube.net/song/detail/158728"
+        ]
+      }
+    },
+    {
+      "id": "song-e4e6915f-c8ed-4074-a9f6-fda8acfd724d",
+      "artist": "SKE48",
+      "title": "Seishun wa Hazukashii",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "cheeky",
+          "youthful",
+          "rebellious",
+          "playful"
+        ],
+        "styles": [
+          "idol-pop",
+          "chant-pop"
+        ],
+        "themes": [
+          "adolescence",
+          "friendship",
+          "nonchalance",
+          "self-consciousness"
+        ],
+        "settings": [
+          "school",
+          "after-school"
+        ],
+        "seasons": [],
+        "releaseDate": "2010-11-17",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Masayuki Fukutomi",
+          "arranger": "Masayuki Fukutomi"
+        },
+        "confidence": "high",
+        "notes": "A cheeky school-life song that mocks earnest ideas of youth while revealing the insecurity underneath that pose.",
+        "sources": [
+          "https://www.uta-net.com/song/104091/",
+          "https://utaten.com/lyric/jb71011009/",
+          "https://www.youtube.com/watch?v=JeDWzgG_cSE"
+        ]
+      }
+    },
+    {
+      "id": "song-e70a6d32-c633-47bb-83d1-15659d49a63a",
+      "artist": "NMB48",
+      "title": "Seishun no Deadline",
+      "analysis": {
+        "tempo": 109,
+        "energy": "medium",
+        "valence": "negative",
+        "moods": [
+          "anxious",
+          "resigned",
+          "reflective",
+          "restless"
+        ],
+        "styles": [
+          "idol-pop",
+          "pop-rock"
+        ],
+        "themes": [
+          "end-of-youth",
+          "adulthood",
+          "responsibility",
+          "time-pressure"
+        ],
+        "settings": [
+          "school",
+          "workplace"
+        ],
+        "seasons": [],
+        "releaseDate": "2025-11-12",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "SoichiroK / Nozomu.S",
+          "arranger": "Nozomu Sasaki / Soichiro Kawata"
+        },
+        "confidence": "high",
+        "notes": "A mature anxiety song about discovering that youth has an endpoint and adulthood arrived without adequate preparation.",
+        "sources": [
+          "https://www.uta-net.com/song/383006/",
+          "https://www.shazam.com/song/1850620603/seishun-no-deadline",
+          "https://www.youtube.com/watch?v=5GhdeAIxwxs"
+        ]
+      }
+    },
+    {
+      "id": "song-eda83b5b-63df-41bb-a67a-a64c27b158a2",
+      "artist": "AKB48",
+      "title": "Love Jump",
+      "analysis": {
+        "tempo": 158,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "cheerful",
+          "playful",
+          "romantic"
+        ],
+        "styles": [
+          "idol-pop",
+          "winter-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "first-date",
+          "shared-joy",
+          "love",
+          "optimism"
+        ],
+        "settings": [
+          "city",
+          "promenade"
+        ],
+        "seasons": [
+          "winter"
+        ],
+        "releaseDate": "2010-12-08",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Fumiki Ikema",
+          "arranger": "Yuichi Nonaka"
+        },
+        "confidence": "high",
+        "notes": "A snowy first-date song whose jumping motif turns bad weather into shared energy and laughter.",
+        "sources": [
+          "https://www.uta-net.com/song/105919/",
+          "https://www.shazam.com/song/406128006/love-jump-uta-team-b-%E6%AD%8C-team-b",
+          "https://www.youtube.com/watch?v=lyqTcsZHf0Y"
+        ]
+      }
+    },
+    {
+      "id": "song-f38a33c6-aaf0-4ba2-b352-244903597efd",
+      "artist": "NGT48",
+      "title": "Wataridoritachi ni Sora wa Mienai",
+      "analysis": {
+        "tempo": 144,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "determined",
+          "bittersweet",
+          "hopeful"
+        ],
+        "styles": [
+          "idol-pop",
+          "j-pop",
+          "message-song"
+        ],
+        "themes": [
+          "journey",
+          "hometown",
+          "aspiration",
+          "personal-growth"
+        ],
+        "settings": [
+          "travel",
+          "city"
+        ],
+        "seasons": [
+          "winter"
+        ],
+        "releaseDate": "2022-12-28",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Shuho Mitani",
+          "arranger": "Yuichi Nonaka"
+        },
+        "confidence": "high",
+        "notes": "A brisk song whose migratory-bird metaphor connects leaving home, uncertainty, ambition, and continuing toward a destination.",
+        "sources": [
+          "https://www.universal-music.co.jp/ngt48/news/2022-11-30/",
+          "https://keytube.net/song/detail/92413",
+          "https://actresspress.com/ngt48-interview20221228/"
+        ]
+      }
+    },
+    {
+      "id": "song-f42457e1-f4c0-4a1d-be81-82b2bcbebc2d",
+      "artist": "AKB48",
+      "title": "Neko Allergy",
+      "analysis": {
+        "tempo": null,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "playful",
+          "comedic",
+          "romantic",
+          "hopeful"
+        ],
+        "styles": [
+          "idol-pop",
+          "playful-pop"
+        ],
+        "themes": [
+          "crush",
+          "overcoming-obstacle",
+          "cat-allergy",
+          "white-lie"
+        ],
+        "settings": [
+          "home"
+        ],
+        "seasons": [],
+        "releaseDate": "2018-05-30",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yusuke Itagaki",
+          "arranger": "Yusuke Itagaki"
+        },
+        "confidence": "high",
+        "notes": "A comic crush narrative about hiding a cat allergy to accept an invitation from someone with a cat.",
+        "sources": [
+          "https://www.youtube.com/watch?v=O6eQCFkQ0X4",
+          "https://www.uta-net.com/song/249735/",
+          "https://akb48.fandom.com/wiki/Neko_Allergy"
+        ]
+      }
+    },
+    {
+      "id": "song-f495a45f-b4e7-4ce3-b4f8-0283ce2eb976",
+      "artist": "SKE48",
+      "title": "1!2!3!4! Yoroshiku!",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "energetic",
+          "youthful",
+          "confident",
+          "playful"
+        ],
+        "styles": [
+          "idol-pop",
+          "chant-pop"
+        ],
+        "themes": [
+          "confession",
+          "courage",
+          "romantic-timing",
+          "taking-initiative"
+        ],
+        "settings": [
+          "school"
+        ],
+        "seasons": [],
+        "releaseDate": "2010-11-17",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Tadashi Tsukida",
+          "arranger": "Wataru Maeguchi"
+        },
+        "confidence": "high",
+        "notes": "A chant-driven encouragement to gather courage and confess before the romantic moment passes.",
+        "sources": [
+          "https://ske48.co.jp/discography/detail/50/",
+          "https://www.uta-net.com/song/104094/",
+          "https://www.youtube.com/watch?v=76bEMPtd91U"
+        ]
+      }
+    },
+    {
+      "id": "song-f7712320-3d32-4620-ad0b-e2da75d7295e",
+      "artist": "NGT48",
+      "title": "Sherbet Pink",
+      "analysis": {
+        "tempo": 169,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "summery",
+          "nostalgic",
+          "romantic",
+          "fresh"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop"
+        ],
+        "themes": [
+          "reunion",
+          "lingering-love",
+          "change",
+          "admiration"
+        ],
+        "settings": [
+          "city",
+          "beach"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2020-07-22",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Shuho Mitani / TAMATE BOX",
+          "arranger": "APAZZI"
+        },
+        "confidence": "high",
+        "notes": "A fast summer reunion song where a familiar pink skirt restores affection after time and surroundings have changed.",
+        "sources": [
+          "https://www.uta-net.com/song/288416/",
+          "https://www.shazam.com/en-gb/song/1522392154/sherbet-pink",
+          "https://www.youtube.com/watch?v=fv927dm26ws"
+        ]
+      }
+    },
+    {
+      "id": "suki-suki-skip",
+      "artist": "HKT48",
+      "title": "Suki! Suki! Skip!",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "cheerful",
+          "lovestruck",
+          "buoyant",
+          "optimistic"
+        ],
+        "styles": [
+          "idol-pop",
+          "upbeat-pop"
+        ],
+        "themes": [
+          "crush",
+          "optimism",
+          "personal-transformation",
+          "joy"
+        ],
+        "settings": [
+          "morning-commute",
+          "city"
+        ],
+        "seasons": [],
+        "releaseDate": "2013-03-20",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yuji Kobayashi",
+          "arranger": "Seiji Muto"
+        },
+        "confidence": "high",
+        "notes": "A buoyant debut song where thinking about a crush makes an ordinary Monday commute feel weightless.",
+        "sources": [
+          "https://www.hkt48.jp/discography/single/62/",
+          "https://www.uta-net.com/song/143893/",
+          "https://www.youtube.com/watch?v=SUjvUN0vztY"
+        ]
+      }
+    }
+  ]
+}

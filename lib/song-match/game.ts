@@ -1,3 +1,4 @@
+import { memberContentAgreement, selectCloseResults } from "./network";
 import type { SongComparison, SongMatchCatalog, SongMatchMember } from "./types";
 
 export type SongPair = [string, string];
@@ -87,18 +88,29 @@ function memberAgreement(member: SongMatchMember, comparisons: SongComparison[])
 
 export function matchMembers(catalog: SongMatchCatalog, comparisons: SongComparison[]) {
   const scores = songPreferenceScores(catalog.songs.map((song) => song.id), comparisons);
-  return catalog.members
-    .map((member) => ({
-      member,
-      score: memberAgreement(member, comparisons),
-      rankScores: member.picks.map((songId) => scores[songId] ?? 0.5),
-    }))
+  const ranked = catalog.members
+    .map((member) => {
+      const behaviorScore = memberAgreement(member, comparisons);
+      const content = memberContentAgreement(catalog, member, comparisons);
+      return {
+        member,
+        // Content features carry more weight so a few direct wins cannot produce a false 100% match.
+        score: Math.min(0.95, behaviorScore * 0.35 + content.score * 0.65),
+        behaviorScore,
+        contentScore: content.score,
+        tempoScore: content.tempoScore,
+        sharedTraits: content.sharedTraits,
+        rankScores: member.picks.map((songId) => scores[songId] ?? 0.5),
+      };
+    })
     .sort((a, b) =>
       b.score - a.score ||
+      b.contentScore - a.contentScore ||
       b.rankScores[0] - a.rankScores[0] ||
       b.rankScores[1] - a.rankScores[1] ||
       b.rankScores[2] - a.rankScores[2] ||
       a.member.displayOrder - b.member.displayOrder
-    )
-    .slice(0, 5);
+    );
+
+  return selectCloseResults(ranked);
 }

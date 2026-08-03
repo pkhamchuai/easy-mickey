@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { analyzeAnswerPattern } from "@/lib/song-match/answer-quality";
+import { songAnalysisById } from "@/lib/song-match/song-analysis";
 import type { SongMatchCatalog, SongMatchFeedbackRecord, SongMatchSong } from "@/lib/song-match/types";
 
 const songNameCollator = new Intl.Collator(["th", "en"], { sensitivity: "base", numeric: true });
@@ -67,7 +68,7 @@ export function SongMatchExport({ token }: { token: string }) {
           artist: song.artist,
           title: song.title,
           youtubeUrl: song.youtubeUrl,
-          analysis: { tempo: null, moods: [], styles: [], notes: null, sources: [] },
+          analysis: songAnalysisById.get(song.id) ?? { tempo: null, moods: [], styles: [], notes: null, sources: [] },
         })),
         members: [...catalog.members]
           .sort((a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name, "th"))
