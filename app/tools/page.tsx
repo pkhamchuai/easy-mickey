@@ -51,6 +51,19 @@ export default async function ToolsPage({ searchParams }: Props) {
 
         <section>
           <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
+            Games
+          </h2>
+          <Link
+            href={`/tools/song-match?token=${encodeURIComponent(token)}`}
+            className="flex items-center justify-between rounded-2xl border border-[#2a2a3d] bg-[#13131e] px-4 py-4 text-sm font-medium text-[#f0eff8] transition-all hover:border-pink-500/30 hover:bg-[#1a1018] hover:text-pink-300 active:scale-[0.98]"
+          >
+            Song Match Data
+            <ChevronIcon />
+          </Link>
+        </section>
+
+        <section>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
             Images
           </h2>
           <Link

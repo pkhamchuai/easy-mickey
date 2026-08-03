@@ -1,0 +1,193 @@
+"use client";
+
+import Link from "next/link";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { createSongPairs, matchMembers, type SongPair } from "@/lib/song-match/game";
+import type { SongComparison, SongMatchCatalog } from "@/lib/song-match/types";
+import { youtubeVideoId } from "@/lib/song-match/youtube";
+
+const STORAGE_KEY = "easy-mickey:song-match:v1";
+
+type SavedGame = {
+  catalogVersion: number;
+  pairs: SongPair[];
+  comparisons: SongComparison[];
+};
+
+function readSavedGame(catalogVersion: number): SavedGame | null {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as SavedGame | null;
+    return parsed?.catalogVersion === catalogVersion && Array.isArray(parsed.pairs) && Array.isArray(parsed.comparisons)
+      ? parsed
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+export function TasteMatchGame() {
+  const [catalog, setCatalog] = useState<SongMatchCatalog | null>(null);
+  const [loadingError, setLoadingError] = useState<string | null>(null);
+  const [screen, setScreen] = useState<"intro" | "playing" | "result">("intro");
+  const [pairs, setPairs] = useState<SongPair[]>([]);
+  const [comparisons, setComparisons] = useState<SongComparison[]>([]);
+  const [canResume, setCanResume] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/song-match/catalog", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("โหลดข้อมูลเกมไม่สำเร็จ");
+        return response.json() as Promise<SongMatchCatalog>;
+      })
+      .then((data) => {
+        setCatalog(data);
+        const saved = readSavedGame(data.version);
+        setCanResume(Boolean(saved && saved.comparisons.length < saved.pairs.length));
+      })
+      .catch((error) => setLoadingError(error instanceof Error ? error.message : "โหลดข้อมูลเกมไม่สำเร็จ"));
+  }, []);
+
+  const songById = useMemo(() => new Map(catalog?.songs.map((song) => [song.id, song]) ?? []), [catalog]);
+  const currentPair = pairs[comparisons.length];
+
+  const answer = useCallback((winner: string) => {
+    if (!catalog || !currentPair) return;
+    const next = [...comparisons, { songA: currentPair[0], songB: currentPair[1], winner }];
+    setComparisons(next);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ catalogVersion: catalog.version, pairs, comparisons: next } satisfies SavedGame));
+    if (next.length >= pairs.length) setScreen("result");
+  }, [catalog, comparisons, currentPair, pairs]);
+
+  useEffect(() => {
+    if (screen !== "playing") return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === "a" && currentPair) answer(currentPair[0]);
+      if (event.key.toLowerCase() === "b" && currentPair) answer(currentPair[1]);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [answer, currentPair, screen]);
+
+  function startNewGame() {
+    if (!catalog) return;
+    const nextPairs = createSongPairs(catalog.songs.map((song) => song.id), 25);
+    setPairs(nextPairs);
+    setComparisons([]);
+    setCanResume(false);
+    localStorage.removeItem(STORAGE_KEY);
+    setScreen("playing");
+  }
+
+  function resumeGame() {
+    if (!catalog) return;
+    const saved = readSavedGame(catalog.version);
+    if (!saved) return startNewGame();
+    setPairs(saved.pairs);
+    setComparisons(saved.comparisons);
+    setScreen(saved.comparisons.length >= saved.pairs.length ? "result" : "playing");
+  }
+
+  if (loadingError) return <StateMessage>{loadingError}</StateMessage>;
+  if (!catalog) return <StateMessage>กำลังโหลดเกม…</StateMessage>;
+  if (catalog.songs.length < 2 || catalog.members.length === 0) {
+    return <StateMessage>ข้อมูลเกมยังไม่พร้อม กรุณาเพิ่มอย่างน้อย 1 เมมและ 2 เพลง</StateMessage>;
+  }
+
+  if (screen === "intro") {
+    const questionCount = Math.min(25, catalog.songs.length * (catalog.songs.length - 1) / 2);
+    return (
+      <main className="flex min-h-screen items-center bg-[#0a0a12] px-4 py-12">
+        <section className="mx-auto w-full max-w-lg text-center">
+          <Link href="/" className="mb-8 inline-flex text-sm text-[#9896b0] transition hover:text-white">‹ กลับหน้าแรก</Link>
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-pink-400/70">Easy Mickey Game</p>
+          <h1 className="mt-3 text-4xl font-bold text-white">คุณเป็นใครใน GE 2026</h1>
+          <p className="mx-auto mt-4 max-w-md leading-relaxed text-[#aaa8bc]">ฟังเพลงสองตัวเลือกแล้วกด A หรือ B เพื่อเลือกเพลงที่ชอบ จากนั้นมาดูกันว่ารสนิยมของคุณตรงกับเมมคนไหน</p>
+          <div className="mx-auto mt-7 rounded-2xl border border-cyan-500/20 bg-[#0d1620] px-5 py-4 text-sm text-[#c8c6d6]">
+            {questionCount} คู่ · วิดีโอจะไม่เล่นอัตโนมัติ · เล่นต่อได้หากปิดหน้า
+          </div>
+          <div className="mt-6 space-y-3">
+            {canResume && <button type="button" onClick={resumeGame} className="w-full rounded-2xl border border-pink-400/40 bg-pink-400/10 py-4 text-lg font-semibold text-pink-100 transition hover:bg-pink-400/20">เล่นต่อ</button>}
+            <button type="button" onClick={startNewGame} className="w-full rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-400 py-4 text-lg font-bold text-[#071014] shadow-[0_0_28px_rgba(34,211,238,0.18)] transition hover:brightness-110">{canResume ? "เริ่มใหม่" : "เริ่มเล่น"}</button>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  if (screen === "result") {
+    const results = matchMembers(catalog, comparisons);
+    return (
+      <main className="min-h-screen bg-[#0a0a12] px-4 py-10">
+        <section className="mx-auto max-w-lg">
+          <p className="text-center text-xs font-medium uppercase tracking-[0.22em] text-pink-400/70">Your Result</p>
+          <h1 className="mt-2 text-center text-3xl font-bold text-white">คุณเหมือนใครใน GE 2026</h1>
+          <div className="mt-8 space-y-4">
+            {results.map(({ member, score }, index) => (
+              <article key={member.id} className={`overflow-hidden rounded-2xl border ${index === 0 ? "border-cyan-400/40 bg-[#0d1620]" : "border-white/10 bg-[#13131e]"}`}>
+                <div className="grid grid-cols-[110px_1fr] gap-4 p-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={member.imageUrl} alt={member.name} className="aspect-[3/4] w-full rounded-xl object-cover object-top" />
+                  <div className="flex flex-col justify-center">
+                    <p className="text-xs text-[#9896b0]">อันดับ {index + 1}</p>
+                    <h2 className="mt-1 text-xl font-bold text-white">{member.name}</h2>
+                    <p className="mt-2 text-3xl font-bold text-cyan-300">{Math.round(score * 100)}%</p>
+                    <p className="mt-1 text-xs text-[#6a6880]">ความเข้ากันได้จากรสนิยมที่แสดงในรอบนี้</p>
+                  </div>
+                </div>
+                <ol className="border-t border-white/5 px-4 py-3 text-sm text-[#aaa8bc]">
+                  {member.picks.map((songId, rank) => <li key={songId}>{rank + 1}. {songById.get(songId)?.title ?? songId}</li>)}
+                </ol>
+              </article>
+            ))}
+          </div>
+          <div className="mt-7 grid grid-cols-2 gap-3">
+            <button type="button" onClick={startNewGame} className="rounded-xl border border-cyan-500/30 py-3 text-sm font-semibold text-cyan-300 hover:bg-cyan-500/10">เล่นอีกครั้ง</button>
+            <Link href="/" className="rounded-xl border border-white/10 py-3 text-center text-sm font-semibold text-[#c8c6d6] hover:bg-white/5">กลับหน้าแรก</Link>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  if (!currentPair) return <StateMessage>ไม่พบคู่เพลงสำหรับคำถามนี้</StateMessage>;
+  const songA = songById.get(currentPair[0]);
+  const songB = songById.get(currentPair[1]);
+  if (!songA || !songB) return <StateMessage>ข้อมูลเพลงไม่ครบ</StateMessage>;
+  const videoA = youtubeVideoId(songA.youtubeUrl);
+  const videoB = youtubeVideoId(songB.youtubeUrl);
+
+  return (
+    <main className="min-h-screen bg-[#0a0a12] px-3 py-6 sm:px-4 sm:py-10">
+      <section className="mx-auto max-w-3xl">
+        <div className="flex items-end justify-between gap-4">
+          <div><p className="text-xs uppercase tracking-[0.18em] text-pink-400/60">คุณเป็นใครใน GE 2026</p><h1 className="mt-1 text-xl font-bold text-white">เลือกเพลงที่คุณชอบมากกว่า</h1></div>
+          <p className="shrink-0 text-sm tabular-nums text-[#9896b0]">{comparisons.length + 1} / {pairs.length}</p>
+        </div>
+        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/5"><div className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-pink-400 transition-all" style={{ width: `${((comparisons.length + 1) / pairs.length) * 100}%` }} /></div>
+
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-5">
+          <SongButton label="A" title={songA.title} artist={songA.artist} onClick={() => answer(songA.id)} />
+          <SongButton label="B" title={songB.title} artist={songB.artist} onClick={() => answer(songB.id)} />
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-5">
+          <VideoEmbed videoId={videoA} title={`${songA.title} YouTube video`} />
+          <VideoEmbed videoId={videoB} title={`${songB.title} YouTube video`} />
+        </div>
+        <p className="mt-5 text-center text-xs text-[#6a6880]">ฟังก่อนแล้วกดปุ่ม A หรือ B · ใช้แป้นพิมพ์ A/B ได้</p>
+      </section>
+    </main>
+  );
+}
+
+function SongButton({ label, title, artist, onClick }: { label: "A" | "B"; title: string; artist: string; onClick: () => void }) {
+  return <button type="button" onClick={onClick} aria-label={`เลือกเพลง ${title}`} className="min-h-28 rounded-2xl border border-cyan-500/30 bg-[#0d1a1f] p-3 text-left transition hover:border-cyan-300 hover:bg-[#10232a] active:scale-[0.98] sm:p-5"><span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-cyan-400/15 font-bold text-cyan-300">{label}</span><span className="mt-3 block text-base font-bold leading-snug text-white sm:text-xl">{title}</span>{artist && <span className="mt-1 block text-xs text-[#9896b0] sm:text-sm">{artist}</span>}</button>;
+}
+
+function VideoEmbed({ videoId, title }: { videoId: string | null; title: string }) {
+  return videoId ? <iframe key={videoId} className="aspect-video w-full rounded-xl border border-white/10" src={`https://www.youtube-nocookie.com/embed/${videoId}`} title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /> : <div className="flex aspect-video items-center justify-center rounded-xl border border-white/10 bg-[#13131e] px-2 text-center text-xs text-[#6a6880]">ไม่มีวิดีโอ</div>;
+}
+
+function StateMessage({ children }: { children: React.ReactNode }) {
+  return <main className="flex min-h-screen items-center justify-center bg-[#0a0a12] px-4"><p className="text-center text-sm text-[#9896b0]">{children}</p></main>;
+}
+

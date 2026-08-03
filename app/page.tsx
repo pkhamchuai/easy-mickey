@@ -89,6 +89,23 @@ export default function Home() {
         </div>
         <div>
           <a
+            href="/games/song-match"
+            className="flex w-full items-center justify-between rounded-2xl border border-pink-500/30 bg-[#1b101d] px-5 py-4 transition hover:border-pink-400/60 hover:bg-[#241327]"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-xl">🎵</span>
+              <div className="text-left">
+                <p className="font-semibold text-pink-200">
+                  คุณเป็นใครใน GE 2026
+                </p>
+                <p className="text-xs text-[#9896b0]">เลือกเพลงที่ชอบ แล้วค้นหาเมมที่ตรงกับคุณ</p>
+              </div>
+            </div>
+            <span className="text-pink-400/60 text-lg">›</span>
+          </a>
+        </div>
+        <div>
+          <a
             href="/letmeknow-handshake"
             className="flex w-full items-center justify-between rounded-2xl border border-pink-500/30 bg-[#200d17] px-5 py-4 transition hover:border-pink-400/60 hover:bg-[#28101d]"
           >

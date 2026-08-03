@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-03T00:00:00.000Z",
+  "songs": [
+    {
+      "id": "suki-suki-skip",
+      "title": "Suki! Suki! Skip!",
+      "artist": "HKT48",
+      "youtubeUrl": "https://www.youtube.com/watch?v=SUjvUN0vztY"
+    },
+    {
+      "id": "nagiichi",
+      "title": "Nagiichi",
+      "artist": "NMB48",
+      "youtubeUrl": "https://www.youtube.com/watch?v=XjuHFHxwvGI"
+    },
+    {
+      "id": "sentimental-train",
+      "title": "Sentimental Train",
+      "artist": "AKB48",
+      "youtubeUrl": "https://www.youtube.com/watch?v=YAMF5Rypnrs"
+    }
+  ],
+  "members": [
+    {
+      "id": "hongyok",
+      "name": "หงษ์หยก ควรประดิษฐ์",
+      "imageUrl": "/HY_GE_application.jpg",
+      "isPublished": true,
+      "displayOrder": 0,
+      "picks": [
+        "suki-suki-skip",
+        "nagiichi",
+        "sentimental-train"
+      ]
+    }
+  ]
+}
+

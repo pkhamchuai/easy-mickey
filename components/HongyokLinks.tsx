@@ -145,7 +145,7 @@ export function HongyokLinks() {
     <div className="space-y-7">
       <section>
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
-          Hongyok's Official Accounts
+          Hongyok&apos;s Official Accounts
         </h2>
         <div className="grid grid-cols-2 gap-3">
           {officialLinks.map((item) => (
