@@ -6,6 +6,15 @@ import { youtubeVideoId } from "@/lib/song-match/youtube";
 
 const inputClass =
   "w-full rounded-lg border border-[#2a2a3d] bg-[#0a0a12] px-3 py-2 text-sm text-[#f0eff8] placeholder-[#5f5d72] outline-none transition focus:border-cyan-500/50";
+const SONG_ARTISTS = ["AKB48", "NGT48", "HKT48", "STU48", "SKE48", "NMB48", "IZ4648"];
+const songNameCollator = new Intl.Collator(["th", "en"], {
+  sensitivity: "base",
+  numeric: true,
+});
+
+function compareSongs(a: SongMatchSong, b: SongMatchSong) {
+  return songNameCollator.compare(a.artist || "\uffff", b.artist || "\uffff") || songNameCollator.compare(a.title, b.title);
+}
 
 function newId(prefix: string) {
   return `${prefix}-${crypto.randomUUID()}`;
@@ -115,6 +124,7 @@ export function SongMatchEditor({ token }: { token: string }) {
 
   if (loading) return <p className="pt-10 text-sm text-[#9896b0]">กำลังโหลดข้อมูล…</p>;
   if (!catalog) return <p className="pt-10 text-sm text-red-300">{status ?? "ไม่พบข้อมูล"}</p>;
+  const sortedSongs = [...catalog.songs].sort(compareSongs);
 
   return (
     <div className="space-y-10">
@@ -139,7 +149,11 @@ export function SongMatchEditor({ token }: { token: string }) {
                 <div className="mb-3 flex items-center justify-between"><p className="text-sm font-semibold text-cyan-200">เพลง {index + 1}</p><button type="button" onClick={() => removeSong(song.id)} className="text-xs text-red-400 hover:text-red-300">ลบ</button></div>
                 <div className="grid gap-2 sm:grid-cols-2">
                   <input className={inputClass} placeholder="ชื่อเพลง" value={song.title} onChange={(event) => updateSong(song.id, { title: event.target.value })} />
-                  <input className={inputClass} placeholder="ศิลปิน / วง" value={song.artist} onChange={(event) => updateSong(song.id, { artist: event.target.value })} />
+                  <select className={inputClass} value={song.artist} onChange={(event) => updateSong(song.id, { artist: event.target.value })}>
+                    <option value="">— เลือกวง —</option>
+                    {song.artist && !SONG_ARTISTS.includes(song.artist) && <option value={song.artist}>{song.artist}</option>}
+                    {SONG_ARTISTS.map((artist) => <option key={artist} value={artist}>{artist}</option>)}
+                  </select>
                 </div>
                 <input className={`${inputClass} mt-2`} placeholder="YouTube URL" value={song.youtubeUrl} onChange={(event) => updateSong(song.id, { youtubeUrl: event.target.value })} />
                 {song.youtubeUrl && <p className={`mt-2 text-xs ${videoId ? "text-emerald-400" : "text-red-400"}`}>{videoId ? `YouTube video ID: ${videoId}` : "ลิงก์ YouTube ไม่ถูกต้อง"}</p>}
@@ -183,7 +197,7 @@ export function SongMatchEditor({ token }: { token: string }) {
                       <span className="mb-1 block text-xs text-[#9896b0]">เพลงอันดับ {rank + 1}</span>
                       <select className={inputClass} value={member.picks[rank] ?? ""} onChange={(event) => updatePick(member, rank, event.target.value)}>
                         <option value="">— เลือกเพลง —</option>
-                        {catalog.songs.map((song) => <option key={song.id} value={song.id} disabled={member.picks.some((pick, pickIndex) => pickIndex !== rank && pick === song.id)}>{song.title}{song.artist ? ` (${song.artist})` : ""}</option>)}
+                        {sortedSongs.map((song) => <option key={song.id} value={song.id} disabled={member.picks.some((pick, pickIndex) => pickIndex !== rank && pick === song.id)}>{song.artist || "ไม่ระบุวง"} - {song.title}</option>)}
                       </select>
                     </label>
                   ))}
