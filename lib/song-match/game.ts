@@ -3,6 +3,9 @@ import type { SongComparison, SongMatchCatalog, SongMatchMember } from "./types"
 
 export type SongPair = [string, string];
 
+const SONG_SCORE_PRIOR_GAMES = 1;
+const SONG_SCORE_PRIOR_POINTS = 0.5;
+
 function shuffle<T>(values: T[]): T[] {
   const result = [...values];
   for (let index = result.length - 1; index > 0; index -= 1) {
@@ -40,7 +43,7 @@ export function createSongPairs(songIds: string[], limit = 25): SongPair[] {
   return pairs;
 }
 
-export function songPreferenceScores(songIds: string[], comparisons: SongComparison[]) {
+function songResults(songIds: string[], comparisons: SongComparison[]) {
   const points = Object.fromEntries(songIds.map((id) => [id, 0])) as Record<string, number>;
   const games = Object.fromEntries(songIds.map((id) => [id, 0])) as Record<string, number>;
 
@@ -56,9 +59,37 @@ export function songPreferenceScores(songIds: string[], comparisons: SongCompari
     }
   }
 
+  return { points, games };
+}
+
+export function songPreferenceScores(songIds: string[], comparisons: SongComparison[]) {
+  const { points, games } = songResults(songIds, comparisons);
   return Object.fromEntries(
-    songIds.map((id) => [id, games[id] > 0 ? points[id] / games[id] : 0.5]),
+    songIds.map((id) => [id, (points[id] + SONG_SCORE_PRIOR_POINTS) / (games[id] + SONG_SCORE_PRIOR_GAMES)]),
   ) as Record<string, number>;
+}
+
+function comparisonPairKey(songA: string, songB: string) {
+  return songA < songB ? `${songA}\u0000${songB}` : `${songB}\u0000${songA}`;
+}
+
+export function createAdaptiveSongPairs(songIds: string[], comparisons: SongComparison[]): SongPair[] {
+  const uniqueSongIds = [...new Set(songIds)];
+  const { points, games } = songResults(uniqueSongIds, comparisons);
+  const comparedPairs = new Set(comparisons.map(({ songA, songB }) => comparisonPairKey(songA, songB)));
+  const perfectSongs = shuffle(uniqueSongIds.filter((songId) => games[songId] > 0 && points[songId] === games[songId]));
+  const pairs: SongPair[] = [];
+
+  while (perfectSongs.length > 1) {
+    const songA = perfectSongs.shift()!;
+    const opponentIndex = perfectSongs.findIndex((songB) => !comparedPairs.has(comparisonPairKey(songA, songB)));
+    if (opponentIndex < 0) continue;
+    const [songB] = perfectSongs.splice(opponentIndex, 1);
+    comparedPairs.add(comparisonPairKey(songA, songB));
+    pairs.push(Math.random() < 0.5 ? [songA, songB] : [songB, songA]);
+  }
+
+  return pairs;
 }
 
 function memberAgreement(member: SongMatchMember, comparisons: SongComparison[]) {
