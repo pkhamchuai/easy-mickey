@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import { existsSync } from "fs";
 import { join } from "path";
+import Link from "next/link";
 import { HongyokLinks } from "@/components/HongyokLinks";
 import { ScheduleTable } from "@/components/ScheduleTable";
 import { TwitterIntent } from "@/components/TwitterIntent";
@@ -113,6 +114,16 @@ export default function Home() {
             </span>
             <span className="text-cyan-400/50">›</span>
           </a>
+          <Link
+            href="/games/song-match/members"
+            className="mt-2 flex w-full items-center justify-between rounded-xl border border-[#2a2a3d] bg-[#13131e] px-4 py-3 text-sm text-[#aaa8bc] transition hover:border-pink-500/30 hover:bg-[#1b101d] hover:text-pink-200"
+          >
+            <span className="flex items-center gap-2">
+              <span aria-hidden="true">🎧</span>
+              ดูเพลงที่เมมเบอร์เลือก
+            </span>
+            <span className="text-pink-400/50">›</span>
+          </Link>
         </div>
         <div>
           <a

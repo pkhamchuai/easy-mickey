@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { publicCatalog } from "@/lib/song-match/catalog";
-import { fallbackCatalog, readSongMatchCatalog } from "@/lib/song-match/db";
+import { readPublicSongMatchCatalog } from "@/lib/song-match/public-catalog";
 import { createSongStats } from "@/lib/song-match/stats";
 import { youtubeVideoId } from "@/lib/song-match/youtube";
 
@@ -12,13 +11,6 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-async function getCatalog() {
-  try {
-    return publicCatalog((await readSongMatchCatalog()) ?? fallbackCatalog);
-  } catch {
-    return publicCatalog(fallbackCatalog);
-  }
-}
 function SongVideo({ youtubeUrl, title }: { youtubeUrl: string; title: string }) {
   const videoId = youtubeVideoId(youtubeUrl);
   if (!videoId) return null;
@@ -36,7 +28,7 @@ function SongVideo({ youtubeUrl, title }: { youtubeUrl: string; title: string })
 }
 
 export default async function SongMatchStatsPage() {
-  const catalog = await getCatalog();
+  const catalog = await readPublicSongMatchCatalog();
   const stats = createSongStats(catalog);
 
   return (

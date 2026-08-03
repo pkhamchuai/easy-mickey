@@ -11,30 +11,32 @@ function shuffle<T>(values: T[]): T[] {
   return result;
 }
 
-function pairKey(a: string, b: string) {
-  return [a, b].sort().join("::");
-}
-
 export function createSongPairs(songIds: string[], limit = 25): SongPair[] {
-  const shuffledSongs = shuffle([...new Set(songIds)]);
-  const coverage: SongPair[] = [];
-  const seen = new Set<string>();
+  const songCount = new Set(songIds).size;
+  if (songCount < 2 || limit < 1) return [];
 
-  for (let index = 0; index + 1 < shuffledSongs.length && coverage.length < limit; index += 2) {
-    const pair: SongPair = [shuffledSongs[index], shuffledSongs[index + 1]];
-    coverage.push(pair);
-    seen.add(pairKey(...pair));
-  }
+  const rotation: Array<string | null> = shuffle([...new Set(songIds)]);
+  if (rotation.length % 2 !== 0) rotation.push(null);
 
-  const candidates: SongPair[] = [];
-  for (let a = 0; a < shuffledSongs.length; a += 1) {
-    for (let b = a + 1; b < shuffledSongs.length; b += 1) {
-      const pair: SongPair = [shuffledSongs[a], shuffledSongs[b]];
-      if (!seen.has(pairKey(...pair))) candidates.push(pair);
+  const maximumPairs = songCount * (songCount - 1) / 2;
+  const target = Math.min(limit, maximumPairs);
+  const pairs: SongPair[] = [];
+
+  // Round-robin ทำให้แต่ละเพลงปรากฏครั้งหนึ่งต่อรอบ ก่อนเริ่มรอบถัดไป
+  for (let round = 0; round < rotation.length - 1 && pairs.length < target; round += 1) {
+    for (let index = 0; index < rotation.length / 2 && pairs.length < target; index += 1) {
+      const songA = rotation[index];
+      const songB = rotation[rotation.length - 1 - index];
+      if (songA && songB) {
+        pairs.push(Math.random() < 0.5 ? [songA, songB] : [songB, songA]);
+      }
     }
+
+    const last = rotation.pop();
+    if (last !== undefined) rotation.splice(1, 0, last);
   }
 
-  return [...coverage, ...shuffle(candidates)].slice(0, limit);
+  return pairs;
 }
 
 export function songPreferenceScores(songIds: string[], comparisons: SongComparison[]) {
@@ -70,6 +72,5 @@ export function matchMembers(catalog: SongMatchCatalog, comparisons: SongCompari
   return catalog.members
     .map((member) => ({ member, score: memberScore(member, scores) }))
     .sort((a, b) => b.score - a.score || a.member.displayOrder - b.member.displayOrder)
-    .slice(0, 3);
+    .slice(0, 5);
 }
-
