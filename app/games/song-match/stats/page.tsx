@@ -3,6 +3,7 @@ import Link from "next/link";
 import { publicCatalog } from "@/lib/song-match/catalog";
 import { fallbackCatalog, readSongMatchCatalog } from "@/lib/song-match/db";
 import { createSongStats } from "@/lib/song-match/stats";
+import { youtubeVideoId } from "@/lib/song-match/youtube";
 
 export const metadata: Metadata = {
   title: "สถิติเพลง GE 2026 — Easy Mickey",
@@ -18,6 +19,21 @@ async function getCatalog() {
     return publicCatalog(fallbackCatalog);
   }
 }
+function SongVideo({ youtubeUrl, title }: { youtubeUrl: string; title: string }) {
+  const videoId = youtubeVideoId(youtubeUrl);
+  if (!videoId) return null;
+
+  return (
+    <iframe
+      className="mt-4 aspect-video w-full rounded-xl border border-white/10"
+      src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+      title={`${title} YouTube video`}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerPolicy="strict-origin-when-cross-origin"
+      allowFullScreen
+    />
+  );
+}
 
 export default async function SongMatchStatsPage() {
   const catalog = await getCatalog();
@@ -32,7 +48,7 @@ export default async function SongMatchStatsPage() {
             "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(244,114,182,0.13) 0%, transparent 70%), #0a0a12",
         }}
       >
-        <div className="mx-auto max-w-2xl">
+        <div className="mx-auto max-w-6xl">
           <Link href="/" className="inline-flex text-sm text-[#9896b0] transition hover:text-white">
             ‹ กลับหน้าแรก
           </Link>
@@ -46,7 +62,7 @@ export default async function SongMatchStatsPage() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-2xl space-y-4 px-4">
+      <section className="mx-auto grid max-w-6xl gap-4 px-4 sm:grid-cols-2">
         {stats.map((stat, index) => (
           <article key={stat.song.id} className="rounded-2xl border border-[#2a2a3d] bg-[#13131e] p-4 sm:p-5">
             <div className="flex items-start gap-3">
@@ -68,6 +84,8 @@ export default async function SongMatchStatsPage() {
                   </span>
                 </div>
 
+                <SongVideo youtubeUrl={stat.song.youtubeUrl} title={stat.song.title} />
+
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {stat.selections.map((selection) => (
                     <li key={selection.memberId} className="rounded-lg bg-white/5 px-2.5 py-1.5 text-sm text-[#c8c6d6]">
@@ -82,12 +100,12 @@ export default async function SongMatchStatsPage() {
         ))}
 
         {stats.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-[#2a2a3d] py-12 text-center text-sm text-[#6a6880]">
+          <div className="rounded-2xl border border-dashed border-[#2a2a3d] py-12 text-center text-sm text-[#6a6880] sm:col-span-2">
             ยังไม่มีข้อมูลเพลงจากเมมที่ Published
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-3 pt-3">
+        <div className="grid grid-cols-2 gap-3 pt-3 sm:col-span-2">
           <Link href="/games/song-match" className="rounded-xl border border-pink-500/30 py-3 text-center text-sm font-semibold text-pink-300 transition hover:bg-pink-500/10">
             เล่นเกม
           </Link>

@@ -20,7 +20,7 @@ function newId(prefix: string) {
   return `${prefix}-${crypto.randomUUID()}`;
 }
 
-export function SongMatchEditor({ token }: { token: string }) {
+export function SongMatchEditor({ token, section }: { token: string; section: "songs" | "members" }) {
   const [catalog, setCatalog] = useState<SongMatchCatalog | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -54,7 +54,7 @@ export function SongMatchEditor({ token }: { token: string }) {
   }
 
   function addSong() {
-    setCatalog((current) => current ? { ...current, songs: [...current.songs, { id: newId("song"), title: "", artist: "", youtubeUrl: "" }] } : current);
+    setCatalog((current) => current ? { ...current, songs: [{ id: newId("song"), title: "", artist: "", youtubeUrl: "" }, ...current.songs] } : current);
   }
 
   function removeSong(id: string) {
@@ -79,7 +79,7 @@ export function SongMatchEditor({ token }: { token: string }) {
   }
 
   function addMember() {
-    setCatalog((current) => current ? { ...current, members: [...current.members, { id: newId("member"), name: "", imageUrl: "", isPublished: false, displayOrder: current.members.length, picks: ["", "", ""] }] } : current);
+    setCatalog((current) => current ? { ...current, members: [{ id: newId("member"), name: "", imageUrl: "", isPublished: false, displayOrder: Math.min(0, ...current.members.map((member) => member.displayOrder)) - 1, picks: ["", "", ""] }, ...current.members] } : current);
   }
 
   function removeMember(id: string) {
@@ -136,7 +136,8 @@ export function SongMatchEditor({ token }: { token: string }) {
         <button type="button" onClick={save} disabled={saving} className="shrink-0 rounded-xl bg-cyan-500/20 px-5 py-2 text-sm font-semibold text-cyan-200 transition hover:bg-cyan-500/30 disabled:opacity-50">{saving ? "Saving…" : "Save All"}</button>
       </div>
 
-      <section>
+      {section === "songs" && (
+        <section>
         <div className="mb-4 flex items-center justify-between">
           <div><h2 className="text-lg font-semibold text-white">Song Library</h2><p className="text-xs text-[#6a6880]">เพิ่มเพลงครั้งเดียว แล้วเลือกใช้กับเมมหลายคนได้</p></div>
           <button type="button" onClick={addSong} className="rounded-lg border border-cyan-500/30 px-3 py-2 text-xs text-cyan-300 hover:bg-cyan-500/10">+ Add song</button>
@@ -164,9 +165,11 @@ export function SongMatchEditor({ token }: { token: string }) {
         <div className="mt-4 flex justify-center">
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="rounded-full border border-[#2a2a3d] bg-[#13131e] px-4 py-2 text-xs font-medium text-[#9896b0] transition hover:border-cyan-500/40 hover:text-cyan-300">↑ Back to top</button>
         </div>
-      </section>
+        </section>
+      )}
 
-      <section>
+      {section === "members" && (
+        <section>
         <div className="mb-4 flex items-center justify-between">
           <div><h2 className="text-lg font-semibold text-white">Members</h2><p className="text-xs text-[#6a6880]">Publish ได้เมื่อมีรูปและเพลงครบสามอันดับ</p></div>
           <button type="button" onClick={addMember} className="rounded-lg border border-pink-500/30 px-3 py-2 text-xs text-pink-300 hover:bg-pink-500/10">+ Add member</button>
@@ -216,7 +219,8 @@ export function SongMatchEditor({ token }: { token: string }) {
         <div className="mt-5 flex justify-center">
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="rounded-full border border-[#2a2a3d] bg-[#13131e] px-4 py-2 text-xs font-medium text-[#9896b0] transition hover:border-pink-500/40 hover:text-pink-300">↑ Back to top</button>
         </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }
