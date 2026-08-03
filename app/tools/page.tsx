@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LiveCoverDownloader } from "@/components/LiveCoverDownloader";
 import { Downloader } from "@/components/Downloader";
+import { SongMatchExport } from "@/components/song-match/SongMatchExport";
 import { TokenGate } from "@/components/TokenGate";
 
 type Props = { searchParams: Promise<{ token?: string }> };
@@ -60,6 +61,7 @@ export default async function ToolsPage({ searchParams }: Props) {
             Song Match Data
             <ChevronIcon />
           </Link>
+          <SongMatchExport token={token} />
         </section>
 
         <section>

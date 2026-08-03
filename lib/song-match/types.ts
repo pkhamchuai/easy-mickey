@@ -28,3 +28,23 @@ export type SongComparison = {
   winner: string;
 };
 
+export type SongMatchGameMode = "quick" | "detailed";
+
+export type SongMatchFeedbackResult = {
+  memberId: string;
+  score: number;
+};
+
+export type SongMatchFeedbackSubmission = {
+  sessionId: string;
+  catalogVersion: number;
+  mode: SongMatchGameMode;
+  questionCount: number;
+  rating: number;
+  songCount: number;
+  memberCount: number;
+  comparisons: SongComparison[];
+  results: SongMatchFeedbackResult[];
+};
+
+export type SongMatchFeedbackRecord = SongMatchFeedbackSubmission;

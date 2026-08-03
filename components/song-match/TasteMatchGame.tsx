@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { analyzeAnswerPattern } from "@/lib/song-match/answer-quality";
 import { createSongPairs, matchMembers, type SongPair } from "@/lib/song-match/game";
-import type { SongComparison, SongMatchCatalog } from "@/lib/song-match/types";
+import type { SongComparison, SongMatchCatalog, SongMatchGameMode } from "@/lib/song-match/types";
 import { youtubeVideoId } from "@/lib/song-match/youtube";
 
-const STORAGE_KEY = "easy-mickey:song-match:v4";
+const STORAGE_KEY = "easy-mickey:song-match:v5";
 
-type GameMode = "quick" | "detailed";
+type GameMode = SongMatchGameMode;
 
 const GAME_MODES: Record<GameMode, { label: string; description: string }> = {
   quick: {
@@ -29,6 +30,7 @@ function questionCountForMode(mode: GameMode, songCount: number) {
 
 type SavedGame = {
   catalogVersion: number;
+  sessionId: string;
   mode: GameMode;
   pairs: SongPair[];
   comparisons: SongComparison[];
@@ -61,7 +63,7 @@ function formatCatalogUpdatedAt(value: string) {
 function readSavedGame(catalogVersion: number): SavedGame | null {
   try {
     const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as SavedGame | null;
-    return parsed?.catalogVersion === catalogVersion && isGameMode(parsed.mode) && Array.isArray(parsed.pairs) && Array.isArray(parsed.comparisons)
+    return parsed?.catalogVersion === catalogVersion && typeof parsed.sessionId === "string" && isGameMode(parsed.mode) && Array.isArray(parsed.pairs) && Array.isArray(parsed.comparisons)
       ? parsed
       : null;
   } catch {
@@ -78,6 +80,10 @@ export function TasteMatchGame() {
   const [gameMode, setGameMode] = useState<GameMode>("quick");
   const [canResume, setCanResume] = useState(false);
   const [resumeMode, setResumeMode] = useState<GameMode | null>(null);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [feedbackRating, setFeedbackRating] = useState<number | null>(null);
+  const [feedbackStatus, setFeedbackStatus] = useState<string | null>(null);
+  const [submittingFeedback, setSubmittingFeedback] = useState(false);
 
   useEffect(() => {
     fetch("/api/song-match/catalog", { cache: "no-store" })
@@ -98,12 +104,13 @@ export function TasteMatchGame() {
   const currentPair = pairs[comparisons.length];
 
   const answer = useCallback((winner: string) => {
-    if (!catalog || !currentPair) return;
+    if (!catalog || !currentPair || !sessionId) return;
     const next = [...comparisons, { songA: currentPair[0], songB: currentPair[1], winner }];
+    const isFinished = next.length >= pairs.length;
     setComparisons(next);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ catalogVersion: catalog.version, mode: gameMode, pairs, comparisons: next } satisfies SavedGame));
-    if (next.length >= pairs.length) setScreen("result");
-  }, [catalog, comparisons, currentPair, gameMode, pairs]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ catalogVersion: catalog.version, sessionId, mode: gameMode, pairs, comparisons: next } satisfies SavedGame));
+    if (isFinished) setScreen("result");
+  }, [catalog, comparisons, currentPair, gameMode, pairs, sessionId]);
 
   useEffect(() => {
     if (screen !== "playing") return;
@@ -117,6 +124,7 @@ export function TasteMatchGame() {
 
   function startNewGame(mode: GameMode) {
     if (!catalog) return;
+    const nextSessionId = crypto.randomUUID();
     const nextPairs = createSongPairs(
       catalog.songs.map((song) => song.id),
       questionCountForMode(mode, catalog.songs.length),
@@ -124,6 +132,9 @@ export function TasteMatchGame() {
     setGameMode(mode);
     setPairs(nextPairs);
     setComparisons([]);
+    setSessionId(nextSessionId);
+    setFeedbackRating(null);
+    setFeedbackStatus(null);
     setCanResume(false);
     setResumeMode(null);
     localStorage.removeItem(STORAGE_KEY);
@@ -137,7 +148,42 @@ export function TasteMatchGame() {
     setGameMode(saved.mode);
     setPairs(saved.pairs);
     setComparisons(saved.comparisons);
+    setSessionId(saved.sessionId);
+    setFeedbackRating(null);
+    setFeedbackStatus(null);
     setScreen(saved.comparisons.length >= saved.pairs.length ? "result" : "playing");
+  }
+
+  async function submitFeedback(rating: number) {
+    if (!catalog || !sessionId || comparisons.length !== pairs.length) return;
+    setSubmittingFeedback(true);
+    setFeedbackStatus(null);
+    try {
+      const results = matchMembers(catalog, comparisons);
+      const response = await fetch("/api/song-match/feedback", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          sessionId,
+          catalogVersion: catalog.version,
+          mode: gameMode,
+          questionCount: comparisons.length,
+          rating,
+          songCount: catalog.songs.length,
+          memberCount: catalog.members.length,
+          comparisons,
+          results: results.map(({ member, score }) => ({ memberId: member.id, score })),
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error ?? "ส่ง Feedback ไม่สำเร็จ");
+      setFeedbackRating(rating);
+      setFeedbackStatus("ขอบคุณสำหรับ Feedback ✓");
+    } catch (error) {
+      setFeedbackStatus(error instanceof Error ? error.message : "ส่ง Feedback ไม่สำเร็จ");
+    } finally {
+      setSubmittingFeedback(false);
+    }
   }
 
   if (loadingError) return <StateMessage>{loadingError}</StateMessage>;
@@ -147,7 +193,6 @@ export function TasteMatchGame() {
   }
 
   if (screen === "intro") {
-    const questionCount = questionCountForMode(gameMode, catalog.songs.length);
     const catalogUpdatedAt = formatCatalogUpdatedAt(catalog.updatedAt);
     return (
       <main className="flex min-h-screen items-center bg-[#0a0a12] px-4 py-12">
@@ -155,7 +200,7 @@ export function TasteMatchGame() {
           <Link href="/" className="mb-8 inline-flex text-sm text-[#9896b0] transition hover:text-white">‹ กลับหน้าแรก</Link>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-pink-400/70">Easy Mickey Game</p>
           <h1 className="mt-3 text-4xl font-bold text-white">คุณเป็นใครใน GE 2026</h1>
-          <p className="mx-auto mt-4 max-w-md leading-relaxed text-[#aaa8bc]">ฟังเพลงสองตัวเลือกแล้วกด A หรือ B เพื่อเลือกเพลงที่ชอบ จากนั้นมาดูกันว่ารสนิยมของคุณตรงกับเมมคนไหน</p>
+          <p className="mx-auto mt-4 max-w-md leading-relaxed text-[#aaa8bc]">กด A หรือ B เพื่อเลือกเพลงที่ชอบ จากนั้นมาดูกันว่ารสนิยมของคุณตรงกับเมมเบอร์คนไหน</p>
           <div className="mx-auto mt-6 rounded-2xl border border-pink-400/20 bg-[#1b101d] px-4 py-3 text-sm leading-relaxed text-[#c8c6d6]">
             {catalogUpdatedAt && (
               <p>ข้อมูลการลงสมัครในวันที่ <span className="text-pink-200">{catalogUpdatedAt.date}</span> เวลา <span className="text-pink-200">{catalogUpdatedAt.time} น.</span></p>
@@ -177,8 +222,8 @@ export function TasteMatchGame() {
               </button>
             ))}
           </div>
-          <div className="mx-auto mt-3 rounded-2xl border border-cyan-500/20 bg-[#0d1620] px-5 py-4 text-sm text-[#c8c6d6]">
-            {questionCount} คู่ · วิดีโอจะไม่เล่นอัตโนมัติ · เล่นต่อได้หากปิดหน้า
+          <div className="mx-auto mt-3 rounded-2xl border border-cyan-500/20 bg-[#0d1620] px-5 py-4 text-xs leading-relaxed text-[#7f7d92]">
+            เมื่อส่ง Feedback ระบบจะเก็บคำตอบ และผลลัพธ์ของรอบนั้นแบบไม่ระบุตัวตน เพื่อวิเคราะห์และปรับปรุงการคำนวณผล จะไม่เก็บข้อมูลหากไม่ส่ง Feedback
           </div>
           <div className="mt-6 space-y-3">
             {canResume && <button type="button" onClick={resumeGame} className="w-full rounded-2xl border border-pink-400/40 bg-pink-400/10 py-4 text-lg font-semibold text-pink-100 transition hover:bg-pink-400/20">เล่นต่อ{resumeMode ? ` · ${GAME_MODES[resumeMode].label}` : ""}</button>}
@@ -191,11 +236,17 @@ export function TasteMatchGame() {
 
   if (screen === "result") {
     const results = matchMembers(catalog, comparisons);
+    const answerPattern = analyzeAnswerPattern(comparisons);
     return (
       <main className="min-h-screen bg-[#0a0a12] px-4 py-10">
         <section className="mx-auto max-w-lg">
           <p className="text-center text-xs font-medium uppercase tracking-[0.22em] text-pink-400/70">Your Result</p>
           <h1 className="mt-2 text-center text-3xl font-bold text-white">คุณเหมือนใครใน GE 2026</h1>
+          {answerPattern.lowConfidence && (
+            <div className="mt-5 rounded-2xl border border-amber-400/25 bg-amber-400/10 px-4 py-3 text-center text-sm leading-relaxed text-amber-100">
+              คำตอบรอบนี้เลือกฝั่งเดิมต่อเนื่องหรือเอนเอียงไปด้านเดียวมาก ผลลัพธ์จึงอาจแม่นยำน้อยลง
+            </div>
+          )}
           <div className="mt-8 space-y-4">
             {results.map(({ member, score }, index) => (
               <article key={member.id} className={`overflow-hidden rounded-2xl border ${index === 0 ? "border-cyan-400/40 bg-[#0d1620]" : "border-white/10 bg-[#13131e]"}`}>
@@ -205,8 +256,8 @@ export function TasteMatchGame() {
                   <div className="flex flex-col justify-center">
                     <p className="text-xs text-[#9896b0]">อันดับ {index + 1}</p>
                     <h2 className="mt-1 text-xl font-bold text-white">{member.name}</h2>
-                    <p className="mt-2 text-3xl font-bold text-cyan-300">{Math.round(score * 100)}%</p>
-                    <p className="mt-1 text-xs text-[#6a6880]">ความเข้ากันได้จากรสนิยมที่แสดงในรอบนี้</p>
+                    <p className="mt-2 text-3xl font-bold text-cyan-300">{(score * 100).toFixed(1)}%</p>
+                    <p className="mt-1 text-xs text-[#6a6880]">คำตอบที่ตรงกับเพลงและลำดับที่เมมเลือก</p>
                   </div>
                 </div>
                 <ol className="border-t border-white/5 px-4 py-3 text-sm text-[#aaa8bc]">
@@ -214,6 +265,28 @@ export function TasteMatchGame() {
                 </ol>
               </article>
             ))}
+          </div>
+          <div className="mt-6 rounded-2xl border border-pink-400/20 bg-[#1b101d] p-5 text-center">
+            <h2 className="text-lg font-semibold text-white">ผลที่ได้ตรงกับใจคุณแค่ไหน?</h2>
+            <p className="mt-1 text-xs text-[#9896b0]">1 = ไม่ตรงเลย · 5 = ตรงมาก</p>
+            <div className="mt-4 grid grid-cols-5 gap-2">
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <button
+                  key={rating}
+                  type="button"
+                  onClick={() => void submitFeedback(rating)}
+                  disabled={submittingFeedback}
+                  aria-label={`ให้คะแนน ${rating} จาก 5`}
+                  aria-pressed={feedbackRating === rating}
+                  className={`rounded-xl border py-3 text-lg font-bold transition disabled:opacity-50 ${feedbackRating === rating ? "border-pink-300 bg-pink-400/25 text-pink-100" : "border-white/10 bg-white/5 text-[#c8c6d6] hover:border-pink-400/40 hover:text-pink-200"}`}
+                >
+                  {rating}
+                </button>
+              ))}
+            </div>
+            <p className={`mt-3 text-xs ${feedbackStatus?.includes("✓") ? "text-emerald-300" : "text-[#6a6880]"}`}>
+              {feedbackStatus ?? "เมื่อส่ง Feedback ระบบจะเก็บคำตอบ และผลลัพธ์ของรอบนั้นแบบไม่ระบุตัวตน เพื่อวิเคราะห์และปรับปรุงการคำนวณผล จะไม่เก็บข้อมูลหากไม่ส่ง Feedback"}
+            </p>
           </div>
           <div className="mt-7 grid grid-cols-2 gap-3">
             <button type="button" onClick={() => startNewGame(gameMode)} className="rounded-xl border border-cyan-500/30 py-3 text-sm font-semibold text-cyan-300 hover:bg-cyan-500/10">เล่นอีกครั้ง</button>

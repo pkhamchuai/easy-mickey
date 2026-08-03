@@ -39,7 +39,7 @@ export function createSongPairs(songIds: string[], limit = 25): SongPair[] {
   return pairs;
 }
 
-export function songPreferenceScores(songIds: string[], comparisons: SongComparison[]) {
+function songPreferenceScores(songIds: string[], comparisons: SongComparison[]) {
   const wins = Object.fromEntries(songIds.map((id) => [id, 0])) as Record<string, number>;
   const games = Object.fromEntries(songIds.map((id) => [id, 0])) as Record<string, number>;
 
@@ -50,27 +50,44 @@ export function songPreferenceScores(songIds: string[], comparisons: SongCompari
   }
 
   return Object.fromEntries(
-    songIds.map((id) => [id, games[id] > 0 ? (wins[id] + 1) / (games[id] + 2) : 0.5]),
+    songIds.map((id) => [id, games[id] > 0 ? wins[id] / games[id] : 0.5]),
   ) as Record<string, number>;
 }
 
-function memberScore(member: SongMatchMember, scores: Record<string, number>) {
-  const weights = [1, 0.65, 0.4];
-  const taste = member.picks.reduce((total, songId, index) => total + (scores[songId] ?? 0.5) * weights[index], 0) /
-    weights.reduce((total, weight) => total + weight, 0);
-  const orderPairs: Array<[number, number]> = [[0, 1], [0, 2], [1, 2]];
-  const order = orderPairs.reduce((total, [higher, lower]) => {
-    const higherScore = scores[member.picks[higher]] ?? 0.5;
-    const lowerScore = scores[member.picks[lower]] ?? 0.5;
-    return total + (higherScore > lowerScore ? 1 : higherScore === lowerScore ? 0.5 : 0);
-  }, 0) / orderPairs.length;
-  return 0.8 * taste + 0.2 * order;
+function memberAgreement(member: SongMatchMember, comparisons: SongComparison[]) {
+  const rankWeights = [1, 0.7, 0.45];
+  const preference = new Map(member.picks.map((songId, index) => [songId, rankWeights[index]]));
+  let matchedWeight = 0;
+  let relevantWeight = 0;
+
+  for (const comparison of comparisons) {
+    const songAWeight = preference.get(comparison.songA) ?? 0;
+    const songBWeight = preference.get(comparison.songB) ?? 0;
+    if (songAWeight === songBWeight) continue;
+
+    const weight = Math.max(songAWeight, songBWeight);
+    const predictedWinner = songAWeight > songBWeight ? comparison.songA : comparison.songB;
+    relevantWeight += weight;
+    if (comparison.winner === predictedWinner) matchedWeight += weight;
+  }
+
+  return relevantWeight > 0 ? matchedWeight / relevantWeight : 0.5;
 }
 
 export function matchMembers(catalog: SongMatchCatalog, comparisons: SongComparison[]) {
   const scores = songPreferenceScores(catalog.songs.map((song) => song.id), comparisons);
   return catalog.members
-    .map((member) => ({ member, score: memberScore(member, scores) }))
-    .sort((a, b) => b.score - a.score || a.member.displayOrder - b.member.displayOrder)
+    .map((member) => ({
+      member,
+      score: memberAgreement(member, comparisons),
+      rankScores: member.picks.map((songId) => scores[songId] ?? 0.5),
+    }))
+    .sort((a, b) =>
+      b.score - a.score ||
+      b.rankScores[0] - a.rankScores[0] ||
+      b.rankScores[1] - a.rankScores[1] ||
+      b.rankScores[2] - a.rankScores[2] ||
+      a.member.displayOrder - b.member.displayOrder
+    )
     .slice(0, 5);
 }

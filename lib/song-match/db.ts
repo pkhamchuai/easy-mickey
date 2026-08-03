@@ -1,7 +1,14 @@
 import { neon } from "@neondatabase/serverless";
 import fallbackData from "@/data/song-match-catalog.json";
 import { normalizeCatalog } from "./catalog";
-import type { SongMatchCatalog, SongMatchMember, SongMatchSong } from "./types";
+import type {
+  SongComparison,
+  SongMatchCatalog,
+  SongMatchFeedbackRecord,
+  SongMatchFeedbackResult,
+  SongMatchMember,
+  SongMatchSong,
+} from "./types";
 import { youtubeVideoId } from "./youtube";
 
 const connectionString = process.env.DATABASE_URL ?? process.env.POSTGRES_URL ?? "";
@@ -55,6 +62,24 @@ async function ensureSchema() {
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `;
+    await sql`
+      CREATE TABLE IF NOT EXISTS song_match_feedback (
+        session_id TEXT PRIMARY KEY,
+        catalog_version BIGINT NOT NULL,
+        game_mode TEXT NOT NULL CHECK (game_mode IN ('quick', 'detailed')),
+        question_count INTEGER NOT NULL CHECK (question_count > 0),
+        rating SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+        song_count INTEGER NOT NULL CHECK (song_count > 1),
+        member_count INTEGER NOT NULL CHECK (member_count > 0),
+        comparisons JSONB NOT NULL,
+        results JSONB NOT NULL
+      )
+    `;
+    await sql`ALTER TABLE song_match_feedback DROP COLUMN IF EXISTS started_at`;
+    await sql`ALTER TABLE song_match_feedback DROP COLUMN IF EXISTS completed_at`;
+    await sql`ALTER TABLE song_match_feedback DROP COLUMN IF EXISTS duration_seconds`;
+    await sql`ALTER TABLE song_match_feedback DROP COLUMN IF EXISTS created_at`;
+    await sql`ALTER TABLE song_match_feedback DROP COLUMN IF EXISTS updated_at`;
     await sql`INSERT INTO song_match_meta (singleton) VALUES (TRUE) ON CONFLICT DO NOTHING`;
   })();
   return schemaPromise;
@@ -78,6 +103,17 @@ type MemberRow = {
 
 type PickRow = { member_id: string; song_id: string; rank: number };
 type MetaRow = { version: string | number; updated_at: string | Date };
+type FeedbackRow = {
+  session_id: string;
+  catalog_version: string | number;
+  game_mode: "quick" | "detailed";
+  question_count: number;
+  rating: number;
+  song_count: number;
+  member_count: number;
+  comparisons: SongComparison[];
+  results: SongMatchFeedbackResult[];
+};
 
 export async function readSongMatchCatalog(): Promise<SongMatchCatalog | null> {
   if (!sql) return null;
@@ -153,3 +189,42 @@ export async function writeSongMatchCatalog(catalog: SongMatchCatalog): Promise<
   return { ...catalog, version, updatedAt: new Date().toISOString() };
 }
 
+export async function writeSongMatchFeedback(feedback: SongMatchFeedbackRecord) {
+  if (!sql) throw new Error("Song Match database is not configured");
+  await ensureSchema();
+  await sql`
+    INSERT INTO song_match_feedback (
+      session_id, catalog_version, game_mode, question_count, rating,
+      song_count, member_count, comparisons, results
+    ) VALUES (
+      ${feedback.sessionId}, ${feedback.catalogVersion}, ${feedback.mode}, ${feedback.questionCount}, ${feedback.rating},
+      ${feedback.songCount}, ${feedback.memberCount}, ${JSON.stringify(feedback.comparisons)}::jsonb, ${JSON.stringify(feedback.results)}::jsonb
+    )
+    ON CONFLICT (session_id) DO UPDATE SET
+      rating = EXCLUDED.rating
+  `;
+}
+
+export async function readSongMatchFeedback(): Promise<SongMatchFeedbackRecord[]> {
+  if (!sql) return [];
+  await ensureSchema();
+  const rows = await sql`
+    SELECT
+      session_id, catalog_version, game_mode, question_count, rating,
+      song_count, member_count, comparisons, results
+    FROM song_match_feedback
+    ORDER BY session_id
+  `;
+
+  return (rows as FeedbackRow[]).map((row) => ({
+    sessionId: row.session_id,
+    catalogVersion: Number(row.catalog_version),
+    mode: row.game_mode,
+    questionCount: row.question_count,
+    rating: row.rating,
+    songCount: row.song_count,
+    memberCount: row.member_count,
+    comparisons: row.comparisons,
+    results: row.results,
+  }));
+}
