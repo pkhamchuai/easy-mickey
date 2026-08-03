@@ -18,10 +18,15 @@ const SESSION_ID_PATTERN = /^[0-9a-f-]{36}$/i;
 function validComparison(value: unknown): value is SongComparison {
   if (!value || typeof value !== "object") return false;
   const comparison = value as Partial<SongComparison>;
-  return typeof comparison.songA === "string" && comparison.songA.length <= 160 &&
+  const validSongs = typeof comparison.songA === "string" && comparison.songA.length <= 160 &&
     typeof comparison.songB === "string" && comparison.songB.length <= 160 &&
-    comparison.songA !== comparison.songB &&
-    (comparison.winner === comparison.songA || comparison.winner === comparison.songB);
+    comparison.songA !== comparison.songB;
+  if (!validSongs) return false;
+
+  const outcome = comparison.outcome ?? "pick";
+  if (outcome === "pick") return comparison.winner === comparison.songA || comparison.winner === comparison.songB;
+  if (outcome === "tie" || outcome === "neither") return comparison.winner === null;
+  return false;
 }
 
 function validResult(value: unknown): value is SongMatchFeedbackResult {

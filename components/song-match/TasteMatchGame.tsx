@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { analyzeAnswerPattern } from "@/lib/song-match/answer-quality";
-import { createSongPairs, matchMembers, type SongPair } from "@/lib/song-match/game";
+import { createSongPairs, matchMembers, songPreferenceScores, type SongPair } from "@/lib/song-match/game";
 import type { SongComparison, SongMatchCatalog, SongMatchGameMode } from "@/lib/song-match/types";
 import { youtubeVideoId } from "@/lib/song-match/youtube";
 
@@ -103,9 +103,10 @@ export function TasteMatchGame() {
   const songById = useMemo(() => new Map(catalog?.songs.map((song) => [song.id, song]) ?? []), [catalog]);
   const currentPair = pairs[comparisons.length];
 
-  const answer = useCallback((winner: string) => {
+  const answer = useCallback((winner: string | null, outcome: "pick" | "tie" | "neither" = "pick") => {
     if (!catalog || !currentPair || !sessionId) return;
-    const next = [...comparisons, { songA: currentPair[0], songB: currentPair[1], winner }];
+    const comparison: SongComparison = { songA: currentPair[0], songB: currentPair[1], winner, outcome };
+    const next = [...comparisons, comparison];
     const isFinished = next.length >= pairs.length;
     setComparisons(next);
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ catalogVersion: catalog.version, sessionId, mode: gameMode, pairs, comparisons: next } satisfies SavedGame));
@@ -115,8 +116,8 @@ export function TasteMatchGame() {
   useEffect(() => {
     if (screen !== "playing") return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key.toLowerCase() === "a" && currentPair) answer(currentPair[0]);
-      if (event.key.toLowerCase() === "b" && currentPair) answer(currentPair[1]);
+      if (event.key.toLowerCase() === "a" && currentPair) answer(currentPair[0], "pick");
+      if (event.key.toLowerCase() === "b" && currentPair) answer(currentPair[1], "pick");
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -237,6 +238,10 @@ export function TasteMatchGame() {
   if (screen === "result") {
     const results = matchMembers(catalog, comparisons);
     const answerPattern = analyzeAnswerPattern(comparisons);
+    const preferenceScores = songPreferenceScores(catalog.songs.map((song) => song.id), comparisons);
+    const rankedSongs = [...catalog.songs]
+      .map((song) => ({ song, score: preferenceScores[song.id] ?? 0.5 }))
+      .sort((a, b) => b.score - a.score || a.song.artist.localeCompare(b.song.artist) || a.song.title.localeCompare(b.song.title));
     return (
       <main className="min-h-screen bg-[#0a0a12] px-4 py-10">
         <section className="mx-auto max-w-lg">
@@ -265,6 +270,27 @@ export function TasteMatchGame() {
                 </ol>
               </article>
             ))}
+          </div>
+          <div className="mt-6 overflow-hidden rounded-2xl border border-cyan-400/20 bg-[#0d1620]">
+            <div className="px-5 py-4">
+              <h2 className="text-lg font-semibold text-white">อันดับเพลงของคุณ</h2>
+              <p className="mt-1 text-xs text-[#7f7d92]">คำนวณจากคำตอบในรอบนี้ · เลือกไม่ได้ = 0.5 · ไม่ใช่แนวทั้งคู่ = 0</p>
+            </div>
+            <ol className="border-t border-white/5">
+              {rankedSongs.slice(0, 10).map(({ song, score }, index) => (
+                <SongScoreRow key={song.id} rank={index + 1} artist={song.artist} title={song.title} score={score} />
+              ))}
+            </ol>
+            {rankedSongs.length > 10 && (
+              <details className="border-t border-white/5">
+                <summary className="cursor-pointer px-5 py-3 text-center text-sm font-medium text-cyan-300 transition hover:bg-white/5">ดูครบทั้ง {rankedSongs.length} เพลง</summary>
+                <ol className="border-t border-white/5">
+                  {rankedSongs.slice(10).map(({ song, score }, index) => (
+                    <SongScoreRow key={song.id} rank={index + 11} artist={song.artist} title={song.title} score={score} />
+                  ))}
+                </ol>
+              </details>
+            )}
           </div>
           <div className="mt-6 rounded-2xl border border-pink-400/20 bg-[#1b101d] p-5 text-center">
             <h2 className="text-lg font-semibold text-white">ผลที่ได้ตรงกับใจคุณแค่ไหน?</h2>
@@ -314,14 +340,18 @@ export function TasteMatchGame() {
         <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/5"><div className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-pink-400 transition-all" style={{ width: `${((comparisons.length + 1) / pairs.length) * 100}%` }} /></div>
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-5">
-          <SongButton label="A" title={songA.title} artist={songA.artist} onClick={() => answer(songA.id)} />
-          <SongButton label="B" title={songB.title} artist={songB.artist} onClick={() => answer(songB.id)} />
+          <SongButton label="A" title={songA.title} artist={songA.artist} onClick={() => answer(songA.id, "pick")} />
+          <SongButton label="B" title={songB.title} artist={songB.artist} onClick={() => answer(songB.id, "pick")} />
         </div>
         <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-5">
           <VideoEmbed videoId={videoA} title={`${songA.title} YouTube video`} />
           <VideoEmbed videoId={videoB} title={`${songB.title} YouTube video`} />
         </div>
-        <p className="mt-5 text-center text-xs text-[#6a6880]">ฟังก่อนแล้วกดปุ่ม A หรือ B · ใช้แป้นพิมพ์ A/B ได้</p>
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <button type="button" onClick={() => answer(null, "tie")} className="rounded-xl border border-white/15 bg-white/5 px-3 py-3 text-sm font-medium text-[#c8c6d6] transition hover:border-cyan-400/35 hover:text-cyan-200">เลือกไม่ได้จริง ๆ</button>
+          <button type="button" onClick={() => answer(null, "neither")} className="rounded-xl border border-white/15 bg-white/5 px-3 py-3 text-sm font-medium text-[#c8c6d6] transition hover:border-pink-400/35 hover:text-pink-200">ไม่ใช่แนวทั้งคู่</button>
+        </div>
+        <p className="mt-5 text-center text-xs text-[#6a6880]">ฟังก่อนแล้วเลือกคำตอบ · ใช้แป้นพิมพ์ A/B ได้</p>
       </section>
     </main>
   );
@@ -333,6 +363,19 @@ function SongButton({ label, title, artist, onClick }: { label: "A" | "B"; title
 
 function VideoEmbed({ videoId, title }: { videoId: string | null; title: string }) {
   return videoId ? <iframe key={videoId} className="aspect-video w-full rounded-xl border border-white/10" src={`https://www.youtube-nocookie.com/embed/${videoId}`} title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /> : <div className="flex aspect-video items-center justify-center rounded-xl border border-white/10 bg-[#13131e] px-2 text-center text-xs text-[#6a6880]">ไม่มีวิดีโอ</div>;
+}
+
+function SongScoreRow({ rank, artist, title, score }: { rank: number; artist: string; title: string; score: number }) {
+  return (
+    <li className="flex items-center gap-3 border-b border-white/5 px-4 py-3 last:border-b-0">
+      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-cyan-400/10 text-xs font-bold text-cyan-300">{rank}</span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-sm font-medium text-white">{title}</span>
+        <span className="block truncate text-xs text-[#7f7d92]">{artist || "ไม่ระบุวง"}</span>
+      </span>
+      <span className="shrink-0 text-sm font-semibold tabular-nums text-cyan-200">{(score * 100).toFixed(1)}%</span>
+    </li>
+  );
 }
 
 function StateMessage({ children }: { children: React.ReactNode }) {

@@ -25,7 +25,8 @@ export type SongMatchCatalog = {
 export type SongComparison = {
   songA: string;
   songB: string;
-  winner: string;
+  winner: string | null;
+  outcome?: "pick" | "tie" | "neither";
 };
 
 export type SongMatchGameMode = "quick" | "detailed";

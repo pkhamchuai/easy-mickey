@@ -39,18 +39,24 @@ export function createSongPairs(songIds: string[], limit = 25): SongPair[] {
   return pairs;
 }
 
-function songPreferenceScores(songIds: string[], comparisons: SongComparison[]) {
-  const wins = Object.fromEntries(songIds.map((id) => [id, 0])) as Record<string, number>;
+export function songPreferenceScores(songIds: string[], comparisons: SongComparison[]) {
+  const points = Object.fromEntries(songIds.map((id) => [id, 0])) as Record<string, number>;
   const games = Object.fromEntries(songIds.map((id) => [id, 0])) as Record<string, number>;
 
   for (const comparison of comparisons) {
     games[comparison.songA] = (games[comparison.songA] ?? 0) + 1;
     games[comparison.songB] = (games[comparison.songB] ?? 0) + 1;
-    wins[comparison.winner] = (wins[comparison.winner] ?? 0) + 1;
+    const outcome = comparison.outcome ?? "pick";
+    if (outcome === "tie") {
+      points[comparison.songA] = (points[comparison.songA] ?? 0) + 0.5;
+      points[comparison.songB] = (points[comparison.songB] ?? 0) + 0.5;
+    } else if (outcome === "pick" && comparison.winner) {
+      points[comparison.winner] = (points[comparison.winner] ?? 0) + 1;
+    }
   }
 
   return Object.fromEntries(
-    songIds.map((id) => [id, games[id] > 0 ? wins[id] / games[id] : 0.5]),
+    songIds.map((id) => [id, games[id] > 0 ? points[id] / games[id] : 0.5]),
   ) as Record<string, number>;
 }
 
@@ -66,9 +72,14 @@ function memberAgreement(member: SongMatchMember, comparisons: SongComparison[])
     if (songAWeight === songBWeight) continue;
 
     const weight = Math.max(songAWeight, songBWeight);
-    const predictedWinner = songAWeight > songBWeight ? comparison.songA : comparison.songB;
     relevantWeight += weight;
-    if (comparison.winner === predictedWinner) matchedWeight += weight;
+    const outcome = comparison.outcome ?? "pick";
+    if (outcome === "tie") {
+      matchedWeight += weight * 0.5;
+    } else if (outcome === "pick") {
+      const predictedWinner = songAWeight > songBWeight ? comparison.songA : comparison.songB;
+      if (comparison.winner === predictedWinner) matchedWeight += weight;
+    }
   }
 
   return relevantWeight > 0 ? matchedWeight / relevantWeight : 0.5;
