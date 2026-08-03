@@ -103,6 +103,16 @@ export default function Home() {
             </div>
             <span className="text-pink-400/60 text-lg">›</span>
           </a>
+          <a
+            href="/games/song-match/stats"
+            className="mt-2 flex w-full items-center justify-between rounded-xl border border-[#2a2a3d] bg-[#13131e] px-4 py-3 text-sm text-[#aaa8bc] transition hover:border-cyan-500/30 hover:bg-[#0d1a1f] hover:text-cyan-200"
+          >
+            <span className="flex items-center gap-2">
+              <span aria-hidden="true">📊</span>
+              ดูสถิติเพลงที่เมมเลือก
+            </span>
+            <span className="text-cyan-400/50">›</span>
+          </a>
         </div>
         <div>
           <a

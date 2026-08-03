@@ -6,7 +6,7 @@ import { youtubeVideoId } from "@/lib/song-match/youtube";
 
 const inputClass =
   "w-full rounded-lg border border-[#2a2a3d] bg-[#0a0a12] px-3 py-2 text-sm text-[#f0eff8] placeholder-[#5f5d72] outline-none transition focus:border-cyan-500/50";
-const SONG_ARTISTS = ["AKB48", "NGT48", "HKT48", "STU48", "SKE48", "NMB48", "IZ4648"];
+const SONG_ARTISTS = ["AKB48", "HKT48", "IZ4648", "NGT48", "NMB48", "SKE48", "STU48"];
 const songNameCollator = new Intl.Collator(["th", "en"], {
   sensitivity: "base",
   numeric: true,
@@ -161,6 +161,9 @@ export function SongMatchEditor({ token }: { token: string }) {
             );
           })}
         </div>
+        <div className="mt-4 flex justify-center">
+          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="rounded-full border border-[#2a2a3d] bg-[#13131e] px-4 py-2 text-xs font-medium text-[#9896b0] transition hover:border-cyan-500/40 hover:text-cyan-300">↑ Back to top</button>
+        </div>
       </section>
 
       <section>
@@ -209,6 +212,9 @@ export function SongMatchEditor({ token }: { token: string }) {
               </div>
             </article>
           ))}
+        </div>
+        <div className="mt-5 flex justify-center">
+          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="rounded-full border border-[#2a2a3d] bg-[#13131e] px-4 py-2 text-xs font-medium text-[#9896b0] transition hover:border-pink-500/40 hover:text-pink-300">↑ Back to top</button>
         </div>
       </section>
     </div>
