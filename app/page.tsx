@@ -1,4 +1,3 @@
-import { execSync } from "child_process";
 import { existsSync } from "fs";
 import { join } from "path";
 import Link from "next/link";
@@ -6,17 +5,11 @@ import { HongyokLinks } from "@/components/HongyokLinks";
 import { ScheduleTable } from "@/components/ScheduleTable";
 import { TwitterIntent } from "@/components/TwitterIntent";
 
+const SHOW_HANDSHAKE_EVENT = false;
 const profileExt = ["jpg", "png"].find((ext) =>
   existsSync(join(process.cwd(), "public", `hongyok-profile.${ext}`))
 );
 const profileSrc = profileExt ? `/hongyok-profile.${profileExt}` : null;
-
-let lastUpdate = "";
-try {
-  lastUpdate = execSync('git log -1 --format=%cd --date=format:"%d-%m-%Y"').toString().trim();
-} catch {
-  lastUpdate = "";
-}
 
 export default function Home() {
   return (
@@ -31,7 +24,7 @@ export default function Home() {
       >
         <div className="mx-auto max-w-lg">
           <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-pink-400/60">
-            Mickey&apos;s House Fansite
+            Hongyok CGM48 Fansite
           </p>
           <h1
             className="mb-1 text-5xl font-bold"
@@ -125,23 +118,25 @@ export default function Home() {
             <span className="text-pink-400/50">›</span>
           </Link>
         </div>
-        <div>
-          <a
-            href="/letmeknow-handshake"
-            className="flex w-full items-center justify-between rounded-2xl border border-pink-500/30 bg-[#200d17] px-5 py-4 transition hover:border-pink-400/60 hover:bg-[#28101d]"
-          >
-            <div className="flex items-center gap-3">
-              <span className="text-xl">💔</span>
-              <div className="text-left">
-                <p className="font-semibold" style={{ background: "linear-gradient(135deg, #f472b6 0%, #db2777 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                  Let me know! Handshake Event
-                </p>
-                <p className="text-xs text-[#9896b0]">2 สิงหาคม 2026</p>
+        {SHOW_HANDSHAKE_EVENT && (
+          <div>
+            <a
+              href="/letmeknow-handshake"
+              className="flex w-full items-center justify-between rounded-2xl border border-pink-500/30 bg-[#200d17] px-5 py-4 transition hover:border-pink-400/60 hover:bg-[#28101d]"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">💔</span>
+                <div className="text-left">
+                  <p className="font-semibold" style={{ background: "linear-gradient(135deg, #f472b6 0%, #db2777 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                    Let me know! Handshake Event
+                  </p>
+                  <p className="text-xs text-[#9896b0]">2 สิงหาคม 2026</p>
+                </div>
               </div>
-            </div>
-            <span className="text-pink-400/60 text-lg">›</span>
-          </a>
-        </div>
+              <span className="text-pink-400/60 text-lg">›</span>
+            </a>
+          </div>
+        )}
         <TwitterIntent />
         <ScheduleTable />
         <HongyokLinks />
@@ -150,10 +145,16 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-white/5 py-8 text-center">
         <div className="mx-auto max-w-lg px-4 flex flex-col items-center gap-3">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mickeys-house-logo.png" alt="Mickey's House" className="h-[60px] w-[60px] rounded-full object-cover" />
           <p className="text-xs text-[#9896b0]">
-            Build and maintain by Mickey&apos;s House.<br />Since 05-06-2026{lastUpdate && `. Last update ${lastUpdate}`}.
+            Build and maintain by X:{" "}
+            <a
+              href="https://x.com/chibii39"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-300 transition hover:text-cyan-200"
+            >
+              @chibii39
+            </a>
           </p>
         </div>
       </footer>

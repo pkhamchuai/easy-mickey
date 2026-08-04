@@ -181,7 +181,7 @@ export default function Ge2026Page() {
       <footer className="border-t border-white/5 py-8 text-center">
         <div className="mx-auto max-w-lg px-4">
           <p className="text-xs text-[#9896b0]">
-            Easy Mickey · Mickey&apos;s House Fansite
+            Easy Mickey · Hongyok CGM48 Fansite
           </p>
         </div>
       </footer>
