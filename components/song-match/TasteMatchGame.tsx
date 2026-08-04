@@ -4,11 +4,16 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { analyzeAnswerPattern } from "@/lib/song-match/answer-quality";
 import { createAdaptiveSongPairs, createSongPairs, matchMembers, songPreferenceScores, type SongPair } from "@/lib/song-match/game";
-import type { SongComparison, SongMatchCatalog, SongMatchGameMode } from "@/lib/song-match/types";
+import type { SongComparison, SongMatchCatalog, SongMatchFeedbackFocus, SongMatchGameMode } from "@/lib/song-match/types";
 import { youtubeVideoId } from "@/lib/song-match/youtube";
 import { YouTubePlayer } from "./YouTubePlayer";
 
 const STORAGE_KEY = "easy-mickey:song-match:v5";
+const FEEDBACK_OPTIONS: Array<{ value: SongMatchFeedbackFocus; label: string }> = [
+  { value: "good", label: "ตรงดีแล้ว" },
+  { value: "more_top1", label: "ปรับให้เพลงอันดับ 1 ของฉันตรงกับเพลงของเมมเบอร์อันดับ 1 มากขึ้น" },
+  { value: "more_top23", label: "ปรับให้เพลงอันดับ 2–3 ของฉันมีน้ำหนักในการจัดอันดับเมมเบอร์มากขึ้น" },
+];
 
 type GameMode = SongMatchGameMode;
 
@@ -82,9 +87,10 @@ export function TasteMatchGame() {
   const [canResume, setCanResume] = useState(false);
   const [resumeMode, setResumeMode] = useState<GameMode | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [feedbackRating, setFeedbackRating] = useState<number | null>(null);
+  const [feedbackFocus, setFeedbackFocus] = useState<SongMatchFeedbackFocus | null>(null);
   const [feedbackStatus, setFeedbackStatus] = useState<string | null>(null);
   const [submittingFeedback, setSubmittingFeedback] = useState(false);
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
 
   useEffect(() => {
     fetch("/api/song-match/catalog", { cache: "no-store" })
@@ -143,8 +149,9 @@ export function TasteMatchGame() {
     setPairs(nextPairs);
     setComparisons([]);
     setSessionId(nextSessionId);
-    setFeedbackRating(null);
+    setFeedbackFocus(null);
     setFeedbackStatus(null);
+    setFeedbackSubmitted(false);
     setCanResume(false);
     setResumeMode(null);
     localStorage.removeItem(STORAGE_KEY);
@@ -159,18 +166,27 @@ export function TasteMatchGame() {
     setPairs(saved.pairs);
     setComparisons(saved.comparisons);
     setSessionId(saved.sessionId);
-    setFeedbackRating(null);
+    setFeedbackFocus(null);
     setFeedbackStatus(null);
+    setFeedbackSubmitted(false);
     setScreen(saved.comparisons.length >= saved.pairs.length ? "result" : "playing");
   }
 
-  async function submitFeedback(rating: number) {
-    if (!catalog || !sessionId || comparisons.length !== pairs.length) return;
+  async function submitFeedback() {
+    if (!catalog || !sessionId || !feedbackFocus || feedbackSubmitted || comparisons.length !== pairs.length) return;
     setSubmittingFeedback(true);
     setFeedbackStatus(null);
     try {
       const memberComparisons = comparisons.slice(0, questionCountForMode(gameMode, catalog.songs.length));
-      const results = matchMembers(catalog, memberComparisons);
+      const preferenceScores = songPreferenceScores(catalog.songs.map((song) => song.id), comparisons);
+      const rankedSongIds = [...catalog.songs]
+        .sort((a, b) =>
+          (preferenceScores[b.id] ?? 0.5) - (preferenceScores[a.id] ?? 0.5) ||
+          a.artist.localeCompare(b.artist) ||
+          a.title.localeCompare(b.title)
+        )
+        .map((song) => song.id);
+      const results = matchMembers(catalog, memberComparisons, rankedSongIds.slice(0, 3));
       const response = await fetch("/api/song-match/feedback", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -179,7 +195,7 @@ export function TasteMatchGame() {
           catalogVersion: catalog.version,
           mode: gameMode,
           questionCount: comparisons.length,
-          rating,
+          feedbackFocus,
           songCount: catalog.songs.length,
           memberCount: catalog.members.length,
           comparisons,
@@ -188,7 +204,7 @@ export function TasteMatchGame() {
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error ?? "ส่ง Feedback ไม่สำเร็จ");
-      setFeedbackRating(rating);
+      setFeedbackSubmitted(true);
       setFeedbackStatus("ขอบคุณสำหรับ Feedback ✓");
     } catch (error) {
       setFeedbackStatus(error instanceof Error ? error.message : "ส่ง Feedback ไม่สำเร็จ");
@@ -247,12 +263,12 @@ export function TasteMatchGame() {
 
   if (screen === "result") {
     const memberComparisons = comparisons.slice(0, questionCountForMode(gameMode, catalog.songs.length));
-    const results = matchMembers(catalog, memberComparisons);
     const answerPattern = analyzeAnswerPattern(comparisons);
     const preferenceScores = songPreferenceScores(catalog.songs.map((song) => song.id), comparisons);
     const rankedSongs = [...catalog.songs]
       .map((song) => ({ song, score: preferenceScores[song.id] ?? 0.5 }))
       .sort((a, b) => b.score - a.score || a.song.artist.localeCompare(b.song.artist) || a.song.title.localeCompare(b.song.title));
+    const results = matchMembers(catalog, memberComparisons, rankedSongs.slice(0, 3).map(({ song }) => song.id));
     return (
       <main className="min-h-screen bg-[#0a0a12] px-4 py-10">
         <section className="mx-auto max-w-lg">
@@ -304,23 +320,29 @@ export function TasteMatchGame() {
             )}
           </div>
           <div className="mt-6 rounded-2xl border border-pink-400/20 bg-[#1b101d] p-5 text-center">
-            <h2 className="text-lg font-semibold text-white">ผลที่ได้ตรงกับใจคุณแค่ไหน?</h2>
-            <p className="mt-1 text-xs text-[#9896b0]">1 = ไม่ตรงเลย · 5 = ตรงมาก</p>
-            <div className="mt-4 grid grid-cols-5 gap-2">
-              {[1, 2, 3, 4, 5].map((rating) => (
+            <h2 className="text-lg font-semibold text-white">ถ้าจะปรับผลนี้ คุณอยากให้ระบบให้น้ำหนักแบบไหน?</h2>
+            <div className="mt-4 space-y-2 text-left">
+              {FEEDBACK_OPTIONS.map((option) => (
                 <button
-                  key={rating}
+                  key={option.value}
                   type="button"
-                  onClick={() => void submitFeedback(rating)}
-                  disabled={submittingFeedback}
-                  aria-label={`ให้คะแนน ${rating} จาก 5`}
-                  aria-pressed={feedbackRating === rating}
-                  className={`rounded-xl border py-3 text-lg font-bold transition disabled:opacity-50 ${feedbackRating === rating ? "border-pink-300 bg-pink-400/25 text-pink-100" : "border-white/10 bg-white/5 text-[#c8c6d6] hover:border-pink-400/40 hover:text-pink-200"}`}
+                  onClick={() => setFeedbackFocus(option.value)}
+                  disabled={submittingFeedback || feedbackSubmitted}
+                  aria-pressed={feedbackFocus === option.value}
+                  className={`w-full rounded-xl border px-4 py-3 text-sm leading-relaxed transition disabled:opacity-60 ${feedbackFocus === option.value ? "border-pink-300 bg-pink-400/25 text-pink-100" : "border-white/10 bg-white/5 text-[#c8c6d6] hover:border-pink-400/40 hover:text-pink-200"}`}
                 >
-                  {rating}
+                  {option.label}
                 </button>
               ))}
             </div>
+            <button
+              type="button"
+              onClick={() => void submitFeedback()}
+              disabled={!feedbackFocus || submittingFeedback || feedbackSubmitted}
+              className="mt-4 w-full rounded-xl bg-pink-400 py-3 text-sm font-bold text-[#1b101d] transition hover:bg-pink-300 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {submittingFeedback ? "กำลังส่ง…" : feedbackSubmitted ? "ส่ง Feedback แล้ว ✓" : "ส่ง Feedback"}
+            </button>
             <p className={`mt-3 text-xs ${feedbackStatus?.includes("✓") ? "text-emerald-300" : "text-[#6a6880]"}`}>
               {feedbackStatus ?? "เมื่อส่ง Feedback ระบบจะเก็บคำตอบ และผลลัพธ์ของรอบนั้นแบบไม่ระบุตัวตน เพื่อวิเคราะห์และปรับปรุงการคำนวณผล จะไม่เก็บข้อมูลหากไม่ส่ง Feedback"}
             </p>

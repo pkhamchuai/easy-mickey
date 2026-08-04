@@ -38,22 +38,29 @@ export function SongMatchExport({ token }: { token: string }) {
         answerPattern: analyzeAnswerPattern(run.comparisons),
       }));
       const reliableFeedbackRuns = feedbackRunsWithQuality.filter((run) => !run.answerPattern.lowConfidence);
+      const ratedFeedbackRuns = reliableFeedbackRuns.filter((run) => typeof run.rating === "number");
       const ratingDistribution = Object.fromEntries(
-        [1, 2, 3, 4, 5].map((rating) => [rating, reliableFeedbackRuns.filter((run) => run.rating === rating).length]),
+        [1, 2, 3, 4, 5].map((rating) => [rating, ratedFeedbackRuns.filter((run) => run.rating === rating).length]),
       );
+      const feedbackFocusDistribution = {
+        good: reliableFeedbackRuns.filter((run) => run.feedbackFocus === "good").length,
+        more_top1: reliableFeedbackRuns.filter((run) => run.feedbackFocus === "more_top1").length,
+        more_top23: reliableFeedbackRuns.filter((run) => run.feedbackFocus === "more_top23").length,
+      };
       const feedbackSummary = {
         totalRuns: feedbackRuns.length,
         reliableRuns: reliableFeedbackRuns.length,
         lowConfidenceRuns: feedbackRuns.length - reliableFeedbackRuns.length,
-        averageRating: reliableFeedbackRuns.length > 0
-          ? reliableFeedbackRuns.reduce((total, run) => total + run.rating, 0) / reliableFeedbackRuns.length
+        averageRating: ratedFeedbackRuns.length > 0
+          ? ratedFeedbackRuns.reduce((total, run) => total + (run.rating ?? 0), 0) / ratedFeedbackRuns.length
           : null,
         ratingDistribution,
+        feedbackFocusDistribution,
       };
       const songsById = new Map(catalog.songs.map((song) => [song.id, song]));
       const exportedAt = new Date();
       const payload = {
-        schemaVersion: 2,
+        schemaVersion: 3,
         exportedAt: exportedAt.toISOString(),
         catalogVersion: catalog.version,
         catalogUpdatedAt: catalog.updatedAt,

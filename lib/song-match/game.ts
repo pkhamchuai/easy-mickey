@@ -1,4 +1,4 @@
-import { memberContentAgreement, selectCloseResults } from "./network";
+import { memberContentAgreement, memberRankedContentAgreement, selectCloseResults } from "./network";
 import type { SongComparison, SongMatchCatalog, SongMatchMember } from "./types";
 
 export type SongPair = [string, string];
@@ -117,20 +117,28 @@ function memberAgreement(member: SongMatchMember, comparisons: SongComparison[])
   return relevantWeight > 0 ? matchedWeight / relevantWeight : 0.5;
 }
 
-export function matchMembers(catalog: SongMatchCatalog, comparisons: SongComparison[]) {
+export function matchMembers(
+  catalog: SongMatchCatalog,
+  comparisons: SongComparison[],
+  rankedSongIds: string[] = [],
+) {
   const scores = songPreferenceScores(catalog.songs.map((song) => song.id), comparisons);
   const ranked = catalog.members
     .map((member) => {
       const behaviorScore = memberAgreement(member, comparisons);
-      const content = memberContentAgreement(catalog, member, comparisons);
+      const fullContent = memberContentAgreement(catalog, member, comparisons);
+      const topThreeContent = rankedSongIds.length > 0
+        ? memberRankedContentAgreement(catalog, member, rankedSongIds.slice(0, 3))
+        : fullContent;
+      const contentScore = fullContent.score * 0.25 + topThreeContent.score * 0.75;
       return {
         member,
-        // Content features carry more weight so a few direct wins cannot produce a false 100% match.
-        score: Math.min(0.95, behaviorScore * 0.35 + content.score * 0.65),
+        // Final Top 3 carries most weight, while base answers still stabilize sparse direct matches.
+        score: Math.min(0.95, behaviorScore * 0.25 + contentScore * 0.75),
         behaviorScore,
-        contentScore: content.score,
-        tempoScore: content.tempoScore,
-        sharedTraits: content.sharedTraits,
+        contentScore,
+        tempoScore: topThreeContent.tempoScore,
+        sharedTraits: topThreeContent.sharedTraits,
         rankScores: member.picks.map((songId) => scores[songId] ?? 0.5),
       };
     })

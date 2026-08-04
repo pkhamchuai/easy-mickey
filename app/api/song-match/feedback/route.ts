@@ -6,6 +6,7 @@ import {
 } from "@/lib/song-match/db";
 import type {
   SongComparison,
+  SongMatchFeedbackFocus,
   SongMatchFeedbackResult,
   SongMatchFeedbackSubmission,
 } from "@/lib/song-match/types";
@@ -37,13 +38,17 @@ function validResult(value: unknown): value is SongMatchFeedbackResult {
     result.score >= 0 && result.score <= 1;
 }
 
+function validFeedbackFocus(value: unknown): value is SongMatchFeedbackFocus {
+  return value === "good" || value === "more_top1" || value === "more_top23";
+}
+
 function parseSubmission(value: unknown) {
   if (!value || typeof value !== "object") throw new Error("Invalid feedback");
   const input = value as Partial<SongMatchFeedbackSubmission>;
   if (!input.sessionId || !SESSION_ID_PATTERN.test(input.sessionId)) throw new Error("Invalid session");
   if (!Number.isSafeInteger(input.catalogVersion) || Number(input.catalogVersion) < 1) throw new Error("Invalid catalog version");
   if (input.mode !== "quick" && input.mode !== "detailed") throw new Error("Invalid game mode");
-  if (!Number.isInteger(input.rating) || Number(input.rating) < 1 || Number(input.rating) > 5) throw new Error("Invalid rating");
+  if (!validFeedbackFocus(input.feedbackFocus)) throw new Error("Invalid feedback focus");
   if (!Number.isInteger(input.questionCount) || Number(input.questionCount) < 1 || Number(input.questionCount) > 500) throw new Error("Invalid question count");
   if (!Number.isInteger(input.songCount) || Number(input.songCount) < 2 || Number(input.songCount) > 500) throw new Error("Invalid song count");
   if (!Number.isInteger(input.memberCount) || Number(input.memberCount) < 1 || Number(input.memberCount) > 500) throw new Error("Invalid member count");
@@ -55,7 +60,7 @@ function parseSubmission(value: unknown) {
     catalogVersion: Number(input.catalogVersion),
     mode: input.mode,
     questionCount: Number(input.questionCount),
-    rating: Number(input.rating),
+    feedbackFocus: input.feedbackFocus,
     songCount: Number(input.songCount),
     memberCount: Number(input.memberCount),
     comparisons: input.comparisons,

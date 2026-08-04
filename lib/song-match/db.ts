@@ -4,8 +4,10 @@ import { normalizeCatalog } from "./catalog";
 import type {
   SongComparison,
   SongMatchCatalog,
+  SongMatchFeedbackFocus,
   SongMatchFeedbackRecord,
   SongMatchFeedbackResult,
+  SongMatchFeedbackSubmission,
   SongMatchMember,
   SongMatchSong,
 } from "./types";
@@ -68,13 +70,16 @@ async function ensureSchema() {
         catalog_version BIGINT NOT NULL,
         game_mode TEXT NOT NULL CHECK (game_mode IN ('quick', 'detailed')),
         question_count INTEGER NOT NULL CHECK (question_count > 0),
-        rating SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+        rating SMALLINT CHECK (rating BETWEEN 1 AND 5),
+        feedback_focus TEXT CHECK (feedback_focus IN ('good', 'more_top1', 'more_top23')),
         song_count INTEGER NOT NULL CHECK (song_count > 1),
         member_count INTEGER NOT NULL CHECK (member_count > 0),
         comparisons JSONB NOT NULL,
         results JSONB NOT NULL
       )
     `;
+    await sql`ALTER TABLE song_match_feedback ADD COLUMN IF NOT EXISTS feedback_focus TEXT CHECK (feedback_focus IN ('good', 'more_top1', 'more_top23'))`;
+    await sql`ALTER TABLE song_match_feedback ALTER COLUMN rating DROP NOT NULL`;
     await sql`ALTER TABLE song_match_feedback DROP COLUMN IF EXISTS started_at`;
     await sql`ALTER TABLE song_match_feedback DROP COLUMN IF EXISTS completed_at`;
     await sql`ALTER TABLE song_match_feedback DROP COLUMN IF EXISTS duration_seconds`;
@@ -108,7 +113,8 @@ type FeedbackRow = {
   catalog_version: string | number;
   game_mode: "quick" | "detailed";
   question_count: number;
-  rating: number;
+  rating: number | null;
+  feedback_focus: SongMatchFeedbackFocus | null;
   song_count: number;
   member_count: number;
   comparisons: SongComparison[];
@@ -189,19 +195,19 @@ export async function writeSongMatchCatalog(catalog: SongMatchCatalog): Promise<
   return { ...catalog, version, updatedAt: new Date().toISOString() };
 }
 
-export async function writeSongMatchFeedback(feedback: SongMatchFeedbackRecord) {
+export async function writeSongMatchFeedback(feedback: SongMatchFeedbackSubmission) {
   if (!sql) throw new Error("Song Match database is not configured");
   await ensureSchema();
   await sql`
     INSERT INTO song_match_feedback (
-      session_id, catalog_version, game_mode, question_count, rating,
+      session_id, catalog_version, game_mode, question_count, rating, feedback_focus,
       song_count, member_count, comparisons, results
     ) VALUES (
-      ${feedback.sessionId}, ${feedback.catalogVersion}, ${feedback.mode}, ${feedback.questionCount}, ${feedback.rating},
+      ${feedback.sessionId}, ${feedback.catalogVersion}, ${feedback.mode}, ${feedback.questionCount}, ${null}, ${feedback.feedbackFocus},
       ${feedback.songCount}, ${feedback.memberCount}, ${JSON.stringify(feedback.comparisons)}::jsonb, ${JSON.stringify(feedback.results)}::jsonb
     )
     ON CONFLICT (session_id) DO UPDATE SET
-      rating = EXCLUDED.rating
+      feedback_focus = EXCLUDED.feedback_focus
   `;
 }
 
@@ -210,7 +216,7 @@ export async function readSongMatchFeedback(): Promise<SongMatchFeedbackRecord[]
   await ensureSchema();
   const rows = await sql`
     SELECT
-      session_id, catalog_version, game_mode, question_count, rating,
+      session_id, catalog_version, game_mode, question_count, rating, feedback_focus,
       song_count, member_count, comparisons, results
     FROM song_match_feedback
     ORDER BY session_id
@@ -222,6 +228,7 @@ export async function readSongMatchFeedback(): Promise<SongMatchFeedbackRecord[]
     mode: row.game_mode,
     questionCount: row.question_count,
     rating: row.rating,
+    feedbackFocus: row.feedback_focus,
     songCount: row.song_count,
     memberCount: row.member_count,
     comparisons: row.comparisons,

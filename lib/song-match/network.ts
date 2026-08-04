@@ -209,6 +209,18 @@ export function memberContentAgreement(
   return compareTasteProfiles(comparisonTasteProfile(catalog, comparisons), memberTasteProfile(catalog, member));
 }
 
+export function memberRankedContentAgreement(
+  catalog: SongMatchCatalog,
+  member: SongMatchMember,
+  rankedSongIds: string[],
+) {
+  const userProfile = createProfile(catalog, rankedSongIds.map((songId, index) => ({
+    songId,
+    weight: MEMBER_RANK_WEIGHTS[index] ?? 0.35,
+  })));
+  return compareTasteProfiles(userProfile, memberTasteProfile(catalog, member));
+}
+
 export function explicitTasteNetwork(
   catalog: SongMatchCatalog,
   rankedSongIds: string[],

@@ -31,6 +31,8 @@ export type SongComparison = {
 
 export type SongMatchGameMode = "quick" | "detailed";
 
+export type SongMatchFeedbackFocus = "good" | "more_top1" | "more_top23";
+
 export type SongMatchFeedbackResult = {
   memberId: string;
   score: number;
@@ -41,11 +43,14 @@ export type SongMatchFeedbackSubmission = {
   catalogVersion: number;
   mode: SongMatchGameMode;
   questionCount: number;
-  rating: number;
+  feedbackFocus: SongMatchFeedbackFocus;
   songCount: number;
   memberCount: number;
   comparisons: SongComparison[];
   results: SongMatchFeedbackResult[];
 };
 
-export type SongMatchFeedbackRecord = SongMatchFeedbackSubmission;
+export type SongMatchFeedbackRecord = Omit<SongMatchFeedbackSubmission, "feedbackFocus"> & {
+  rating: number | null;
+  feedbackFocus: SongMatchFeedbackFocus | null;
+};
