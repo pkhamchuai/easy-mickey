@@ -5,6 +5,8 @@ export type SongPair = [string, string];
 
 const SONG_SCORE_PRIOR_GAMES = 1;
 const SONG_SCORE_PRIOR_POINTS = 0.5;
+const BEHAVIOR_SCORE_WEIGHT = 0.15;
+const CONTENT_SCORE_WEIGHT = 1 - BEHAVIOR_SCORE_WEIGHT;
 
 function shuffle<T>(values: T[]): T[] {
   const result = [...values];
@@ -134,7 +136,7 @@ export function matchMembers(
       return {
         member,
         // Final Top 3 carries most weight, while base answers still stabilize sparse direct matches.
-        score: Math.min(0.95, behaviorScore * 0.25 + contentScore * 0.75),
+        score: Math.min(0.95, behaviorScore * BEHAVIOR_SCORE_WEIGHT + contentScore * CONTENT_SCORE_WEIGHT),
         behaviorScore,
         contentScore,
         tempoScore: topThreeContent.tempoScore,

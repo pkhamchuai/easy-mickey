@@ -15,7 +15,7 @@ const FEATURE_GROUPS = [
 const TARGET_RANK_WEIGHTS = [1, 0.72, 0.5];
 const BEHAVIOR_RANK_WEIGHTS = [1, 0.7, 0.45];
 const CURRENT_PARAMS = {
-  behaviorWeight: 0.25,
+  behaviorWeight: 0.15,
   top3Blend: 0.75,
   tempoWeight: 0.1,
   rankWeights: TARGET_RANK_WEIGHTS,
