@@ -2457,6 +2457,52 @@
           "https://bpm-database.tokyo/music/m1vR2JOi"
         ]
       }
+    },
+    {
+      "id": "song-62edb8bf-fb56-495e-a444-6d7145e5e733",
+      "artist": "AKB48",
+      "title": "Kuchibiru ni Be My Baby",
+      "analysis": {
+        "tempo": 178,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "playful",
+          "romantic",
+          "lovestruck",
+          "shy",
+          "hopeful"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "upbeat-pop"
+        ],
+        "themes": [
+          "unspoken-love",
+          "first-kiss",
+          "hesitation",
+          "mutual-attraction",
+          "courage"
+        ],
+        "settings": [
+          "bus"
+        ],
+        "seasons": [],
+        "releaseDate": "2015-12-09",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yoshifumi Kouchi",
+          "arranger": "Hiroshi Sasaki"
+        },
+        "confidence": "high",
+        "notes": "Fast, playful idol-pop about two shy people riding together on a bus, each hoping its movement will bring them closer and give the other courage to initiate a first kiss.",
+        "sources": [
+          "https://www.youtube.com/watch?v=hfnCAjE8LsU",
+          "https://www.uta-net.com/song/198806/",
+          "https://bpm-database.tokyo/music/3M0NuhuO"
+        ]
+      }
     }
   ]
 }
