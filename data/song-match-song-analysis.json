@@ -2356,6 +2356,107 @@
           "https://www.youtube.com/watch?v=SUjvUN0vztY"
         ]
       }
+    },
+    {
+      "id": "song-ef9fb5fe-5daf-4b46-81aa-0c4929ff8260",
+      "artist": "AKB48",
+      "title": "Everyday, Kachuusha",
+      "analysis": {
+        "tempo": 172.5,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "bright",
+          "summery",
+          "romantic",
+          "nostalgic",
+          "hopeful"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "summer",
+          "unspoken-love",
+          "friendship-to-romance",
+          "admiration",
+          "growing-up"
+        ],
+        "settings": [
+          "beach",
+          "seaside-road",
+          "school"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2011-05-25",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yoshimasa Inoue",
+          "arranger": "Yoshimasa Inoue"
+        },
+        "confidence": "high",
+        "notes": "Fast, bright summer idol-pop about a long friendship turning into unspoken love during a seaside trip as the admired girl grows up.",
+        "sources": [
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=24&po=2",
+          "https://www.uta-net.com/song/113465/",
+          "https://bpm-database.tokyo/music/5rZLOa8N"
+        ]
+      }
+    },
+    {
+      "id": "song-fd0bde2b-eb4a-4506-91f5-b7ed21964962",
+      "artist": "NMB48",
+      "title": "Boku Datte Naichau yo",
+      "analysis": {
+        "tempo": 83.4,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "bittersweet",
+          "determined",
+          "vulnerable",
+          "hopeful",
+          "emotional"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "graduation-pop"
+        ],
+        "themes": [
+          "farewell",
+          "separation",
+          "dream-pursuit",
+          "courage",
+          "independence",
+          "loss"
+        ],
+        "settings": [
+          "home",
+          "city",
+          "dawn"
+        ],
+        "seasons": [
+          "winter"
+        ],
+        "releaseDate": "2018-10-17",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Takayuki Ota",
+          "arranger": "Takayuki Ota"
+        },
+        "confidence": "high",
+        "notes": "An emotionally charged graduation single about quietly leaving a loved one at dawn, accepting loneliness, and choosing an uncertain dream over present happiness.",
+        "sources": [
+          "https://www.youtube.com/watch?v=h52EITY0YoU",
+          "https://www.uta-net.com/song/257242/",
+          "https://bpm-database.tokyo/music/m1vR2JOi"
+        ]
+      }
     }
   ]
 }
