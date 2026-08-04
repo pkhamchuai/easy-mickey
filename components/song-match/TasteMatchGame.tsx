@@ -6,6 +6,7 @@ import { analyzeAnswerPattern } from "@/lib/song-match/answer-quality";
 import { createAdaptiveSongPairs, createSongPairs, matchMembers, songPreferenceScores, type SongPair } from "@/lib/song-match/game";
 import type { SongComparison, SongMatchCatalog, SongMatchGameMode } from "@/lib/song-match/types";
 import { youtubeVideoId } from "@/lib/song-match/youtube";
+import { YouTubePlayer } from "./YouTubePlayer";
 
 const STORAGE_KEY = "easy-mickey:song-match:v5";
 
@@ -378,7 +379,7 @@ function SongButton({ label, title, artist, onClick }: { label: "A" | "B"; title
 }
 
 function VideoEmbed({ videoId, title }: { videoId: string | null; title: string }) {
-  return videoId ? <iframe key={videoId} className="aspect-video w-full rounded-xl border border-white/10" src={`https://www.youtube-nocookie.com/embed/${videoId}`} title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /> : <div className="flex aspect-video items-center justify-center rounded-xl border border-white/10 bg-[#13131e] px-2 text-center text-xs text-[#6a6880]">ไม่มีวิดีโอ</div>;
+  return videoId ? <YouTubePlayer key={videoId} videoId={videoId} title={title} /> : <div className="flex aspect-video items-center justify-center rounded-xl border border-white/10 bg-[#13131e] px-2 text-center text-xs text-[#6a6880]">ไม่มีวิดีโอ</div>;
 }
 
 function SongRankRow({ rank, artist, title }: { rank: number; artist: string; title: string }) {

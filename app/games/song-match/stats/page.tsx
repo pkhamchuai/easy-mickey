@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { YouTubePlayer } from "@/components/song-match/YouTubePlayer";
 import { readPublicSongMatchCatalog } from "@/lib/song-match/public-catalog";
 import { createSongStats } from "@/lib/song-match/stats";
 import { youtubeVideoId } from "@/lib/song-match/youtube";
@@ -15,16 +16,7 @@ function SongVideo({ youtubeUrl, title }: { youtubeUrl: string; title: string })
   const videoId = youtubeVideoId(youtubeUrl);
   if (!videoId) return null;
 
-  return (
-    <iframe
-      className="mt-4 aspect-video w-full rounded-xl border border-white/10"
-      src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-      title={`${title} YouTube video`}
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerPolicy="strict-origin-when-cross-origin"
-      allowFullScreen
-    />
-  );
+  return <YouTubePlayer videoId={videoId} title={`${title} YouTube video`} className="mt-4" />;
 }
 
 export default async function SongMatchStatsPage() {
