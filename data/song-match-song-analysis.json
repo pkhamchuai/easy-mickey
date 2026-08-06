@@ -2503,6 +2503,56 @@
           "https://bpm-database.tokyo/music/3M0NuhuO"
         ]
       }
+    },
+    {
+      "id": "song-0d9a4711-ebba-4c27-b443-19f4546dd3b1",
+      "artist": "NMB48",
+      "title": "Shidare Yanagi",
+      "analysis": {
+        "tempo": 159,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "nostalgic",
+          "wistful",
+          "romantic",
+          "melancholic",
+          "resilient"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "japanese-inspired"
+        ],
+        "themes": [
+          "lost-love",
+          "memory",
+          "longing",
+          "separation",
+          "emotional-resilience"
+        ],
+        "settings": [
+          "riverside",
+          "summer-night"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2021-06-16",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "CHOCOLATE MIX",
+          "arranger": "CHOCOLATE MIX"
+        },
+        "confidence": "high",
+        "notes": "Fast, Japanese-inspired dance-pop that looks back on a lost summer love by a riverside, using the wind-bent willow as an image of longing, grief, and the strength to endure.",
+        "sources": [
+          "https://www.youtube.com/watch?v=emSrxljDQGI",
+          "https://www.uta-net.com/song/303326/",
+          "https://tower.jp/item/5188746",
+          "https://keytube.net/song/detail/78348"
+        ]
+      }
     }
   ]
 }
