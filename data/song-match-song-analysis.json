@@ -2553,6 +2553,99 @@
           "https://keytube.net/song/detail/78348"
         ]
       }
+    },
+    {
+      "id": "song-2ca13a74-dd5a-4551-9988-bbd543f52ed6",
+      "artist": "NGT48",
+      "title": "Sekai no Hito e",
+      "analysis": {
+        "tempo": 155,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "uplifting",
+          "hopeful",
+          "warm",
+          "communal",
+          "inspirational"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "anthem"
+        ],
+        "themes": [
+          "unity",
+          "love",
+          "trust",
+          "mutual-support",
+          "world-peace",
+          "hope"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2018-10-03",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Mr.LIVE",
+          "arranger": "Akiyuki Tateyama"
+        },
+        "confidence": "high",
+        "notes": "A fast, uplifting pop anthem inviting people across languages and borders to sing together, trust one another, and build a shared future through a chain of love and mutual support.",
+        "sources": [
+          "https://www.youtube.com/watch?v=j34jWQ0CTD4",
+          "https://www.uta-net.com/song/256503/",
+          "https://keytube.net/song/detail/11758"
+        ]
+      }
+    },
+    {
+      "id": "song-87d1adf0-04ac-48c4-aeba-6f2c940b482f",
+      "artist": "NMB48",
+      "title": "Hatsukoi Shijou Shugi",
+      "analysis": {
+        "tempo": 160,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "nostalgic",
+          "romantic",
+          "wistful",
+          "bittersweet",
+          "hopeful"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "upbeat-pop"
+        ],
+        "themes": [
+          "first-love",
+          "unspoken-love",
+          "childhood-friends",
+          "reunion",
+          "regret",
+          "courage"
+        ],
+        "settings": [
+          "city",
+          "class-reunion"
+        ],
+        "seasons": [],
+        "releaseDate": "2019-11-06",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "SoichiroK / Nozomu.S",
+          "arranger": "Yuichi Nonaka"
+        },
+        "confidence": "high",
+        "notes": "Upbeat yet bittersweet idol-pop about unexpectedly meeting a childhood friend years later and realizing that no later romance has surpassed an unconfessed first love.",
+        "sources": [
+          "https://www.youtube.com/watch?v=lDLcfrBw8wE",
+          "https://www.uta-net.com/song/276910/",
+          "https://songbpm.com/@nmb48/chu-lian-zhi-shang-zhu-yi-YNBfxQEWPS"
+        ]
+      }
     }
   ]
 }

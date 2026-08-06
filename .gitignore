@@ -42,3 +42,6 @@ next-env.d.ts
 
 /.claude/
 .claude/settings.json
+
+# Local exports and working documents
+/.local/

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { readFile, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 import sharp from "sharp";
 
 const DEFAULT_CATALOG_URL = "https://easy-mickey.vercel.app/api/song-match/catalog";
@@ -65,6 +65,17 @@ function escapeXml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;");
+}
+
+function dateInTimeZone(value, timeZone) {
+  const parts = new Intl.DateTimeFormat("en", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date(value));
+  const values = Object.fromEntries(parts.map(({ type, value: part }) => [type, part]));
+  return `${values.year}-${values.month}-${values.day}`;
 }
 
 function magnitude(vector) {
@@ -276,33 +287,41 @@ function tsneLayout(members, similarityMatrix, perplexity) {
     y: 340 + (y - minY) / Math.max(1e-9, maxY - minY) * (HEIGHT - 650),
   }));
   const positions = targets.map((point) => ({ ...point }));
+  const halfWidths = members.map((member) => Math.max(NODE_RADIUS + 10, member.name.length * 8.5));
+  const labelCenterOffsetY = 31;
+  const halfHeight = 108;
 
-  for (let iteration = 0; iteration < 280; iteration += 1) {
+  for (let iteration = 0; iteration < 340; iteration += 1) {
     for (let a = 0; a < count; a += 1) {
       for (let b = a + 1; b < count; b += 1) {
-        let dx = positions[b].x - positions[a].x;
-        let dy = positions[b].y - positions[a].y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance >= 205) continue;
-        if (distance < 1) {
-          dx = (hash(`${members[a].id}:${members[b].id}`) % 2 ? 1 : -1) * 0.5;
-          dy = 0.5;
-          distance = Math.sqrt(dx * dx + dy * dy);
+        const dx = positions[b].x - positions[a].x;
+        const dy = (positions[b].y + labelCenterOffsetY) - (positions[a].y + labelCenterOffsetY);
+        const overlapX = halfWidths[a] + halfWidths[b] + 24 - Math.abs(dx);
+        const overlapY = halfHeight * 2 + 20 - Math.abs(dy);
+        if (overlapX <= 0 || overlapY <= 0) continue;
+
+        if (overlapX < overlapY) {
+          const direction = dx === 0
+            ? (hash(`${members[a].id}:${members[b].id}:x`) % 2 ? 1 : -1)
+            : Math.sign(dx);
+          const push = overlapX * 0.52 * direction;
+          positions[a].x -= push;
+          positions[b].x += push;
+        } else {
+          const direction = dy === 0
+            ? (hash(`${members[a].id}:${members[b].id}:y`) % 2 ? 1 : -1)
+            : Math.sign(dy);
+          const push = overlapY * 0.52 * direction;
+          positions[a].y -= push;
+          positions[b].y += push;
         }
-        const push = (205 - distance) * 0.52;
-        const pushX = push * dx / distance;
-        const pushY = push * dy / distance;
-        positions[a].x -= pushX;
-        positions[a].y -= pushY;
-        positions[b].x += pushX;
-        positions[b].y += pushY;
       }
     }
     positions.forEach((point, index) => {
-      point.x += (targets[index].x - point.x) * 0.018;
-      point.y += (targets[index].y - point.y) * 0.018;
-      point.x = Math.max(150, Math.min(WIDTH - 150, point.x));
-      point.y = Math.max(300, Math.min(HEIGHT - 180, point.y));
+      point.x += (targets[index].x - point.x) * 0.012;
+      point.y += (targets[index].y - point.y) * 0.012;
+      point.x = Math.max(halfWidths[index] + 30, Math.min(WIDTH - halfWidths[index] - 30, point.x));
+      point.y = Math.max(300, Math.min(HEIGHT - 320, point.y));
     });
   }
   return positions;
@@ -357,8 +376,10 @@ async function main() {
   const images = await Promise.all(catalog.members.map((member) => imageDataUrl(member.imageUrl)));
   const strongest = Math.max(...edges.map(({ score }) => score));
   const weakest = Math.min(...edges.map(({ score }) => score));
-  const catalogDate = new Date(catalog.updatedAt).toISOString().slice(0, 10);
-  const outputBase = resolve(options.outputBase ?? `docs/song-match-member-network-${catalogDate}`);
+  const catalogDate = dateInTimeZone(catalog.updatedAt, "Asia/Bangkok");
+  const outputBase = resolve(
+    options.outputBase ?? `.local/song-match/network/song-match-member-network-${catalogDate}`,
+  );
 
   const edgeSvg = edges.map((edge) => {
     const from = positions[edge.a];
@@ -406,6 +427,7 @@ async function main() {
   </g>
 </svg>`;
 
+  await mkdir(dirname(outputBase), { recursive: true });
   await writeFile(`${outputBase}.svg`, svg);
   await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toFile(`${outputBase}.png`);
   console.log(JSON.stringify({
