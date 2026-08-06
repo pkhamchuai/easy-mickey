@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "analyze:song-match": "node scripts/analyze-song-match-correlation.mjs"
+    "analyze:song-match": "node scripts/analyze-song-match-correlation.mjs",
+    "export:song-match-network": "node scripts/export-song-match-network.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
