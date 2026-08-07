@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-04",
+  "updatedAt": "2026-08-07",
   "methodology": {
     "purpose": "Reusable features for song and member similarity graphs.",
     "tempoUnit": "BPM",
@@ -2644,6 +2644,144 @@
           "https://www.youtube.com/watch?v=lDLcfrBw8wE",
           "https://www.uta-net.com/song/276910/",
           "https://songbpm.com/@nmb48/chu-lian-zhi-shang-zhu-yi-YNBfxQEWPS"
+        ]
+      }
+    },
+    {
+      "id": "song-eaea1914-3b5c-4cb1-934d-2af31a053f1b",
+      "artist": "AKB48",
+      "title": "Kokoro no Placard",
+      "analysis": {
+        "tempo": 98,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "playful",
+          "romantic",
+          "shy",
+          "hopeful",
+          "warm"
+        ],
+        "styles": [
+          "idol-pop",
+          "retro-pop",
+          "message-song"
+        ],
+        "themes": [
+          "unspoken-love",
+          "confession",
+          "courage",
+          "authenticity",
+          "taking-initiative"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2014-08-27",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yusuke Itagaki",
+          "arranger": "Seiji Muto"
+        },
+        "confidence": "high",
+        "notes": "A warm, oldies-tinged message song about a shy crush who wishes feelings could be written on a placard, then gathers the courage to communicate honestly.",
+        "sources": [
+          "https://www.youtube.com/watch?v=JhokU8SlmNg",
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=218",
+          "https://www.uta-net.com/song/168813/",
+          "https://bpm-database.tokyo/music/m53UoDF6"
+        ]
+      }
+    },
+    {
+      "id": "song-09b673b1-dd29-41f6-a50a-832f293685d5",
+      "artist": "HKT48",
+      "title": "Kimi wa Motto Dekiru",
+      "analysis": {
+        "tempo": 171,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "energetic",
+          "determined",
+          "encouraging",
+          "uplifting",
+          "inspirational"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "anthem",
+          "message-song"
+        ],
+        "themes": [
+          "self-confidence",
+          "dream-pursuit",
+          "perseverance",
+          "overcoming-obstacle",
+          "courage",
+          "youth"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2023-02-08",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Toshikazu.K / Masahiro Kawaura",
+          "arranger": "Toshikazu.K"
+        },
+        "confidence": "high",
+        "notes": "A very fast encouragement anthem urging the listener to trust their ability, push through fear and obstacles, and keep moving toward a dream without giving up.",
+        "sources": [
+          "https://www.youtube.com/watch?v=sgTrpfINzIw",
+          "https://www.hkt48.jp/news/2023/01/8606",
+          "https://www.uta-net.com/song/332165/",
+          "https://keytube.net/song/detail/125151"
+        ]
+      }
+    },
+    {
+      "id": "song-43e488a8-0dcb-4756-886f-7ca7723bd937",
+      "artist": "SKE48",
+      "title": "Kokuhaku Shinpakusuu",
+      "analysis": {
+        "tempo": 136,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "lovestruck",
+          "excited",
+          "anxious",
+          "passionate",
+          "playful"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "love-pop"
+        ],
+        "themes": [
+          "love-at-first-sight",
+          "crush",
+          "attraction",
+          "confession",
+          "taking-initiative",
+          "courage"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2024-10-02",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Ryota Kato",
+          "arranger": "Ryota Kato"
+        },
+        "confidence": "high",
+        "notes": "High-energy dance-pop that turns a racing pulse and rising blood pressure into playful metaphors for love at first sight, anxious attraction, and the resolve to confess before regret sets in.",
+        "sources": [
+          "https://www.youtube.com/watch?v=X2XAf_x7ws0",
+          "https://avex.jp/ske48/news/detail.php?id=1118772",
+          "https://www.uta-net.com/song/359377/",
+          "https://keytube.net/song/detail/138978"
         ]
       }
     }
