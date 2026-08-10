@@ -3080,6 +3080,153 @@
           "https://bpm-database.tokyo/music/phuVoiSI"
         ]
       }
+    },
+    {
+      "id": "song-73e2f334-31a0-4d79-83c3-484760885ff0",
+      "artist": "Nogizaka AKB",
+      "title": "Mazariau Mono",
+      "analysis": {
+        "tempo": 130,
+        "energy": "medium",
+        "valence": "mixed",
+        "moods": [
+          "cautious",
+          "lonely",
+          "vulnerable",
+          "tender",
+          "hopeful"
+        ],
+        "styles": [
+          "idol-pop",
+          "midtempo-pop",
+          "sentimental-pop"
+        ],
+        "themes": [
+          "outsider-identity",
+          "belonging",
+          "acceptance",
+          "personal-transformation",
+          "trust",
+          "love"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2016-03-09",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Daisuke Toyama / Yohei Tanimura",
+          "arranger": "Makoto Wakatabe"
+        },
+        "confidence": "high",
+        "notes": "Reflective midtempo pop about a guarded outsider who rejects conformity and friendship until one person's quiet acceptance dissolves those barriers and restores the ability to trust and love.",
+        "sources": [
+          "https://www.youtube.com/watch?v=68d_7PpmYhQ",
+          "https://www.akb48.co.jp/news/detailpage/3500618",
+          "https://www.uta-net.com/song/204062/",
+          "https://keytube.net/song/detail/42342"
+        ]
+      }
+    },
+    {
+      "id": "song-05c59f0e-a717-421e-90f0-63506a04cb40",
+      "artist": "AKB48",
+      "title": "Romantic Junbichuu",
+      "analysis": {
+        "tempo": 139,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "festive",
+          "romantic",
+          "eager",
+          "hopeful",
+          "playful"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "feel-good-pop",
+          "upbeat-pop"
+        ],
+        "themes": [
+          "romantic-anticipation",
+          "new-love",
+          "destiny",
+          "meaningful-encounters",
+          "pursuit"
+        ],
+        "settings": [
+          "outdoor-festival",
+          "outdoors"
+        ],
+        "seasons": [],
+        "releaseDate": "2018-05-30",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Manabu Marutani",
+          "arranger": "Manabu Marutani"
+        },
+        "confidence": "high",
+        "notes": "Bright festival pop about entering a crowded outdoor celebration ready for romance, circling the parade in hope that a chance encounter will reveal a future partner.",
+        "sources": [
+          "https://www.youtube.com/watch?v=mf3q-Ar1I2s",
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=377",
+          "https://www.uta-net.com/song/249738/",
+          "https://bpm-database.tokyo/music/6mhH13f6"
+        ]
+      }
+    },
+    {
+      "id": "song-7085a933-377b-4cf2-bbe0-2ced7b3d6374",
+      "artist": "NGT48",
+      "title": "Sekai wa Doko Made Aozora na no ka?",
+      "analysis": {
+        "tempo": 178,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "inspirational",
+          "hopeful",
+          "resilient",
+          "urgent",
+          "communal",
+          "emotional"
+        ],
+        "styles": [
+          "idol-pop",
+          "pop-rock",
+          "anthem",
+          "message-song"
+        ],
+        "themes": [
+          "hope",
+          "emotional-resilience",
+          "overcoming-obstacle",
+          "world-peace",
+          "unity",
+          "new-beginning"
+        ],
+        "settings": [
+          "open-sky",
+          "outdoors",
+          "thunderstorm"
+        ],
+        "seasons": [],
+        "releaseDate": "2017-12-06",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Saimon",
+          "arranger": "Yusuke Itagaki"
+        },
+        "confidence": "high",
+        "notes": "Fast emotional pop-rock that uses blue sky, storms, sunrise, and birds as images of recovery, urging people not to surrender to despair and to rebuild together toward a peaceful future.",
+        "sources": [
+          "https://www.youtube.com/watch?v=qGBvujY6bjg",
+          "https://www.sonymusic.co.jp/artist/ngt48/info/488033",
+          "https://www.uta-net.com/song/240763/",
+          "https://bpm-database.tokyo/album/UJRMQ8l8"
+        ]
+      }
     }
   ]
 }
