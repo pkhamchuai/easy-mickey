@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-07",
+  "updatedAt": "2026-08-10",
   "methodology": {
     "purpose": "Reusable features for song and member similarity graphs.",
     "tempoUnit": "BPM",
@@ -2782,6 +2782,302 @@
           "https://avex.jp/ske48/news/detail.php?id=1118772",
           "https://www.uta-net.com/song/359377/",
           "https://keytube.net/song/detail/138978"
+        ]
+      }
+    },
+    {
+      "id": "song-206b2fc4-b0d7-4b6a-b512-f1f5340cd23c",
+      "artist": "AKB48",
+      "title": "Christmas ga Ippai",
+      "analysis": {
+        "tempo": 133,
+        "energy": "medium",
+        "valence": "positive",
+        "moods": [
+          "festive",
+          "warm",
+          "romantic",
+          "joyful",
+          "hopeful"
+        ],
+        "styles": [
+          "idol-pop",
+          "winter-pop",
+          "feel-good-pop"
+        ],
+        "themes": [
+          "celebration",
+          "love",
+          "confession",
+          "anticipation",
+          "shared-joy"
+        ],
+        "settings": [
+          "city",
+          "street",
+          "night",
+          "winter-weather"
+        ],
+        "seasons": [
+          "winter"
+        ],
+        "releaseDate": "2007-03-07",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Noriyasu Kumagai",
+          "arranger": "Tomonori Taguchi / Haruo Inadome"
+        },
+        "confidence": "high",
+        "notes": "Warm midtempo Christmas pop about a city filled with lights, gifts, snow, and people waiting to affirm their love on a special winter night.",
+        "sources": [
+          "https://www.youtube.com/watch?v=R-9_Q7TZBjI",
+          "https://www.uta-net.com/song/120122/",
+          "https://www.hkt48.jp/setlist/kenkyusei02",
+          "https://bpm-database.tokyo/music/2WeHmand"
+        ]
+      }
+    },
+    {
+      "id": "song-37edca10-0333-4d1b-96b2-a501e01b5247",
+      "artist": "AKB48",
+      "title": "Flying Get",
+      "analysis": {
+        "tempo": 131,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "confident",
+          "bold",
+          "energetic",
+          "flirtatious",
+          "summery"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "pop-rock",
+          "summer-pop"
+        ],
+        "themes": [
+          "summer-attraction",
+          "mutual-attraction",
+          "taking-initiative",
+          "self-confidence",
+          "pursuit"
+        ],
+        "settings": [
+          "beach"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2011-08-24",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Shinya Sumida",
+          "arranger": "Ikuta Machine"
+        },
+        "confidence": "high",
+        "notes": "Brassy Latin- and rock-tinged summer pop about confidently reading mutual attraction and acting first before anyone else can win the crush's heart.",
+        "sources": [
+          "https://www.youtube.com/watch?v=WdhMjzfg6-k",
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=22&po=3",
+          "https://www.uta-net.com/song/117976/",
+          "https://keytube.net/song/detail/14685"
+        ]
+      }
+    },
+    {
+      "id": "song-8f138292-6e0d-4369-b2c0-e6bc39b29d9b",
+      "artist": "AKB48",
+      "title": "Overtake",
+      "analysis": {
+        "tempo": 158,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "determined",
+          "encouraging",
+          "competitive",
+          "resilient",
+          "inspirational"
+        ],
+        "styles": [
+          "idol-pop",
+          "pop-rock",
+          "anthem"
+        ],
+        "themes": [
+          "perseverance",
+          "competition",
+          "teamwork",
+          "dream-pursuit",
+          "self-confidence",
+          "overcoming-obstacle"
+        ],
+        "settings": [
+          "outdoors"
+        ],
+        "seasons": [],
+        "releaseDate": "2011-06-08",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Hisashi Shibata",
+          "arranger": "Mayuko Maruyama"
+        },
+        "confidence": "high",
+        "notes": "A fast competitive encouragement anthem about training through frustration, earning results through effort, and pushing past teammates while keeping the team's victory as the ultimate goal.",
+        "sources": [
+          "https://www.youtube.com/watch?v=HWxHoRn3n_M",
+          "https://www.uta-net.com/song/114204/",
+          "https://tower.jp/item/2845410",
+          "https://chordify.net/es/chords/akb48-songs/overtake-chords"
+        ]
+      }
+    },
+    {
+      "id": "song-95e76bf4-a2ca-4cae-9425-12ca2e4b697f",
+      "artist": "AKB48",
+      "title": "Romance Kenjuu",
+      "analysis": {
+        "tempo": 163,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "playful",
+          "flirtatious",
+          "energetic",
+          "shy",
+          "determined"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "playful-pop"
+        ],
+        "themes": [
+          "crush",
+          "one-sided-love",
+          "pursuit",
+          "hesitation",
+          "taking-initiative",
+          "social-awkwardness"
+        ],
+        "settings": [
+          "train",
+          "train-station",
+          "morning-commute"
+        ],
+        "seasons": [],
+        "releaseDate": "2013-05-22",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Miki Fujisue",
+          "arranger": "Miki Fujisue"
+        },
+        "confidence": "high",
+        "notes": "Fast, playful idol-pop that casts a shy commuter crush as a determined sniper, using finger-gun imagery for an affection she hopes will finally reach its target.",
+        "sources": [
+          "https://www.youtube.com/watch?v=3XMX3BTNKF4",
+          "https://www.uta-net.com/song/146277/",
+          "https://trackify.am/track/6Y72cgEVply1KS3jzF63QJ/tempo"
+        ]
+      }
+    },
+    {
+      "id": "song-63436b29-36a1-4eee-8ed3-093e4b512830",
+      "artist": "AKB48",
+      "title": "Suzukake Nanchara",
+      "analysis": {
+        "tempo": 180,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "nostalgic",
+          "wistful",
+          "romantic",
+          "tender",
+          "hopeful"
+        ],
+        "styles": [
+          "idol-pop",
+          "sentimental-pop",
+          "upbeat-pop"
+        ],
+        "themes": [
+          "childhood-friends",
+          "friends-to-lovers",
+          "unspoken-love",
+          "hesitation",
+          "growing-up",
+          "future"
+        ],
+        "settings": [
+          "roadside"
+        ],
+        "seasons": [
+          "autumn"
+        ],
+        "releaseDate": "2013-12-11",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Tetsuro Oda",
+          "arranger": "Yuichi Nonaka"
+        },
+        "confidence": "high",
+        "notes": "Fast yet wistful pop about realizing a childhood friend has grown into a romantic interest, then choosing patience and the existing friendship over an immediate confession.",
+        "sources": [
+          "https://www.youtube.com/watch?v=OPXRQwkpWoI",
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=4&po=5",
+          "https://www.uta-net.com/song/156547/",
+          "https://keytube.net/song/detail/47114"
+        ]
+      }
+    },
+    {
+      "id": "song-8bc836cb-dee9-4fc4-8f06-95727cb0347c",
+      "artist": "AKB48",
+      "title": "Ue Kara Mariko",
+      "analysis": {
+        "tempo": 169,
+        "energy": "high",
+        "valence": "positive",
+        "moods": [
+          "playful",
+          "flirtatious",
+          "cheeky",
+          "romantic",
+          "excited"
+        ],
+        "styles": [
+          "idol-pop",
+          "upbeat-pop",
+          "playful-pop"
+        ],
+        "themes": [
+          "unconventional-attraction",
+          "almost-kiss",
+          "romantic-push-pull",
+          "hesitation",
+          "attraction"
+        ],
+        "settings": [
+          "city"
+        ],
+        "seasons": [],
+        "releaseDate": "2011-12-07",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Masahiro Kawaura",
+          "arranger": "Ikuta Machine"
+        },
+        "confidence": "high",
+        "notes": "High-energy playful pop about an unpredictable older woman teasing a shy younger admirer with a sudden public request for a kiss and leaving him unsure whether she is serious.",
+        "sources": [
+          "https://www.youtube.com/watch?v=-7YJkt-4R1A",
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=20",
+          "https://www.uta-net.com/song/122832/",
+          "https://bpm-database.tokyo/music/phuVoiSI"
         ]
       }
     }
