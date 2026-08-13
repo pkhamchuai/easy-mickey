@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-10",
+  "updatedAt": "2026-08-13",
   "methodology": {
     "purpose": "Reusable features for song and member similarity graphs.",
     "tempoUnit": "BPM",
@@ -3225,6 +3225,106 @@
           "https://www.sonymusic.co.jp/artist/ngt48/info/488033",
           "https://www.uta-net.com/song/240763/",
           "https://bpm-database.tokyo/album/UJRMQ8l8"
+        ]
+      }
+    },
+    {
+      "id": "song-ea673645-4cda-4ce8-9294-5665d5a4827a",
+      "artist": "NMB48",
+      "title": "Oh my God!",
+      "analysis": {
+        "tempo": 160,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "comic",
+          "playful",
+          "energetic",
+          "awkward",
+          "reassuring"
+        ],
+        "styles": [
+          "idol-pop",
+          "upbeat-pop",
+          "novelty-pop"
+        ],
+        "themes": [
+          "crush",
+          "self-consciousness",
+          "social-awkwardness",
+          "self-image",
+          "authenticity"
+        ],
+        "settings": [
+          "street",
+          "after-school"
+        ],
+        "seasons": [],
+        "releaseDate": "2011-10-19",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "五戸力",
+          "arranger": "生田真心"
+        },
+        "confidence": "high",
+        "notes": "Fast comic idol-pop about running into a crush at the worst possible moment in gym clothes on the way home from school; the panicked \"oh my god\" refrain resolves when he says he likes her exactly as she is.",
+        "sources": [
+          "https://bpm-database.tokyo/music/5cJx6Pcz",
+          "https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%83%9E%E3%82%A4%E3%82%AC%E3%83%BC!",
+          "https://j-lyric.net/artist/a0555ea/l0267ee.html",
+          "https://www.generasia.com/wiki/Oh_My_God!_(NMB48)"
+        ]
+      }
+    },
+    {
+      "id": "song-637ca920-798c-404f-af57-00cdf392cbc1",
+      "artist": "SKE48",
+      "title": "Igai ni Mango",
+      "analysis": {
+        "tempo": null,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "summery",
+          "playful",
+          "bittersweet",
+          "yearning",
+          "shy"
+        ],
+        "styles": [
+          "idol-pop",
+          "summer-pop",
+          "dance-pop"
+        ],
+        "themes": [
+          "summer",
+          "beach",
+          "crush",
+          "unspoken-love",
+          "emotional-restraint",
+          "growing-up",
+          "romantic-timing"
+        ],
+        "settings": [
+          "beach",
+          "seaside"
+        ],
+        "seasons": [
+          "summer"
+        ],
+        "releaseDate": "2017-07-19",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yuichi Harada",
+          "arranger": "APAZZI"
+        },
+        "confidence": "medium",
+        "notes": "Bright summer idol-pop at the shore where the narrator notices a childhood crush has grown up over the year; the mango stands for fruit that is not ripe yet, so romance is deliberately postponed until they are older. No reliable BPM source was found.",
+        "sources": [
+          "https://ja.wikipedia.org/wiki/%E6%84%8F%E5%A4%96%E3%81%AB%E3%83%9E%E3%83%B3%E3%82%B4%E3%83%BC",
+          "https://en.wikipedia.org/wiki/Igai_ni_Mango",
+          "https://j-lyric.net/artist/a05197d/l0415a5.html",
+          "https://utaten.com/lyric/sa17062043/"
         ]
       }
     }

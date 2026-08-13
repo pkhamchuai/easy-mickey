@@ -31,3 +31,8 @@ The first save copies the currently displayed fallback data into Postgres. Later
 ## Public data
 
 `GET /api/song-match/catalog` returns published members only, along with the songs they use. Draft data requires the tools token and is never returned to the public game.
+
+## After adding data
+
+Writing the feature analysis for new songs, checking the ranking against collected feedback, and
+redrawing the member taste network are covered in `song-match-analysis.md`.

@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-const DEFAULT_FEEDBACK = ".local/song-match/song-match-analysis-2026-08-10.json";
+const DEFAULT_FEEDBACK = ".local/song-match/song-match-analysis-2026-08-13.json";
 const DEFAULT_ANALYSIS = "data/song-match-song-analysis.json";
 const FEATURE_GROUPS = [
   { key: "moods", prefix: "mood", weight: 1 },
