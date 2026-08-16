@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-13",
+  "updatedAt": "2026-08-16",
   "methodology": {
     "purpose": "Reusable features for song and member similarity graphs.",
     "tempoUnit": "BPM",
@@ -3325,6 +3325,199 @@
           "https://en.wikipedia.org/wiki/Igai_ni_Mango",
           "https://j-lyric.net/artist/a05197d/l0415a5.html",
           "https://utaten.com/lyric/sa17062043/"
+        ]
+      }
+    },
+    {
+      "id": "song-04951cbf-c190-42ba-bc27-d8fa818e6e16",
+      "artist": "AKB48",
+      "title": "Namida no Seesaw Game",
+      "analysis": {
+        "tempo": 107,
+        "energy": "medium",
+        "valence": "negative",
+        "moods": [
+          "heartbroken",
+          "bittersweet",
+          "wistful",
+          "nostalgic",
+          "resigned"
+        ],
+        "styles": [
+          "idol-pop",
+          "retro-pop",
+          "sentimental-pop"
+        ],
+        "themes": [
+          "heartbreak",
+          "separation",
+          "farewell",
+          "lingering-love",
+          "emotional-pride",
+          "moving-forward",
+          "memory"
+        ],
+        "settings": [
+          "outdoors"
+        ],
+        "seasons": [
+          "summer",
+          "autumn"
+        ],
+        "releaseDate": "2010-08-18",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Toshiaki Matsumoto",
+          "arranger": "Ryosuke Nakanishi"
+        },
+        "confidence": "high",
+        "notes": "Retro-styled sentimental pop about a farewell in which the narrator's love has grown heavier than the other person's; she hides her tears behind pride, watches them leave, and slowly begins walking on with the memories.",
+        "sources": [
+          "https://www.youtube.com/watch?v=U1_7sqZa0wk",
+          "https://www.uta-net.com/song/100000/",
+          "https://anison.online/artist/AKB48",
+          "https://48seconds.blogspot.com/2013/02/heavy-rotation.html"
+        ]
+      }
+    },
+    {
+      "id": "song-4054ceea-af53-4f33-9b6b-65a83c380da7",
+      "artist": "AKB48",
+      "title": "UZA",
+      "analysis": {
+        "tempo": 131,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "intense",
+          "bold",
+          "passionate",
+          "rebellious",
+          "sensual"
+        ],
+        "styles": [
+          "idol-pop",
+          "electropop",
+          "dance-pop"
+        ],
+        "themes": [
+          "desire",
+          "attraction",
+          "spontaneity",
+          "taking-initiative",
+          "freedom",
+          "emotional-impact"
+        ],
+        "settings": [
+          "dancefloor"
+        ],
+        "seasons": [],
+        "releaseDate": "2012-10-31",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Yoshimasa Inoue",
+          "arranger": "Yoshimasa Inoue"
+        },
+        "confidence": "high",
+        "notes": "Dark electropop that rejects caution and romantic calculation, urging an immediate kiss and the uninhibited pursuit of desire even when pride, morality, or rejection might get in the way.",
+        "sources": [
+          "https://www.youtube.com/watch?v=WIdWXhV33vs",
+          "https://www.akb48.co.jp/about/discography/detail_cd/?media_id=15&po=7",
+          "https://www.uta-net.com/song/137195/",
+          "https://keytube.net/song/detail/1886"
+        ]
+      }
+    },
+    {
+      "id": "song-cb4cdd58-ba55-469a-a721-5734398ad27e",
+      "artist": "HKT48",
+      "title": "Ishi",
+      "analysis": {
+        "tempo": 158,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "determined",
+          "defiant",
+          "lonely",
+          "conflicted",
+          "intense"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "message-song"
+        ],
+        "themes": [
+          "individuality",
+          "authenticity",
+          "independence",
+          "resisting-pressure",
+          "outsider-identity",
+          "self-acceptance"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2019-04-10",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Bugbear",
+          "arranger": "APAZZI"
+        },
+        "confidence": "high",
+        "notes": "A cool, message-driven song about choosing personal conviction over majority rule: the guarded narrator accepts the loneliness and loss that come with refusing conformity, even pushing away someone they quietly care for.",
+        "sources": [
+          "https://www.youtube.com/watch?v=I8UgKZQadS4",
+          "https://www.hkt48.jp/discography/single/218/",
+          "https://www.uta-net.com/song/266240/",
+          "https://keytube.net/song/detail/4111"
+        ]
+      }
+    },
+    {
+      "id": "song-0fddc8df-485b-42b9-8e28-a6b38c922d5f",
+      "artist": "NMB48",
+      "title": "Yokuboumono",
+      "analysis": {
+        "tempo": 143,
+        "energy": "high",
+        "valence": "mixed",
+        "moods": [
+          "intense",
+          "bold",
+          "passionate",
+          "defiant",
+          "restless"
+        ],
+        "styles": [
+          "idol-pop",
+          "dance-pop",
+          "message-song",
+          "mature-pop"
+        ],
+        "themes": [
+          "desire",
+          "emotional-restraint",
+          "freedom",
+          "authenticity",
+          "taking-initiative",
+          "pursuit"
+        ],
+        "settings": [],
+        "seasons": [],
+        "releaseDate": "2018-04-04",
+        "credits": {
+          "lyricist": "Yasushi Akimoto",
+          "composer": "Sugaya Bros. / Miss-art",
+          "arranger": "Sugaya Bros."
+        },
+        "confidence": "high",
+        "notes": "A forceful dance number that treats desire as proof of being alive, urging the listener to stop suppressing what they want, abandon safe detachment, and reach for love or ambition with full instinctive intensity.",
+        "sources": [
+          "https://www.youtube.com/watch?v=VUfMsIB6sJE",
+          "https://www.uta-net.com/song/246941/",
+          "https://bpm-database.tokyo/music/Lk9tG8Rd",
+          "https://www.walkerplus.com/article/142578/"
         ]
       }
     }
