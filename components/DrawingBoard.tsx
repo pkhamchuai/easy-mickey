@@ -92,6 +92,8 @@ const PALETTES = [
   },
 ];
 
+const COLORS = PALETTES.flatMap((palette) => palette.colors);
+
 const HISTORY_LIMIT = 12;
 
 type Point = { x: number; y: number };
@@ -141,6 +143,28 @@ export function DrawingBoard({ mode }: { mode: CanvasMode }) {
       templatePromiseRef.current = null;
     });
   }, [loadTemplateImage, mode]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const preventBrowserGesture = (event: Event) => event.preventDefault();
+    const nonPassive: AddEventListenerOptions = { passive: false };
+
+    canvas.addEventListener("touchstart", preventBrowserGesture, nonPassive);
+    canvas.addEventListener("touchmove", preventBrowserGesture, nonPassive);
+    canvas.addEventListener("selectstart", preventBrowserGesture);
+    canvas.addEventListener("dragstart", preventBrowserGesture);
+    canvas.addEventListener("contextmenu", preventBrowserGesture);
+
+    return () => {
+      canvas.removeEventListener("touchstart", preventBrowserGesture, nonPassive);
+      canvas.removeEventListener("touchmove", preventBrowserGesture, nonPassive);
+      canvas.removeEventListener("selectstart", preventBrowserGesture);
+      canvas.removeEventListener("dragstart", preventBrowserGesture);
+      canvas.removeEventListener("contextmenu", preventBrowserGesture);
+    };
+  }, []);
 
   function getPoint(event: ReactPointerEvent<HTMLCanvasElement>): Point {
     const canvas = canvasRef.current!;
@@ -299,20 +323,6 @@ export function DrawingBoard({ mode }: { mode: CanvasMode }) {
 
   return (
     <section className="overflow-hidden rounded-3xl border border-[#2a2a3d] bg-[#10101a] shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#2a2a3d] bg-[#0d0d16] p-4 sm:px-5">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
-            {canvasConfig.label}
-          </p>
-          <p className="mt-1 text-xs text-[#77758a]">
-            {mode === "normal" ? "Canvas สี่เหลี่ยมพื้นขาว" : "Canvas แนวตั้งพร้อมพื้นหลัง GE 2026"}
-          </p>
-        </div>
-        <span className="rounded-lg border border-cyan-500/25 bg-cyan-400/10 px-3 py-1.5 text-xs font-semibold text-cyan-200">
-          {mode === "normal" ? "1:1 · 1200×1200" : "GE Template · 1200×1694"}
-        </span>
-      </div>
-
       <div className="border-b border-[#2a2a3d] p-4 sm:p-5">
         <div className="mb-3 flex items-center justify-between gap-3">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
@@ -331,31 +341,22 @@ export function DrawingBoard({ mode }: { mode: CanvasMode }) {
           </label>
         </div>
 
-        <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2 xl:grid-cols-3" aria-label="เลือกสี">
-          {PALETTES.map((palette) => (
-            <div key={palette.name}>
-              <p className="mb-2 text-[11px] font-medium text-[#77758a]">
-                {palette.name}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {palette.colors.map((swatch) => (
-                  <button
-                    key={swatch.color}
-                    type="button"
-                    title={`${swatch.label} · ${swatch.color}`}
-                    aria-label={`${swatch.label} ${swatch.color}`}
-                    aria-pressed={!erasing && color.toUpperCase() === swatch.color.toUpperCase()}
-                    onClick={() => chooseColor(swatch.color)}
-                    className={`h-8 w-8 rounded-full border-2 transition hover:scale-110 ${
-                      !erasing && color.toUpperCase() === swatch.color.toUpperCase()
-                        ? "border-white ring-2 ring-cyan-400 ring-offset-2 ring-offset-[#10101a]"
-                        : "border-white/15"
-                    }`}
-                    style={{ backgroundColor: swatch.color }}
-                  />
-                ))}
-              </div>
-            </div>
+        <div className="flex flex-wrap gap-2" aria-label="เลือกสี">
+          {COLORS.map((swatch) => (
+            <button
+              key={swatch.color}
+              type="button"
+              title={`${swatch.label} · ${swatch.color}`}
+              aria-label={`${swatch.label} ${swatch.color}`}
+              aria-pressed={!erasing && color.toUpperCase() === swatch.color.toUpperCase()}
+              onClick={() => chooseColor(swatch.color)}
+              className={`h-8 w-8 rounded-full border-2 transition hover:scale-110 ${
+                !erasing && color.toUpperCase() === swatch.color.toUpperCase()
+                  ? "border-white ring-2 ring-cyan-400 ring-offset-2 ring-offset-[#10101a]"
+                  : "border-white/15"
+              }`}
+              style={{ backgroundColor: swatch.color }}
+            />
           ))}
         </div>
       </div>
@@ -451,9 +452,12 @@ export function DrawingBoard({ mode }: { mode: CanvasMode }) {
           onPointerMove={draw}
           onPointerUp={stopDrawing}
           onPointerCancel={stopDrawing}
-          className="mx-auto block h-auto w-full max-w-[1200px] touch-none cursor-crosshair rounded-lg bg-white bg-[length:100%_100%] bg-center bg-no-repeat shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
+          className="mx-auto block h-auto w-4/5 max-w-[1200px] touch-none cursor-crosshair select-none rounded-lg bg-white bg-[length:100%_100%] bg-center bg-no-repeat shadow-[0_12px_40px_rgba(0,0,0,0.35)] [-webkit-touch-callout:none] [-webkit-user-select:none]"
           style={{
             backgroundImage: mode === "ge2026" ? 'url("/GE_template.png")' : undefined,
+            touchAction: "none",
+            userSelect: "none",
+            WebkitUserSelect: "none",
           }}
         />
       </div>
