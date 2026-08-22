@@ -118,6 +118,23 @@ export default function Home() {
             <span className="text-pink-400/50">›</span>
           </Link>
         </div>
+        <div>
+          <Link
+            href="/draw"
+            className="flex w-full items-center justify-between rounded-2xl border border-cyan-500/30 bg-[#0d1a1f] px-5 py-4 transition hover:border-cyan-400/60 hover:bg-[#0f2028]"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-xl" aria-hidden="true">🎨</span>
+              <div className="text-left">
+                <p className="font-semibold text-cyan-200">กระดานวาดรูป</p>
+                <p className="text-xs text-[#9896b0]">
+                  วาดรูปง่าย ๆ เลือกสี ขนาดพู่กัน และ opacity
+                </p>
+              </div>
+            </div>
+            <span className="text-lg text-cyan-400/60">›</span>
+          </Link>
+        </div>
         {SHOW_HANDSHAKE_EVENT && (
           <div>
             <a
