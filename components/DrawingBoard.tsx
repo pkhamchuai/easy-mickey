@@ -95,10 +95,18 @@ const PALETTES = [
 const HISTORY_LIMIT = 12;
 
 type Point = { x: number; y: number };
+export type CanvasMode = "normal" | "ge2026";
 
-export function DrawingBoard() {
+const CANVAS_MODES = {
+  normal: { width: 1200, height: 1200, label: "Normal Mode" },
+  ge2026: { width: 1200, height: 1694, label: "GE 2026 Mode" },
+} as const;
+
+export function DrawingBoard({ mode }: { mode: CanvasMode }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const historyRef = useRef<ImageData[]>([]);
+  const templateImageRef = useRef<HTMLImageElement | null>(null);
+  const templatePromiseRef = useRef<Promise<HTMLImageElement> | null>(null);
   const drawingRef = useRef(false);
   const lastPointRef = useRef<Point | null>(null);
   const [color, setColor] = useState(PALETTES[0].colors[0].color);
@@ -106,23 +114,33 @@ export function DrawingBoard() {
   const [opacity, setOpacity] = useState(100);
   const [erasing, setErasing] = useState(false);
   const [canUndo, setCanUndo] = useState(false);
-  const [status, setStatus] = useState("พู่กันพร้อมใช้งาน");
+  const [status, setStatus] = useState(`${CANVAS_MODES[mode].label} พร้อมใช้งาน`);
+  const canvasConfig = CANVAS_MODES[mode];
 
-  const fillWhite = useCallback(() => {
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d", { alpha: false });
-    if (!canvas || !context) return;
+  const loadTemplateImage = useCallback(() => {
+    if (templateImageRef.current) {
+      return Promise.resolve(templateImageRef.current);
+    }
+    if (templatePromiseRef.current) return templatePromiseRef.current;
 
-    context.save();
-    context.globalAlpha = 1;
-    context.fillStyle = "#ffffff";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    context.restore();
+    templatePromiseRef.current = new Promise<HTMLImageElement>((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => {
+        templateImageRef.current = image;
+        resolve(image);
+      };
+      image.onerror = () => reject(new Error("โหลด GE template ไม่สำเร็จ"));
+      image.src = "/GE_template.png";
+    });
+    return templatePromiseRef.current;
   }, []);
 
   useEffect(() => {
-    fillWhite();
-  }, [fillWhite]);
+    if (mode !== "ge2026") return;
+    void loadTemplateImage().catch(() => {
+      templatePromiseRef.current = null;
+    });
+  }, [loadTemplateImage, mode]);
 
   function getPoint(event: ReactPointerEvent<HTMLCanvasElement>): Point {
     const canvas = canvasRef.current!;
@@ -137,14 +155,15 @@ export function DrawingBoard() {
     context.lineCap = "round";
     context.lineJoin = "round";
     context.lineWidth = brushSize;
-    context.strokeStyle = erasing ? "#ffffff" : color;
-    context.fillStyle = erasing ? "#ffffff" : color;
+    context.globalCompositeOperation = erasing ? "destination-out" : "source-over";
+    context.strokeStyle = color;
+    context.fillStyle = color;
     context.globalAlpha = erasing ? 1 : opacity / 100;
   }
 
   function saveState() {
     const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d", { alpha: false });
+    const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
 
     historyRef.current.push(
@@ -160,7 +179,7 @@ export function DrawingBoard() {
     if (event.button !== 0) return;
 
     const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d", { alpha: false });
+    const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
 
     event.preventDefault();
@@ -179,7 +198,7 @@ export function DrawingBoard() {
 
   function draw(event: ReactPointerEvent<HTMLCanvasElement>) {
     const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d", { alpha: false });
+    const context = canvas?.getContext("2d");
     const lastPoint = lastPointRef.current;
     if (!drawingRef.current || !canvas || !context || !lastPoint) return;
 
@@ -207,7 +226,7 @@ export function DrawingBoard() {
 
   const undo = useCallback(() => {
     const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d", { alpha: false });
+    const context = canvas?.getContext("2d");
     const previous = historyRef.current.pop();
     if (!canvas || !context || !previous) return;
 
@@ -235,27 +254,65 @@ export function DrawingBoard() {
   }
 
   function clearCanvas() {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context) return;
+
     saveState();
-    fillWhite();
+    context.clearRect(0, 0, canvas.width, canvas.height);
     setStatus("ล้างพื้นที่วาดแล้ว");
   }
 
-  function downloadDrawing() {
+  async function downloadDrawing() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const link = document.createElement("a");
-    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    link.download = `easy-mickey-drawing-${timestamp}.png`;
-    link.href = canvas.toDataURL("image/png");
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setStatus("บันทึกภาพ PNG แล้ว");
+    try {
+      setStatus("กำลังเตรียมภาพ PNG…");
+      const output = document.createElement("canvas");
+      output.width = canvas.width;
+      output.height = canvas.height;
+      const context = output.getContext("2d", { alpha: false });
+      if (!context) return;
+
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, output.width, output.height);
+      if (mode === "ge2026") {
+        const template = await loadTemplateImage();
+        context.drawImage(template, 0, 0, output.width, output.height);
+      }
+      context.drawImage(canvas, 0, 0);
+
+      const link = document.createElement("a");
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+      link.download = `easy-mickey-${mode}-${timestamp}.png`;
+      link.href = output.toDataURL("image/png");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setStatus("บันทึกภาพ PNG แล้ว");
+    } catch {
+      templatePromiseRef.current = null;
+      setStatus("บันทึกไม่สำเร็จ กรุณาลองใหม่");
+    }
   }
 
   return (
     <section className="overflow-hidden rounded-3xl border border-[#2a2a3d] bg-[#10101a] shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#2a2a3d] bg-[#0d0d16] p-4 sm:px-5">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
+            {canvasConfig.label}
+          </p>
+          <p className="mt-1 text-xs text-[#77758a]">
+            {mode === "normal" ? "Canvas สี่เหลี่ยมพื้นขาว" : "Canvas แนวตั้งพร้อมพื้นหลัง GE 2026"}
+          </p>
+        </div>
+        <span className="rounded-lg border border-cyan-500/25 bg-cyan-400/10 px-3 py-1.5 text-xs font-semibold text-cyan-200">
+          {mode === "normal" ? "1:1 · 1200×1200" : "GE Template · 1200×1694"}
+        </span>
+      </div>
+
       <div className="border-b border-[#2a2a3d] p-4 sm:p-5">
         <div className="mb-3 flex items-center justify-between gap-3">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
@@ -387,14 +444,17 @@ export function DrawingBoard() {
       >
         <canvas
           ref={canvasRef}
-          width={1200}
-          height={1200}
-          aria-label="พื้นที่วาดรูปสีขาว"
+          width={canvasConfig.width}
+          height={canvasConfig.height}
+          aria-label={mode === "normal" ? "พื้นที่วาดรูปสีขาว" : "พื้นที่วาดรูป GE 2026"}
           onPointerDown={startDrawing}
           onPointerMove={draw}
           onPointerUp={stopDrawing}
           onPointerCancel={stopDrawing}
-          className="mx-auto block aspect-square w-full max-w-[1200px] touch-none cursor-crosshair rounded-lg bg-white shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
+          className="mx-auto block h-auto w-full max-w-[1200px] touch-none cursor-crosshair rounded-lg bg-white bg-[length:100%_100%] bg-center bg-no-repeat shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
+          style={{
+            backgroundImage: mode === "ge2026" ? 'url("/GE_template.png")' : undefined,
+          }}
         />
       </div>
 

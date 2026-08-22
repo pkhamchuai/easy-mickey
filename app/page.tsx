@@ -119,21 +119,31 @@ export default function Home() {
           </Link>
         </div>
         <div>
-          <Link
-            href="/draw"
-            className="flex w-full items-center justify-between rounded-2xl border border-cyan-500/30 bg-[#0d1a1f] px-5 py-4 transition hover:border-cyan-400/60 hover:bg-[#0f2028]"
-          >
-            <div className="flex items-center gap-3">
+          <div className="rounded-2xl border border-cyan-500/30 bg-[#0d1a1f] p-4">
+            <div className="mb-3 flex items-center gap-3 px-1">
               <span className="text-xl" aria-hidden="true">🎨</span>
               <div className="text-left">
                 <p className="font-semibold text-cyan-200">กระดานวาดรูป</p>
-                <p className="text-xs text-[#9896b0]">
-                  วาดรูปง่าย ๆ เลือกสี ขนาดพู่กัน และ opacity
-                </p>
+                <p className="text-xs text-[#9896b0]">เลือกโหมดก่อนเริ่มวาด</p>
               </div>
             </div>
-            <span className="text-lg text-cyan-400/60">›</span>
-          </Link>
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                href="/draw"
+                className="rounded-xl border border-[#2a2a3d] bg-[#13131e] px-3 py-3 text-center text-sm font-semibold text-[#d5d3df] transition hover:border-cyan-400/50 hover:text-cyan-200"
+              >
+                Normal Mode
+                <span className="mt-0.5 block text-[11px] font-normal text-[#77758a]">พื้นขาว 1:1</span>
+              </Link>
+              <Link
+                href="/draw/ge-2026"
+                className="rounded-xl border border-pink-500/30 bg-gradient-to-r from-pink-500/10 to-cyan-500/10 px-3 py-3 text-center text-sm font-semibold text-pink-200 transition hover:border-pink-400/60"
+              >
+                GE 2026 Mode
+                <span className="mt-0.5 block text-[11px] font-normal text-[#9896b0]">พร้อมเทมเพลต</span>
+              </Link>
+            </div>
+          </div>
         </div>
         {SHOW_HANDSHAKE_EVENT && (
           <div>
