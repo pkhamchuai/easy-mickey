@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { fetchCgm48Profile, isCgm48MemberUrl } from "@/lib/cgm48-profile";
 
 function authorized(req: NextRequest) {
   const token = req.headers.get("x-tools-token") ?? "";
@@ -18,6 +19,22 @@ export async function GET(req: NextRequest) {
 
   const url = new URL(req.url).searchParams.get("url");
   if (!url) return NextResponse.json({ error: "Missing url" }, { status: 400 });
+
+  let pageUrl: URL;
+  try {
+    pageUrl = new URL(url);
+  } catch {
+    return NextResponse.json({ error: "Invalid url" }, { status: 400 });
+  }
+
+  if (isCgm48MemberUrl(pageUrl)) {
+    try {
+      const { imageUrl, member } = await fetchCgm48Profile(pageUrl);
+      return NextResponse.json({ images: [imageUrl], member, postId: "Latest" });
+    } catch (error) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Fetch failed" }, { status: 502 });
+    }
+  }
 
   const html = await fetch(url, {
     headers: { "user-agent": "Mozilla/5.0 (compatible; bot)" },

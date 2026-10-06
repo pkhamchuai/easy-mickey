@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { fetchCgm48Profile } from "@/lib/cgm48-profile";
 
 const SINGLES: Record<string, { folder: string; label: string }> = {
   album3: { folder: "cgm48-10th-single", label: "Album3" },
@@ -32,27 +33,38 @@ const MEMBERS: Record<string, string> = {
 
 export async function GET(req: NextRequest) {
   const searchParams = new URL(req.url).searchParams;
-  const single = SINGLES[searchParams.get("single") ?? ""];
+  const singleId = searchParams.get("single") ?? "";
+  const single = SINGLES[singleId];
   const cdnName = MEMBERS[searchParams.get("member") ?? ""];
 
-  if (!single || !cdnName)
+  if ((!single && singleId !== "latest") || !cdnName)
     return NextResponse.json({ error: "Invalid single or member" }, { status: 400 });
 
-  const url = `https://img.bnk48cdn.net/others/${single.folder}/half/H_${cdnName}.png`;
-  const res = await fetch(url, {
-    headers: { "user-agent": "Mozilla/5.0 (compatible; bot)" },
-  });
+  try {
+    const url = singleId === "latest"
+      ? (await fetchCgm48Profile(new URL(`https://cgm48official.com/members/${cdnName.toLowerCase()}`))).imageUrl
+      : `https://img.bnk48cdn.net/others/${single.folder}/half/H_${cdnName}.png`;
+    const res = await fetch(url, {
+      headers: { "user-agent": "Mozilla/5.0 (compatible; bot)" },
+      cache: "no-store",
+      signal: AbortSignal.timeout(15_000),
+    });
 
-  if (!res.ok)
-    return NextResponse.json({ error: "Fetch failed" }, { status: 502 });
+    if (!res.ok)
+      return NextResponse.json({ error: "Fetch failed" }, { status: 502 });
 
-  const buffer = await res.arrayBuffer();
-  const filename = `${searchParams.get("member")}_${single.label}.png`;
+    const buffer = await res.arrayBuffer();
+    const ext = new URL(url).pathname.split(".").pop();
+    const filename = `${searchParams.get("member")}_${singleId === "latest" ? "Latest" : single.label}.${ext}`;
 
-  return new NextResponse(buffer, {
-    headers: {
-      "content-type": "image/png",
-      "content-disposition": `attachment; filename="${filename}"`,
-    },
-  });
+    return new NextResponse(buffer, {
+      headers: {
+        "content-type": res.headers.get("content-type") ?? "image/png",
+        "content-disposition": `${searchParams.get("preview") === "1" ? "inline" : "attachment"}; filename="${filename}"`,
+        "cache-control": "no-store",
+      },
+    });
+  } catch {
+    return NextResponse.json({ error: "โหลดภาพไม่สำเร็จ กรุณาลองใหม่" }, { status: 502 });
+  }
 }

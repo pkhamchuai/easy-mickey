@@ -5,6 +5,7 @@ import { useState } from "react";
 type Single = { id: string; label: string; folder: string };
 
 const SINGLES: Single[] = [
+  { id: "latest", label: "ภาพล่าสุดจากเว็บ CGM48", folder: "" },
   { id: "album3", label: "Album 3: Hokori no Oka", folder: "cgm48-10th-single" },
   { id: "single10", label: "Single 10: ได้(ด้าย)ไหม", folder: "cgm48-11th-single" },
   { id: "single11", label: "Single 11: Let me know", folder: "cgm48-let-me-know-single" },
@@ -46,7 +47,8 @@ async function downloadFile(url: string, filename: string) {
   const blob = await res.blob();
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = filename;
+  const serverFilename = res.headers.get("content-disposition")?.match(/filename="([^"]+)"/)?.[1];
+  a.download = serverFilename ?? filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -54,7 +56,7 @@ async function downloadFile(url: string, filename: string) {
 }
 
 export function SingleImagePicker() {
-  const [singleId, setSingleId] = useState("single11");
+  const [singleId, setSingleId] = useState("latest");
   const [memberName, setMemberName] = useState("Hongyok");
   const [imgError, setImgError] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -62,7 +64,9 @@ export function SingleImagePicker() {
 
   const single = SINGLES.find((s) => s.id === singleId)!;
   const member = MEMBERS.find((m) => m.name === memberName)!;
-  const imageUrl = `https://img.bnk48cdn.net/others/${single.folder}/half/H_${member.cdn}.png`;
+  const imageUrl = singleId === "latest"
+    ? `/api/single-image?single=latest&member=${encodeURIComponent(memberName)}&preview=1`
+    : `https://img.bnk48cdn.net/others/${single.folder}/half/H_${member.cdn}.png`;
 
   async function handleDownload() {
     setDownloading(true);
@@ -99,7 +103,7 @@ export function SingleImagePicker() {
   return (
     <section>
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
-        รูปโปรโมท Single
+        รูปโปรไฟล์ / โปรโมท Single
       </h2>
 
       <div className="space-y-3">
@@ -134,6 +138,12 @@ export function SingleImagePicker() {
         </select>
       </div>
 
+      {singleId === "latest" && (
+        <p className="mt-3 text-xs text-[#9896b0]">
+          ดึงภาพที่หน้าโปรไฟล์ CGM48 ใช้อยู่ล่าสุด เว็บไซต์ไม่ได้ระบุชื่อซิงเกิลของภาพ
+        </p>
+      )}
+
       <div className="mt-4 overflow-hidden rounded-2xl border border-[#2a2a3d] bg-[#13131e]">
         {imgError ? (
           <p className="p-6 text-center text-sm text-[#6a6880]">
@@ -165,7 +175,7 @@ export function SingleImagePicker() {
           disabled={bulkProgress !== "" || downloading}
           className={buttonClass}
         >
-          {bulkProgress ? `กำลังโหลดทั้งหมด… ${bulkProgress}` : "ดาวน์โหลดรูปทุกคนของ Single นี้"}
+          {bulkProgress ? `กำลังโหลดทั้งหมด… ${bulkProgress}` : "ดาวน์โหลดรูปทุกคนของชุดนี้"}
         </button>
       </div>
     </section>

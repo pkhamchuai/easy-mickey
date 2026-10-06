@@ -106,11 +106,11 @@ export function Downloader({ token }: { token: string }) {
 
         {/* Parse timeline URL */}
         <div className="space-y-2">
-          <p className="text-xs text-[#6a6880]">Paste a timeline URL or post number to extract images</p>
+          <p className="text-xs text-[#6a6880]">วางลิงก์โปรไฟล์ CGM48, ลิงก์ Timeline หรือเลขโพสต์เพื่อดึงภาพ</p>
           <div className="flex gap-2">
             <input
               className="flex-1 rounded-lg border border-[#2a2a3d] bg-[#0a0a12] px-3 py-2 text-sm text-[#f0eff8] placeholder-[#6a6880]"
-              placeholder="Post number or full URL"
+              placeholder="https://cgm48official.com/members/hongyok หรือเลขโพสต์"
               value={parseUrl}
               onChange={(e) => { setParseUrl(e.target.value); setParseError(""); }}
             />
