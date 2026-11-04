@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { PredictionUpload } from "@/components/PredictionUpload";
+import { predictionStorage } from "@/lib/ge-prediction-store";
 import { LiveCoverDownloader } from "@/components/LiveCoverDownloader";
 import { Downloader } from "@/components/Downloader";
 import { SongMatchExport } from "@/components/song-match/SongMatchExport";
@@ -34,6 +36,7 @@ export default async function ToolsPage({ searchParams }: Props) {
       </header>
 
       <div className="mx-auto max-w-2xl space-y-10 px-4 py-10">
+        <PredictionUpload token={token} storage={predictionStorage()} />
         <LiveCoverDownloader token={token} />
         <Downloader token={token} />
 

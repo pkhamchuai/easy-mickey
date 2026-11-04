@@ -29,30 +29,6 @@ function TikTokIcon() {
   );
 }
 
-function XIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-    </svg>
-  );
-}
-
-function YouTubeIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-      <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
-    </svg>
-  );
-}
-
-function LineIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-      <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
-    </svg>
-  );
-}
-
 function StarIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -107,39 +83,6 @@ const officialLinks: LinkItem[] = [
   },
 ];
 
-const fanbBaseLinks: LinkItem[] = [
-  {
-    name: "Facebook",
-    url: "https://www.facebook.com/profile.php?id=61577586834926",
-    icon: <FacebookIcon />,
-    iconBg: "#1877f2",
-  },
-  {
-    name: "LINE OPC",
-    url: "https://line.me/ti/g2/i7xB1nBz0U0f3AcE9pxEXcltH5ijKymdyJGo1g",
-    icon: <LineIcon />,
-    iconBg: "#06c755",
-  },
-  {
-    name: "X (Twitter)",
-    url: "https://x.com/Hongyokcgm48FC",
-    icon: <XIcon />,
-    iconBg: "#111111",
-  },
-  {
-    name: "TikTok",
-    url: "https://www.tiktok.com/@mickey.house.hong",
-    icon: <TikTokIcon />,
-    iconBg: "#fe2c55",
-  },
-  {
-    name: "YouTube",
-    url: "https://www.youtube.com/@HongyokMickeysHouse",
-    icon: <YouTubeIcon />,
-    iconBg: "#ff0000",
-  },
-];
-
 export function HongyokLinks() {
   return (
     <div className="space-y-7">
@@ -154,16 +97,6 @@ export function HongyokLinks() {
         </div>
       </section>
 
-      <section>
-        <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#9896b0]">
-          Mickey&apos;s House SNS
-        </h2>
-        <div className="grid grid-cols-2 gap-3">
-          {fanbBaseLinks.map((item) => (
-            <LinkCard key={item.name + item.url} item={item} />
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

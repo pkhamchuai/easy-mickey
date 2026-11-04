@@ -45,3 +45,7 @@ next-env.d.ts
 
 # Local exports and working documents
 /.local/
+
+# Local prediction storage (production uses the database)
+/data/ge-prediction.json
+/data/ge-prediction.json.*.tmp
