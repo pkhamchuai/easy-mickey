@@ -16,21 +16,32 @@
 
 ## Export จาก bnk48-ge4-repo
 
-รันจาก easy-mickey (Node.js 24+ และ Python dependencies ของ bnk48-ge4-repo):
+รันจาก bnk48-ge4-repo (Node.js 24+ และ Python dependencies):
+
+```bash
+npm run export:prediction
+```
+
+ได้ไฟล์ `.local/ge-prediction.json` ใน repo ต้นทาง นำไฟล์นี้ไปอัปโหลดใน `/tools` ได้โดยตรง
+ใช้ผล GA seed 11 รวมโหวตล่าสุด แล้วแบ่งยอดยังไม่ระบุแบบ exponential decay
+ไฟล์ CSV และ JSON สำหรับวิเคราะห์เพิ่มเติมอยู่ที่ `outputs/ge2026/prediction/`
+
+ยังสามารถรันจาก easy-mickey ได้:
 
 ```bash
 npm run export:ge-prediction -- --repo ../bnk48-ge4-repo
-```
-
-ผลลัพธ์อยู่ที่ `.local/ge-prediction.json` อ่านฐานข้อมูลและผล GA ของ repo ต้นทางโดยไม่แก้ไฟล์ต้นทาง ใช้ `SQLITE_DB` และ `PYTHON` เพื่อเปลี่ยนฐานข้อมูลหรือ interpreter ได้
-
-หรือเปิดเว็บ bnk48-ge4-repo ไว้ แล้ว export จาก API ของเว็บนั้น:
-
-```bash
+# หรืออ่านจากเว็บต้นทาง
 npm run export:ge-prediction -- --url http://localhost:8000 --output .local/ge-prediction.json
 ```
 
-ใช้ `genetic_latest` เช่นเดียวกับผลคาดการณ์ล่าสุดบนหน้าแรกของ repo ต้นทาง เวลาอ้างอิงมาจาก `latest_timestamp` ของโหวต ไม่ใช่เวลาที่กด export ถ้า GA ไม่พร้อมหรือยอดรวมไม่ตรงจะไม่สร้างไฟล์ใหม่ ไฟล์มีเฉพาะยอดรวมรายเมมและยอดยังไม่ระบุ ไม่มี wallet/ธุรกรรม
+กรณีรันจาก easy-mickey ไฟล์จะอยู่ที่ `.local/ge-prediction.json` ของ easy-mickey
+ใช้ `SQLITE_DB` และ `PYTHON` เพื่อเปลี่ยนฐานข้อมูลหรือ interpreter ได้
+
+ทั้งสองวิธีใช้ `prediction` จาก GA seed 11 + exponential decay เช่นเดียวกับผลทำนายใหม่บนหน้าแรก
+เวลาอ้างอิงมาจาก `latest_timestamp` ของโหวต ไม่ใช่เวลากด export
+คงคะแนน GA ของทุกเมมแล้วเพิ่มเฉพาะส่วนแบ่งโหวตที่ยังไม่ระบุ ไม่ใช้ manual weights ที่แก้ภายหลัง
+ถ้าผลทำนายไม่พร้อมหรือยอดรวมไม่ตรงจะไม่สร้างไฟล์ใหม่
+ไฟล์มีเฉพาะยอดรวมรายเมม ไม่มี wallet/ธุรกรรม ตัวอ่านยังรองรับไฟล์ `genetic_latest` เดิม
 
 ## อัปโหลดเพื่อเผยแพร่
 

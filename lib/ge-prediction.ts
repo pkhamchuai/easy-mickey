@@ -7,7 +7,9 @@ export type PredictionMember = {
 
 export type Prediction = {
   schemaVersion: 1;
-  method: "genetic_latest";
+  method: "genetic_latest" | "prediction";
+  seed?: number;
+  decay?: number;
   asOf: string;
   exportedAt: string;
   totalTokens: string;
@@ -50,7 +52,10 @@ export function rankedMembers(members: PredictionMember[]): PredictionMember[] {
 
 export function parsePrediction(value: unknown): Prediction {
   const data = record(value);
-  if (data.schemaVersion !== 1 || data.method !== "genetic_latest") throw new Error("ไฟล์ต้องเป็นผลคาดการณ์ genetic_latest เวอร์ชัน 1");
+  if (data.schemaVersion !== 1 || (data.method !== "genetic_latest" && data.method !== "prediction")) throw new Error("ไฟล์ต้องเป็นผลคาดการณ์ prediction หรือ genetic_latest เวอร์ชัน 1");
+  if (data.method === "prediction" && (data.seed !== 11 || typeof data.decay !== "number" || !Number.isFinite(data.decay) || data.decay <= 0 || data.decay > 1)) {
+    throw new Error("ผล prediction ต้องใช้ GA seed 11 และค่า exponential decay ที่ถูกต้อง");
+  }
   if (!Array.isArray(data.members) || data.members.length < 36 || data.members.length > 128) throw new Error("ต้องมีเมมเบอร์ 36–128 คน");
   const slugs = new Set<string>();
   const names = new Set<string>();
@@ -64,10 +69,12 @@ export function parsePrediction(value: unknown): Prediction {
     return { slug, name, group: row.group, tokens: tokens(row.tokens) };
   });
   const totalTokens = tokens(data.totalTokens), unassignedTokens = tokens(data.unassignedTokens);
+  if (data.method === "prediction" && tokenUnits(unassignedTokens) !== BigInt(0)) throw new Error("ผล prediction ต้องแบ่งโหวตที่ยังไม่ระบุครบแล้ว");
   const sum = members.reduce((total, member) => total + tokenUnits(member.tokens), tokenUnits(unassignedTokens));
   if (sum !== tokenUnits(totalTokens)) throw new Error("ยอดโหวตรวมไม่ตรงกับยอดของเมมเบอร์ทั้งหมดบวกยอดยังไม่ระบุ");
   return {
-    schemaVersion: 1, method: "genetic_latest",
+    schemaVersion: 1, method: data.method,
+    ...(data.method === "prediction" ? { seed: 11, decay: data.decay as number } : {}),
     asOf: timestamp(data.asOf, "เวลาอ้างอิง"), exportedAt: timestamp(data.exportedAt, "เวลา export"),
     totalTokens, unassignedTokens, members: rankedMembers(members),
   };
@@ -77,19 +84,21 @@ export function parsePrediction(value: unknown): Prediction {
 export function predictionFromReport(value: unknown): Prediction {
   const report = record(value);
   if (record(report.genetic).available !== true) throw new Error("ยังไม่มีผล GA ที่พร้อมใช้งาน");
-  const metadata = record(record(report.method_metadata).genetic_latest);
+  const metadata = record(record(report.method_metadata).prediction);
+  const model = record(metadata.prediction);
+  if (record(report.genetic).seed !== 11 || model.seed !== 11) throw new Error("ต้องใช้ผล GA seed 11 + exponential decay");
   if (!metadata.latest_timestamp) throw new Error("ไม่พบเวลาโหวตล่าสุดในข้อมูลต้นทาง");
   if (!Array.isArray(report.members)) throw new Error("ไม่พบรายชื่อเมมเบอร์");
   const members = report.members.map(record);
   const unknown = members.filter(member => member.slug === "__unassigned__");
   if (unknown.length !== 1) throw new Error("ต้องมีรายการยังไม่ระบุหนึ่งรายการ");
   return parsePrediction({
-    schemaVersion: 1, method: "genetic_latest", asOf: metadata.latest_timestamp,
-    exportedAt: new Date().toISOString(), totalTokens: record(report.totals).genetic_latest,
-    unassignedTokens: record(unknown[0].amounts).genetic_latest,
+    schemaVersion: 1, method: "prediction", seed: 11, decay: model.decay, asOf: metadata.latest_timestamp,
+    exportedAt: new Date().toISOString(), totalTokens: record(report.totals).prediction,
+    unassignedTokens: record(unknown[0].amounts).prediction,
     members: members.filter(member => member.slug !== "__unassigned__").map(member => ({
       slug: member.slug, name: member.name, group: member.group,
-      tokens: record(member.amounts).genetic_latest,
+      tokens: record(member.amounts).prediction,
     })),
   });
 }

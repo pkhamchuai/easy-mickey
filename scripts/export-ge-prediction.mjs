@@ -16,7 +16,7 @@ if (values.help) {
   console.log(`Usage: npm run export:ge-prediction -- [--repo ../bnk48-ge4-repo] [--output file.json]
        npm run export:ge-prediction -- --url http://localhost:8000
 
-Exports aggregate genetic_latest predictions, the latest vote timestamp,
+Exports GA seed-11 predictions with exponential-decay redistribution, the latest vote timestamp,
 all member totals and the unassigned total. No wallets are exported.
 Requires Node.js 24+ and the source repository's Python dependencies.`);
   process.exit(0);

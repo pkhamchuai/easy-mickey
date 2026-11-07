@@ -47,16 +47,21 @@ test("rejects malformed, incomplete or inconsistent imports", () => {
   }
 });
 
-test("export uses latest GA results, excludes unknown from rankings and strips private fields", () => {
+test("export uses seed-11 exponential predictions, excludes unknown from rankings and strips private fields", () => {
   const data = fixture();
   const report = {
-    genetic: { available: true }, totals: { genetic_latest: "37", genetic: "5" },
-    method_metadata: { genetic_latest: { latest_timestamp: data.asOf, loaded_at: data.exportedAt } },
-    members: [...data.members.map(member => ({ ...member, wallet: "private", amounts: { genetic_latest: member.tokens, genetic: "0" } })),
-      { slug: "__unassigned__", amounts: { genetic_latest: "1" } }],
+    genetic: { available: true, seed: 11 }, totals: { prediction: "37", genetic_latest: "37", genetic: "5" },
+    method_metadata: { prediction: { latest_timestamp: data.asOf, prediction: { seed: 11, decay: 0.05 } } },
+    members: [...data.members.map((member, index) => ({ ...member, wallet: "private", amounts: { prediction: index === 0 ? "2" : "1", genetic_latest: member.tokens, genetic: "0" } })),
+      { slug: "__unassigned__", amounts: { prediction: "0", genetic_latest: "1" } }],
     wallets: ["private"],
   };
   const exported = predictionFromReport(report);
+  assert.equal(exported.method, "prediction");
+  assert.equal(exported.seed, 11);
+  assert.equal(exported.decay, 0.05);
+  assert.equal(exported.unassignedTokens, "0");
+  assert.equal(exported.members[0].tokens, "2");
   assert.equal(exported.members.length, 36);
   assert.equal(exported.totalTokens, "37");
   assert.equal(exported.asOf, "2026-11-04T12:00:00.000Z");
@@ -70,4 +75,15 @@ test("formats tokens precisely and displays Bangkok time", () => {
   assert.equal(formatTokens("1.234"), "1.23");
   assert.equal(formatTokens("100000000000000000000000.01"), "100,000,000,000,000,000,000,000.01");
   assert.match(formatPredictionTime("2026-11-04T12:00:00Z"), /19:00:00/);
+});
+
+
+test("accepts seed-11 redistributed uploads and rejects incomplete or mislabeled predictions", () => {
+  const data = { ...fixture(), method: "prediction", seed: 11, decay: 0.05,
+    totalTokens: "36", unassignedTokens: "0" };
+  assert.equal(parsePrediction(data).method, "prediction");
+  for (const change of [{ seed: 47 }, { decay: 0 }, { decay: NaN }, { decay: "0.05" },
+    { unassignedTokens: "1", totalTokens: "37" }]) {
+    assert.throws(() => parsePrediction({ ...data, ...change }));
+  }
 });
