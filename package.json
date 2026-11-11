@@ -9,6 +9,7 @@
     "lint": "eslint",
     "export:ge-prediction": "node scripts/export-ge-prediction.mjs",
     "test:ge-prediction": "node --test tests/ge-prediction.test.mjs",
+    "test:page-views": "node --test tests/page-views.test.mjs",
     "analyze:song-match": "node scripts/analyze-song-match-correlation.mjs",
     "export:song-match-network": "node scripts/export-song-match-network.mjs"
   },

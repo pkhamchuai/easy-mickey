@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PredictionResults } from "@/components/PredictionResults";
 import { readPrediction } from "@/lib/ge-prediction-store";
+import { PageViewCounter } from "@/components/PageViewCounter";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "คาดการณ์คะแนนโหวต GE2026 — Easy Mickey" };
@@ -21,6 +22,9 @@ export default async function PredictionPage() {
             {failed ? "โหลดผลคาดการณ์ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง" : "ยังไม่มีผลคาดการณ์ที่เผยแพร่"}
           </p>
         )}
+        <footer className="mt-8 border-t border-white/5 pt-6">
+          <PageViewCounter page="prediction" />
+        </footer>
       </div>
     </main>
   );

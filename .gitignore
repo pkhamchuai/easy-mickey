@@ -49,3 +49,7 @@ next-env.d.ts
 # Local prediction storage (production uses the database)
 /data/ge-prediction.json
 /data/ge-prediction.json.*.tmp
+
+# Local page view counts (production uses the database)
+/data/page-views.json
+/data/page-views.json.*.tmp

@@ -2,6 +2,7 @@ import { existsSync } from "fs";
 import { join } from "path";
 import { HongyokLinks } from "@/components/HongyokLinks";
 import { TwitterIntent } from "@/components/TwitterIntent";
+import { PageViewCounter } from "@/components/PageViewCounter";
 
 const SHOW_HANDSHAKE_EVENT = false;
 const profileExt = ["jpg", "png"].find((ext) =>
@@ -117,6 +118,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-white/5 py-8 text-center">
         <div className="mx-auto max-w-lg px-4 flex flex-col items-center gap-3">
+          <PageViewCounter page="home" />
           <p className="text-xs text-[#9896b0]">
             Build and maintain by X:{" "}
             <a
