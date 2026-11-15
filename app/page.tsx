@@ -1,5 +1,6 @@
 import { existsSync } from "fs";
 import { join } from "path";
+import Link from "next/link";
 import { HongyokLinks } from "@/components/HongyokLinks";
 import { TwitterIntent } from "@/components/TwitterIntent";
 import { PageViewCounter } from "@/components/PageViewCounter";
@@ -92,6 +93,43 @@ export default function Home() {
           </span>
           <span className="text-lg text-purple-300/60">›</span>
         </a>
+        <div>
+          <a
+            href="/games/song-match"
+            className="flex w-full items-center justify-between rounded-2xl border border-pink-500/30 bg-[#1b101d] px-5 py-4 transition hover:border-pink-400/60 hover:bg-[#241327]"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-xl">🎵</span>
+              <div className="text-left">
+                <p className="font-semibold text-pink-200">
+                  คุณเป็นใครใน GE 2026
+                </p>
+                <p className="text-xs text-[#9896b0]">เลือกเพลงที่ชอบ แล้วค้นหาเมมที่ตรงกับคุณ</p>
+              </div>
+            </div>
+            <span className="text-pink-400/60 text-lg">›</span>
+          </a>
+          <a
+            href="/games/song-match/stats"
+            className="mt-2 flex w-full items-center justify-between rounded-xl border border-[#2a2a3d] bg-[#13131e] px-4 py-3 text-sm text-[#aaa8bc] transition hover:border-cyan-500/30 hover:bg-[#0d1a1f] hover:text-cyan-200"
+          >
+            <span className="flex items-center gap-2">
+              <span aria-hidden="true">📊</span>
+              ดูสถิติเพลงที่เมมเลือก
+            </span>
+            <span className="text-cyan-400/50">›</span>
+          </a>
+          <Link
+            href="/games/song-match/members"
+            className="mt-2 flex w-full items-center justify-between rounded-xl border border-[#2a2a3d] bg-[#13131e] px-4 py-3 text-sm text-[#aaa8bc] transition hover:border-pink-500/30 hover:bg-[#1b101d] hover:text-pink-200"
+          >
+            <span className="flex items-center gap-2">
+              <span aria-hidden="true">🎧</span>
+              ดูเพลงที่เมมเบอร์เลือก
+            </span>
+            <span className="text-pink-400/50">›</span>
+          </Link>
+        </div>
         {SHOW_HANDSHAKE_EVENT && (
           <div>
             <a
